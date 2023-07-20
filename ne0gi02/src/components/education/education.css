@@ -1,0 +1,176 @@
+.header {
+    font-size: var(--pc-medlarge);
+    color: var(--highlight);
+}
+
+
+.container_education {
+    display: grid;
+    align-self: center;
+    justify-self: center;
+    grid-template-columns: auto auto 90px auto auto;
+    grid-template-rows: 100px repeat(4, 50px 100px);
+    grid-template-areas:
+        "it1 it2 it3 it4 it5"
+        ". . vrt1 . ."
+        "it6 it7 it8 it9 it10"
+        ". . vrt2 . ."
+        "it11 it12 it13 it14 it15"
+        ". . vrt3 . ."
+        "it16 it17 it18 it19 it20"
+        ". . vrt4 . ."
+        "it21 it22 it23 it24 it25";
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0px;
+}
+
+
+.text,
+.text1 {
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: var(--pc-small);
+    background-color: var(--light);
+    color: white;
+    justify-self: self-end;
+}
+
+.text1 {
+
+    justify-self: self-start;
+}
+
+
+
+.it1 {
+    grid-area: it1;
+}
+
+.it2 {
+    grid-area: it2;
+}
+
+.it3 {
+    grid-area: it3;
+
+}
+
+.it4 {
+    grid-area: it4;
+
+}
+
+.it5 {
+    grid-area: it5;
+
+}
+
+.vrt1 {
+    grid-area: vrt1;
+}
+
+
+
+.it8 {
+    grid-area: it8;
+
+}
+
+.it9 {
+    grid-area: it9;
+
+}
+
+.it10 {
+    grid-area: it10;
+
+}
+
+.it13 {
+    grid-area: it13;
+
+}
+
+.it14 {
+    grid-area: it14;
+
+}
+
+.it15 {
+    grid-area: it15;
+
+}
+
+.vrt2 {
+    grid-area: vrt2;
+}
+
+
+.it16 {
+    grid-area: it16;
+
+}
+
+.it17 {
+    grid-area: it17;
+
+}
+
+.it18 {
+    grid-area: it18;
+
+}
+
+.it19 {
+    grid-area: it19;
+
+}
+
+.it20 {
+    grid-area: it20;
+
+}
+
+.vrt3 {
+    grid-area: vrt3;
+}
+
+.it23 {
+    grid-area: it23;
+
+}
+
+.it24 {
+    grid-area: it24;
+
+}
+
+.it25 {
+    grid-area: it25;
+
+}
+
+.vrt4 {
+    grid-area: vrt4;
+}
+
+.hrz {
+    height: 5px;
+    width: 65px;
+    justify-self: stretch;
+    border: none;
+    text-align: center;
+    background-color: var(--highlight);
+}
+
+.ig {
+    height: 5rem;
+    vertical-align: center;
+}
+
+.vl {
+    height: 65px;
+    border-left: 5px solid var(--highlight);
+}

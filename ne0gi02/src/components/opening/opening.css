@@ -1,0 +1,39 @@
+.opening_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 90vw;
+    animation-name: blurry-text;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+}
+
+.opening_container h1 {
+    font-size: var(--pc-large);
+}
+
+
+
+
+@media screen and (max-width: 770px) {
+    .opening_container h1 {
+        font-size: var(--mob-large);
+    }
+}
+
+@keyframes blurry-text {
+    from {
+        filter: blur(3px);
+        -webkit-filter: blur(3px);
+    }
+
+    to {
+        filter: blur(0px);
+        -webkit-filter: blur(0px);
+    }
+
+}
