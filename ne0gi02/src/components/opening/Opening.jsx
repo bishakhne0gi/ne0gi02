@@ -24,7 +24,7 @@ const Opening = () => {
 
     return (
         <>
-            <div className="opening_container" style={{ opacity }}>
+            <div className="opening_container " style={{ opacity }}>
                 <h1>SCROLL</h1>
                 <h1> TO </h1>
                 <h1>READ THE LETTER</h1>
