@@ -40,7 +40,7 @@ const Education = () => {
 
                     <div className="text it16" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">B.Tech in Computer Science & Engineering</div>
                     <hr className="hrz it17" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500" />
-                    <img className="ig it18" src={AOT} class="it18 ig" data-aos="flip-up" data-aos-easing="linear" data-aos-duration="500"></img>
+                    <img className="ig it18" src={AOT} data-aos="flip-up" data-aos-easing="linear" data-aos-duration="500"></img>
                     <hr className="hrz it19" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="500" />
                     <div className="text1 it20" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">Academy of Technology<br /> <span style={{ color: `var(--highlight)` }}>[ 2020 - 2024 ]</span></div>
 

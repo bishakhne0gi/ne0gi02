@@ -1,0 +1,30 @@
+.card {
+    display: flex;
+    height: auto;
+    width: 16rem;
+    background-color: var(--light);
+    padding: 2rem;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.card_header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.card_text {
+    color: var(--highlight);
+}
+
+.skill_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill_key {
+    font-size: var(--pc-small);
+}

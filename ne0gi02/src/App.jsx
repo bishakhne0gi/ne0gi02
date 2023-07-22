@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { Education, Opening, Picture, Welcome } from './components'
+import { Education, Opening, Picture, Skills, Welcome } from './components'
 
 const App = () => {
   return (
@@ -9,6 +9,7 @@ const App = () => {
       <Welcome />
       <Picture />
       <Education />
+      <Skills />
     </>
   )
 }

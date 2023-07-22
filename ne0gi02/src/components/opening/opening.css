@@ -22,7 +22,9 @@
 @media screen and (max-width: 770px) {
     .opening_container h1 {
         font-size: var(--mob-large);
+
     }
+
 }
 
 @keyframes blurry-text {
