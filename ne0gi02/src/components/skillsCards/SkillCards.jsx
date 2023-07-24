@@ -1,30 +1,18 @@
 import React from 'react'
 import './skillCards.css'
-import Frontend from '../../assets/svg/Frontend'
-import IconBxlJavascript from '../../assets/svg/Javscript'
-// const SkillCards = ({ title, description, level }) => {
 
 
 
-//     return (
-//         <>
-//             <div className="card">
-//                 <h2>{title}</h2>
-//                 <p>{description}</p>
-//                 <p>Level: {level}</p>
-//             </div>
-//         </>
-//     )
-// }
-
-
-const SkillCards = ({ title, title_img, one, one_val }) => {
+const SkillCards = ({ title, title_img, one, one_val, two, two_val, three, three_val, four, four_val, five, five_val, six, six_val, sev, sev_val }) => {
 
 
 
     return (
         <>
-            <div className="card">
+            <div className="card"
+                data-aos="fade-zoom-in" data-aos-offset="300"
+                data-aos-easing="linear"
+                data-aos-duration="1000">
 
                 <div className="card_header">
 
@@ -47,6 +35,61 @@ const SkillCards = ({ title, title_img, one, one_val }) => {
                     <div className="skill_val">
                         {one_val}
                     </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {two}
+                    </div>
+                    <div className="skill_val">
+                        {two_val}
+                    </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {three}
+                    </div>
+                    <div className="skill_val">
+                        {three_val}
+                    </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {four}
+                    </div>
+                    <div className="skill_val">
+                        {four_val}
+                    </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {five}
+                    </div>
+                    <div className="skill_val">
+                        {five_val}
+                    </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {six}
+                    </div>
+                    <div className="skill_val">
+                        {six_val}
+                    </div>
+
+                </div>
+                <div className="skill_wrap">
+                    <div className="skill_key">
+                        {sev}
+                    </div>
+                    <div className="skill_val">
+                        {sev_val}
+                    </div>
+
                 </div>
             </div>
         </>

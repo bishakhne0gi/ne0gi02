@@ -25,6 +25,11 @@
 
     }
 
+    .opening_container {
+        height: 70vh;
+        width: 100vw;
+    }
+
 }
 
 @keyframes blurry-text {

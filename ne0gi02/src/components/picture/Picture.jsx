@@ -18,7 +18,7 @@ const Picture = () => {
         <>
             <div className='picture_container section__padding'>
                 <div className="avatar">
-                    <img src={Profile} onClick={toggleVisibility}></img>
+                    <img src={Profile} onClick={toggleVisibility} data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300"></img>
 
 
                     <div className="picture_txt">

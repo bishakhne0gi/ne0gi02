@@ -3,4 +3,19 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: auto;
+
+}
+
+.container_skills {
+    height: 100vh;
+}
+
+@media screen and (max-width: 770px) {
+    .cards_wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* margin: 1rem; */
+        width: auto;
+    }
 }

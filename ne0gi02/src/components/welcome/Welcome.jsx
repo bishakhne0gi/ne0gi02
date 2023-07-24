@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './welcome.css'
 
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 const Welcome = () => {
 
@@ -16,9 +14,6 @@ const Welcome = () => {
 
 
 
-    useEffect(() => {
-        AOS.init();
-    }, [])
 
     return (
         <>

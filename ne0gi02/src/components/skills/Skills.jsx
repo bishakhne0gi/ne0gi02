@@ -14,32 +14,40 @@ const Skills = () => {
     return (
         <>
             <div className="container_skills section__padding">
-                <div className="header">
+                <div className="header" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Skills
 
 
-                    <div className="cards_wrap">
+                </div>
+                <div className="cards_wrap section__padding"
+                    data-aos="fade-zoom-in" data-aos-offset="400"
+                    data-aos-easing="linear"
+                    data-aos-duration="1000" >
 
-                        {skills.skill.map((skill) => (
-                            <SkillCards
-                                key={skill.id}
-                                title={skill.title}
-                                title_img={<skill.title_img />}
-                                one={skill.one}
-                                one_val={<skill.one_val />}
-                            />
-                        ))}
-                        {/* {console.log(skills.skill[0])} */}
-                        {/* </div> */}
-                        {/* <div className="cards_wrap section__padding">
+                    {skills.skill.map((skill) => (
+                        <SkillCards
+                            key={skill.id}
+                            title={skill.title}
+                            title_img={<skill.title_img />}
+                            one={skill.one}
+                            one_val={<skill.one_val />}
+                            two={skill.two}
+                            two_val={<skill.two_val />}
+                            three={skill.three}
+                            three_val={<skill.three_val />}
+                            four={skill.four}
+                            four_val={<skill.four_val />}
+                            five={skill.five}
+                            five_val={<skill.five_val />}
+                            six={skill.six}
+                            six_val={<skill.six_val />}
+                            sev={skill.sev}
+                            sev_val={<skill.sev_val />}
 
 
-                        <SkillCards />
-                        <SkillCards />
-                        <SkillCards /> */}
+                        />
+                    ))}
 
-                        {/* {console.log(skills.skill[0])} */}
-                    </div>
 
 
                 </div>
