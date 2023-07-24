@@ -2,7 +2,7 @@
     display: flex;
     height: auto;
     width: 16rem;
-    /* background-color: var(--light); */
+    align-self: center;
     padding: 2rem;
     border-radius: 10px;
     flex-direction: column;
