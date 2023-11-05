@@ -1,5 +1,6 @@
 .card {
     display: flex;
+    min-height: 25rem;
     height: auto;
     width: 16rem;
     align-self: center;
@@ -30,7 +31,7 @@
 }
 
 .card_header {
-    color: whitesmoke;
+    color: var(--secondary);
     display: flex;
     align-items: center;
     font-size: var(--pc-med);

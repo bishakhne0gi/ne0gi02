@@ -7,7 +7,7 @@
 }
 
 .container_skills {
-    height: 100vh;
+    height: auto;
 }
 
 @media screen and (max-width: 770px) {

@@ -1,0 +1,14 @@
+.projects_wrap {
+    display: grid;
+    grid-gap: 68px;
+    max-width: 1024px;
+    margin-inline: auto;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.container_projects {
+    background: linear-gradient(168deg, rgba(36, 62, 54, 1) 46%, rgba(0, 0, 0, 1) 100%);
+    border-radius: 60px 60px 0 0;
+}

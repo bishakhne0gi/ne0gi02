@@ -1,0 +1,109 @@
+.inner {
+    height: 70vh;
+    width: 35vw;
+    background: rgba(124, 169, 130, 0.4);
+
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
+    border-radius: 50px 50px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.projectCards__title {
+
+    text-align: center;
+    color: aliceblue;
+    font-size: var(--pc-med);
+    margin-top: 2rem;
+
+}
+
+.inner_techstack {
+    display: flex;
+    flex-direction: row;
+}
+
+.tech_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary);
+    height: auto;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+
+}
+
+.projectCards_techstackTitle {
+    color: var(--tertiary);
+    font-size: var(--pc-med);
+    padding: 2rem 3rem;
+    min-height: 4rem;
+}
+
+.projectCards__techStack {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.techStack {
+    padding: 0 3rem;
+    color: var(--light);
+}
+
+.right {
+    flex-basis: 40%;
+}
+
+.projectCards_button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+li {
+    margin-bottom: 0.3rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Epilogue';
+}
+
+.btn:hover {
+    background-color: var(--light);
+    color: var(--txt);
+}
+
+
+.swiper_container {
+    margin-bottom: 1rem;
+
+}
+
+.swiper {
+    width: 10rem;
+    height: 10rem;
+
+}
+
+
+
+.swiper-slide img {
+
+    width: 100%;
+}
