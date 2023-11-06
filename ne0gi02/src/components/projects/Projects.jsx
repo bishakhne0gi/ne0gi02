@@ -39,6 +39,7 @@ const Projects = () => {
                                 a2={project.a2}
                                 a3={project.a3}
                                 github={project.github}
+                                live={project.live}
 
                             />
 

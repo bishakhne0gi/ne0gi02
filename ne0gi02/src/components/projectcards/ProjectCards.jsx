@@ -7,12 +7,16 @@ import 'swiper/css';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 import { Autoplay, EffectCube, Pagination } from 'swiper/modules';
-const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, four, five, six, a1, a2, a3, github }) => {
+const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, four, five, six, a1, a2, a3, github, live }) => {
 
 
     const navigateToGitHub = () => {
         // Redirect to the GitHub page
         window.location.href = github;
+    };
+    const navigateToLive = () => {
+        // Redirect to the GitHub page
+        window.location.href = live;
     };
 
     return (
@@ -71,35 +75,32 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
 
 
                                 <div className="techStack">
-                                    <li>
+                                    <h4>
 
                                         {one}
-                                    </li>
-                                    <li>
+                                    </h4>
+                                    <h4>
 
                                         {two}
-                                    </li>
-                                    <li>
+                                    </h4>
+                                    <h4>
 
                                         {three}
-                                    </li>
-                                    <li>
+                                    </h4>
+
+                                    <h4>
 
                                         {four}
-                                    </li>
-                                    <li>
-
-                                        {four}
-                                    </li>
-                                    <li>
+                                    </h4>
+                                    <h4>
 
                                         {five}
-                                    </li>
+                                    </h4>
 
-                                    <li>
+                                    <h4>
 
                                         {six}
-                                    </li>
+                                    </h4>
 
 
                                 </div>
@@ -111,25 +112,25 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
                         <div className="tech_container right">
 
                             <div className="projectCards_techstackTitle">
-                                Awards:
+                                Achievements:
 
                             </div>
                             <div className="projectCards__techStack ">
 
 
                                 <div className="techStack">
-                                    <li>
+                                    <h4>
 
                                         {a1}
-                                    </li>
-                                    <li>
+                                    </h4>
+                                    <h4>
 
                                         {a2}
-                                    </li>
-                                    <li>
+                                    </h4>
+                                    <h4>
 
                                         {a3}
-                                    </li>
+                                    </h4>
 
 
 
@@ -143,7 +144,7 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
                         <button className='btn github' onClick={navigateToGitHub}>
                             Github
                         </button>
-                        <button className='btn live'>
+                        <button className='btn live' onClick={navigateToLive}>
                             Live
                         </button>
                     </div>
