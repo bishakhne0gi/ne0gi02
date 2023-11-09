@@ -1,0 +1,13 @@
+.salutation__container {
+    display: flex;
+    align-items: flex-end;
+    /* width: 70%; */
+    justify-content: flex-end;
+    flex-direction: column;
+
+}
+
+.salutation__container>h2 {
+    color: var(--secondary);
+    font-size: var(--pc-med);
+}

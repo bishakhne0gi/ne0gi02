@@ -13,7 +13,7 @@ const Skills = () => {
 
     return (
         <>
-            <div className="container_skills section__padding">
+            <div id="skill" className="container_skills section__padding">
                 <div className="header" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Skills
 

@@ -7,6 +7,9 @@
 .experience_container {
     background: url(../../assets/bugbyte.png);
     backdrop-filter: blur(50%);
+    background-position: center;
+    background-size: contain;
+    /* background-repeat: no-repeat; */
 }
 
 .experience_title {
@@ -15,10 +18,11 @@
 
 .container_experience {
     display: grid;
+    height: auto;
     align-self: center;
     justify-self: center;
     grid-template-columns: auto auto 90px auto auto;
-    grid-template-rows: 100px repeat(4, 50px 100px);
+    /* grid-template-rows: 100px repeat(4, 50px 100px); */
     grid-template-areas:
         "it1 it2 it3 it4 it5"
         ". . vrt1 . ."
@@ -26,9 +30,7 @@
         ". . vrt2 . ."
         "it11 it12 it13 it14 it15"
         ". . vrt3 . ."
-        "it16 it17 it18 it19 it20"
-        ". . vrt4 . ."
-        "it21 it22 it23 it24 it25";
+        "it16 it17 it18 it19 it20";
     justify-items: center;
     align-items: center;
     justify-content: center;
@@ -231,19 +233,6 @@
 
 }
 
-.it24 {
-    grid-area: it24;
-
-}
-
-.it25 {
-    grid-area: it25;
-
-}
-
-.vrt4 {
-    grid-area: vrt4;
-}
 
 .hrz {
     height: 5px;

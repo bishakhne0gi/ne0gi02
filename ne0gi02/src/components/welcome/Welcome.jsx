@@ -17,7 +17,7 @@ const Welcome = () => {
 
     return (
         <>
-            <div className='welcome__container section__padding' data-aos="fade-right" data-aos-offset="300"
+            <div id="home" className='welcome__container section__padding' data-aos="fade-right" data-aos-offset="300"
                 data-aos-easing="linear"
                 data-aos-duration="1000">
 

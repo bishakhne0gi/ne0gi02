@@ -10,7 +10,7 @@ import CGPA from '../../assets/cgpa.png'
 const Education = () => {
     return (
         <>
-            <div className="education_container section__padding">
+            <div id="education" className="education_container section__padding">
                 <div className="header" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Education
                 </div>

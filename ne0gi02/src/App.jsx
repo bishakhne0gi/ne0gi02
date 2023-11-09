@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './App.css'
-import { Education, Experience, Opening, Picture, Projects, Skills, Welcome } from './components'
+import { Education, Experience, Footer, Navbar, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome } from './components'
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -12,13 +12,17 @@ const App = () => {
 
   return (
     <>
-      <Opening />
+      <Navbar />
+      {/* <Opening />
       <Welcome />
       <Picture />
       <Education />
       <Skills />
       <Projects />
       <Experience />
+      <Thanking />
+      <Salutation />
+      <Footer /> */}
     </>
   )
 }
