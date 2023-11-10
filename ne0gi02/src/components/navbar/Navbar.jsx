@@ -66,6 +66,7 @@ const Navbar = () => {
 
                 <Element name="greeting" className="section">
                     <Welcome />
+                    <Picture />
                 </Element>
 
                 <Element name="education" className="section">
