@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './navbar.css'
 
 
-import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu } from '../../components'
+import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect } from '../../components'
 import { Link, Element, Events, animateScroll as scroll } from 'react-scroll';
 
 const Navbar = () => {
@@ -82,13 +82,14 @@ const Navbar = () => {
                 </Element>
                 <Element name="experience" className="section">
                     <Experience />
-                    <Thanking />
-                    <Salutation />
+
 
                 </Element>
                 <Element name="connect" className="section">
-                    {/* <Projects /> */}
+                    <Connect />
                 </Element>
+                <Thanking />
+                <Salutation />
                 <Footer />
             </div>
         </>
