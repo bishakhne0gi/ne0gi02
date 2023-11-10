@@ -1,0 +1,68 @@
+.hamburger-menu {
+    position: sticky;
+    top: 0;
+    /* background-color: #333; */
+    z-index: 10000;
+    /* Adjust the z-index value */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    /* backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18); */
+
+    /* Added transition for background-color */
+}
+
+.menu-icon {
+    font-size: 24px;
+    color: var(--highlight);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(16px);
+    padding: 10px 20px;
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    /* background-color: #333; */
+    z-index: 10000;
+    backdrop-filter: blur(16px);
+    /* padding: 10px 20px; */
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.menu-links a {
+    padding: 15px;
+    text-align: center;
+    color: var(--secondary);
+    /* background-color: var(--tertiary); */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-links a:hover {
+    background-color: #555;
+}
+
+.open {
+    background-color: #222;
+}
+
+/* ... Your existing @media query for larger screens */

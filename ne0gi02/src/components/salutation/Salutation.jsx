@@ -6,7 +6,7 @@ const Salutation = () => {
         <>
             <div className="salutation__container section__padding">
                 <h2>Yours faithfully,</h2>
-                <img src={Sign} />
+                <img src={Sign} className="img_sign" />
             </div>
         </>
     )

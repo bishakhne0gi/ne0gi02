@@ -6,3 +6,9 @@
     color: var(--tertiary);
     padding: 1rem;
 }
+
+@media screen and (max-width: 770px) {
+    .footer_container {
+        padding: 0.5rem;
+    }
+}

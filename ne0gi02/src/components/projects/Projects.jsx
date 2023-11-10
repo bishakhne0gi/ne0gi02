@@ -10,7 +10,7 @@ const Projects = () => {
     return (
         <>
             <div className="container_projects section__padding">
-                <div className="header">
+                <div className="header proj">
                     Projects
                 </div>
 

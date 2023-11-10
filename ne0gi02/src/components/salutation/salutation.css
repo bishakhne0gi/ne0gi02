@@ -11,3 +11,14 @@
     color: var(--secondary);
     font-size: var(--pc-med);
 }
+
+@media screen and (max-width: 770px) {
+    .salutation__container>h2 {
+        font-size: var(--mob-med);
+    }
+
+    .img_sign {
+        height: 50px;
+        width: 150px;
+    }
+}

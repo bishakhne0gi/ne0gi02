@@ -111,3 +111,33 @@ h4 {
 
     width: 100%;
 }
+
+
+@media screen and (max-width: 770px) {
+    .inner {
+        height: auto;
+        width: auto;
+        min-height: 60vh;
+    }
+
+    .projectCards__title {
+        font-size: var(--mob-med);
+    }
+
+    .bottom {
+        min-height: auto;
+    }
+
+    .inner_techstack {
+        flex-direction: column;
+    }
+
+    .projectCards_techstackTitle {
+        padding: 1rem 1rem;
+        min-height: 0;
+    }
+
+    .techStack {
+        padding: 0 1rem;
+    }
+}

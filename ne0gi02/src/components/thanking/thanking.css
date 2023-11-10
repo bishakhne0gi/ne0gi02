@@ -10,3 +10,10 @@
     color: var(--highlight);
     font-size: var(--pc-med);
 }
+
+
+@media screen and (max-width: 770px) {
+    .thanking__container>h2 {
+        font-size: var(--mob-med);
+    }
+}

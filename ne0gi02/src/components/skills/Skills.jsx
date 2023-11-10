@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './skills.css'
 import data from '../../utils/skillset'
-import SkillCards from '../skillsCards/skillCards';
+import SkillCards from '../skillsCards/SkillCards';
 const Skills = () => {
 
 
