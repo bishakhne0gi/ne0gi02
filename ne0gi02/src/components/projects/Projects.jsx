@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './projects.css'
 import data from '../../utils/projects'
 import ProjectCards from '../projectcards/ProjectCards'
+import MiniProj from '../miniProj/MiniProj'
 const Projects = () => {
 
 
@@ -47,6 +48,7 @@ const Projects = () => {
                     }
 
                 </div>
+                <MiniProj />
             </div>
         </>
     )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './navbar.css'
 
 
-import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect } from '../../components'
+import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect, MiniProj, HOF } from '../../components'
 import { Link, Element, Events, animateScroll as scroll } from 'react-scroll';
 
 const Navbar = () => {
@@ -54,7 +54,13 @@ const Navbar = () => {
                                 <Link to="project" spy={true} smooth={true} duration={500}>Projects</Link>
                             </li>
                             <li>
+                                <Link to="mini" spy={true} smooth={true} duration={500}>Mini Projects</Link>
+                            </li>
+                            <li>
                                 <Link to="experience" spy={true} smooth={true} duration={500}>Experience</Link>
+                            </li>
+                            <li>
+                                <Link to="hof" spy={true} smooth={true} duration={500}>Hall Of Fame</Link>
                             </li>
                             <li>
                                 <Link to="connect" spy={true} smooth={true} duration={500}>Connect</Link>
@@ -80,8 +86,14 @@ const Navbar = () => {
                     <Projects />
 
                 </Element>
+
                 <Element name="experience" className="section">
                     <Experience />
+
+
+                </Element>
+                <Element name="hof" className="section">
+                    <HOF />
 
 
                 </Element>

@@ -58,11 +58,11 @@
 }
 
 .menu-links a:hover {
-    background-color: #555;
+    /* background-color: #555; */
 }
 
 .open {
-    background-color: #222;
+    /* background-color: #222; */
 }
 
 /* ... Your existing @media query for larger screens */
