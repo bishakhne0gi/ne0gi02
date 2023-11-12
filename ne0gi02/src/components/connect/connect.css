@@ -8,4 +8,18 @@
 
 .icons {
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.icons:hover {
+    fill: var(--highlight);
+    transform: translateY(-5px);
+}
+
+@media screen and (max-width: 770px) {
+    .icons {
+        height: 40px;
+        width: 40px;
+    }
 }

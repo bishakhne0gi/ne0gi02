@@ -18,22 +18,22 @@ const HamburgerMenu = () => {
       </div>
       {isOpen &&
         (<div className="menu-links">
-          <Link to="greeting" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="greeting" smooth={true}>
             Greetings
           </Link>
-          <Link to="education" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="education" smooth={true} >
             Education
           </Link>
-          <Link to="skill" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="skill" smooth={true} >
             Skills
           </Link>
-          <Link to="project" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="project" smooth={true} >
             Projects
           </Link>
-          <Link to="experience" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="experience" smooth={true} >
             Experience
           </Link>
-          <Link to="connect" spy={true} smooth={true} duration={500} onClick={toggleMenu}>
+          <Link to="connect" smooth={true} >
             Connect
           </Link>
         </div>

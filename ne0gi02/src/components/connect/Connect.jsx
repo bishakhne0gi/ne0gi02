@@ -1,6 +1,9 @@
 import React from 'react'
 import './connect.css'
 import { Envelope, GithubLogo, InstagramLogo, LinkedinLogo, ReadCvLogo } from '@phosphor-icons/react'
+import Thanking from '../thanking/Thanking'
+import Salutation from '../salutation/Salutation'
+import Footer from '../footer/Footer'
 const Connect = () => {
     return (
         <>
@@ -17,6 +20,9 @@ const Connect = () => {
 
                 </div>
             </div>
+            <Thanking />
+            <Salutation />
+            <Footer />
         </>
     )
 }

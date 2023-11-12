@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './navbar.css'
 
 
-import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect, MiniProj, HOF } from '../../components'
+import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect, HOF } from '../../components'
 import { Link, Element, Events, animateScroll as scroll } from 'react-scroll';
 
 const Navbar = () => {
@@ -42,28 +42,28 @@ const Navbar = () => {
                     <nav className="navbar">
                         <ul>
                             <li>
-                                <Link to="greeting" spy={true} smooth={true} duration={500}>Greetings</Link>
+                                <Link to="greeting" smooth={true} >Greetings</Link>
                             </li>
                             <li>
-                                <Link to="education" spy={true} smooth={true} duration={500}>Education</Link>
+                                <Link to="education" smooth={true} >Education</Link>
                             </li>
                             <li>
-                                <Link to="skill" spy={true} smooth={true} duration={500}>Skills</Link>
+                                <Link to="skill" smooth={true} >Skills</Link>
                             </li>
                             <li>
-                                <Link to="project" spy={true} smooth={true} duration={500}>Projects</Link>
+                                <Link to="project" smooth={true} >Projects</Link>
                             </li>
                             <li>
-                                <Link to="mini" spy={true} smooth={true} duration={500}>Mini Projects</Link>
+                                <Link to="mini" smooth={true} >Mini Projects</Link>
                             </li>
                             <li>
-                                <Link to="experience" spy={true} smooth={true} duration={500}>Experience</Link>
+                                <Link to="experience" smooth={true} >Experience</Link>
                             </li>
                             <li>
-                                <Link to="hof" spy={true} smooth={true} duration={500}>Hall Of Fame</Link>
+                                <Link to="hof" smooth={true}>Hall Of Fame</Link>
                             </li>
                             <li>
-                                <Link to="connect" spy={true} smooth={true} duration={500}>Connect</Link>
+                                <Link to="connect" smooth={true}>Connect</Link>
                             </li>
                         </ul>
                         {/* <button onClick={scrollToTop}>Scroll to Top</button> */}
@@ -100,9 +100,6 @@ const Navbar = () => {
                 <Element name="connect" className="section">
                     <Connect />
                 </Element>
-                <Thanking />
-                <Salutation />
-                <Footer />
             </div>
         </>
     )

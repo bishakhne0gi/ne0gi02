@@ -1,0 +1,21 @@
+.album_marg {
+    margin-bottom: 1rem;
+    /* filter: grayscale(100%); */
+}
+
+.react-photo-album--photo {
+    filter: grayscale(100%);
+}
+
+.react-photo-album--photo:hover {
+    transform: scale(1.03);
+    transition: transform 0.5s ease-in-out infinite;
+    cursor: pointer;
+    filter: grayscale(0%);
+}
+
+@media screen and (max-width: 770px) {
+    .hof_title {
+        margin-top: 1rem;
+    }
+}
