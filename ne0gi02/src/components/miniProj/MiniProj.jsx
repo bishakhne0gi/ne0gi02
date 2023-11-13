@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 
 
 // import required modules
-import { Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 const MiniProj = () => {
 
@@ -22,17 +22,19 @@ const MiniProj = () => {
     return (
         <>
             <div className="miniProj__container section__padding">
-                <div className="header">
+                <div className="header" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Mini Projects
                 </div>
-                <div className="swiper__container section__padding">
+                <div className="swiper__container section__padding" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     <Swiper
                         slidesPerView={1}
                         pagination={{
                             clickable: true,
                         }}
-                        modules={[Pagination]}
+                        modules={[Autoplay, Pagination]}
                         className="mini"
+                        autoplay={{ delay: 2000 }} // Autoplay with a 3-second delay (adjust as needed)
+                        loop={true}
                     >
                         <SwiperSlide>
                             <div className="slider__container">

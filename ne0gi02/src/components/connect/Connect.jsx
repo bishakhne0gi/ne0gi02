@@ -24,7 +24,7 @@ const Connect = () => {
     return (
         <>
             <div className="connect__container section__padding">
-                <div className="header">
+                <div className="header" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Get Connected
                 </div>
                 <div className="social__container section__padding">

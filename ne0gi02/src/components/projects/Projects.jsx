@@ -11,7 +11,7 @@ const Projects = () => {
     return (
         <>
             <div className="container_projects section__padding">
-                <div className="header proj">
+                <div className="header proj " data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Projects
                 </div>
 
@@ -42,6 +42,8 @@ const Projects = () => {
                                 a4={project.a4}
                                 github={project.github}
                                 live={project.live}
+
+
 
                             />
 

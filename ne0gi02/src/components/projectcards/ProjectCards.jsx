@@ -21,7 +21,7 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
 
     return (
         <>
-            <div className="projectCards__container">
+            <div className="projectCards__container" data-aos="flip-left" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                 <div className="inner">
                     <div className="swiper_container">
 
@@ -35,7 +35,7 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
                             pagination={true}
                             modules={[Autoplay, EffectCube, Pagination]}
                             className="mySwiper"
-                            autoplay={{ delay: 3000 }} // Autoplay with a 3-second delay (adjust as needed)
+                            autoplay={{ delay: 1000 }} // Autoplay with a 3-second delay (adjust as needed)
                             loop={true}
                         >
                             <SwiperSlide>

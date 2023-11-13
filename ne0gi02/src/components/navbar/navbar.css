@@ -21,6 +21,7 @@
     padding: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .navbar li {
@@ -30,15 +31,37 @@
     background-color: var(--tertiary);
     color: var(--secondary);
     cursor: pointer;
+    transition: transform 0.5s ease-in-out;
 }
 
 .navbar li:hover {
     background-color: var(--light);
     color: var(--txt);
+    transform: translateY(-5px);
 }
 
 .navbar a {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
+}
+
+.arrow {
+    padding: 0.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: var(--secondary);
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrow:hover {
+    transform: translateY(-5px);
+}
+
+.navbar_left {
+    display: flex;
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-self: flex-start;
+    /* width: 100%; */
 }

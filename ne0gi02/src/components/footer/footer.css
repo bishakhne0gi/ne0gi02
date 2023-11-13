@@ -5,6 +5,7 @@
     background-color: var(--secondary);
     color: var(--tertiary);
     padding: 1rem;
+    height: auto;
 }
 
 @media screen and (max-width: 770px) {

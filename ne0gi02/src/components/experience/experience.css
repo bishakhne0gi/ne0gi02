@@ -3,6 +3,9 @@
     color: var(--highlight);
 }
 
+a {
+    color: var(--txt);
+}
 
 .experience_container {
     background: url(../../assets/bugbyte.png);

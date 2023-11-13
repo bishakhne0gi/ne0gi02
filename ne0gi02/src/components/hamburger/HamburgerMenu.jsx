@@ -1,9 +1,9 @@
 // HamburgerMenu.js
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Link } from 'react-scroll';
 import './hamburgerMenu.css';
-
+import { ArrowLineUp } from '@phosphor-icons/react';
+import { Link, animateScroll as scroll } from 'react-scroll';
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -11,11 +11,15 @@ const HamburgerMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
   return (
     <div className="hamburger-menu">
       <div className="menu-icon" onClick={toggleMenu}>
         {isOpen ? <FaTimes /> : <FaBars />}
       </div>
+      <ArrowLineUp className="menu-icon" size={20} onClick={scrollToTop} style={{ marginLeft: '0.5rem' }} />
       {isOpen &&
         (<div className="menu-links">
           <Link to="greeting" smooth={true}>
@@ -32,6 +36,9 @@ const HamburgerMenu = () => {
           </Link>
           <Link to="experience" smooth={true} >
             Experience
+          </Link>
+          <Link to="hof" smooth={true} >
+            Hall Of Fame
           </Link>
           <Link to="connect" smooth={true} >
             Connect

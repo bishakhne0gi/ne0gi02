@@ -69,10 +69,10 @@ const HOF = () => {
     return (
         <>
             <div className="hof__container section__padding">
-                <div className="header hof_title">
+                <div className="header hof_title" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     Hall Of Fame
                 </div>
-                <div className="hof_desc">
+                <div className="hof_desc" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000" das-aos-offset="300">
                     <h4>
 
                         "5 bug busters & codermen"

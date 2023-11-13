@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './navbar.css'
 
-
+import { ArrowLineUp } from '@phosphor-icons/react';
 import { Education, Experience, Footer, Opening, Picture, Projects, Salutation, Skills, Thanking, Welcome, HamburgerMenu, Connect, HOF } from '../../components'
 import { Link, Element, Events, animateScroll as scroll } from 'react-scroll';
 
@@ -30,8 +30,18 @@ const Navbar = () => {
 
 
     const isMobile = windowWidth <= 770
+
+
+
+
+
+
+
+
     return (
         <>
+
+
             <Opening />
 
             <div className='container'>
@@ -41,32 +51,37 @@ const Navbar = () => {
 
                     <nav className="navbar">
                         <ul>
-                            <li>
-                                <Link to="greeting" smooth={true} >Greetings</Link>
-                            </li>
-                            <li>
-                                <Link to="education" smooth={true} >Education</Link>
-                            </li>
-                            <li>
-                                <Link to="skill" smooth={true} >Skills</Link>
-                            </li>
-                            <li>
-                                <Link to="project" smooth={true} >Projects</Link>
-                            </li>
-                            <li>
-                                <Link to="experience" smooth={true} >Experience</Link>
-                            </li>
-                            <li>
-                                <Link to="hof" smooth={true}>Hall Of Fame</Link>
-                            </li>
-                            <li>
-                                <Link to="connect" smooth={true}>Connect</Link>
-                            </li>
-                            {/* <li>
-                                <Link to="connect" smooth={true}>Connect</Link>
-                            </li> */}
+                            <div className="navbar_left">
+
+                                <li>
+                                    <Link to="greeting" smooth={true} >Greetings</Link>
+                                </li>
+                                <li>
+                                    <Link to="education" smooth={true} >Education</Link>
+                                </li>
+                                <li>
+                                    <Link to="skill" smooth={true} >Skills</Link>
+                                </li>
+                                <li>
+                                    <Link to="project" smooth={true} >Projects</Link>
+                                </li>
+                                <li>
+                                    <Link to="experience" smooth={true} >Experience</Link>
+                                </li>
+                                <li>
+                                    <Link to="hof" smooth={true}>Hall Of Fame</Link>
+                                </li>
+                                <li>
+                                    <Link to="connect" smooth={true}>Connect</Link>
+                                </li>
+
+                            </div>
+                            <div className="navbar_right">
+
+                                <ArrowLineUp className='arrow' size={20} onClick={scrollToTop} color="var(--tertiary)" />
+                            </div>
+
                         </ul>
-                        {/* <button onClick={scrollToTop}>Scroll to Top</button> */}
                     </nav>
                 )}
 
@@ -110,6 +125,7 @@ const Navbar = () => {
                     <Footer />
                 </Element>
             </div>
+
         </>
     )
 }
