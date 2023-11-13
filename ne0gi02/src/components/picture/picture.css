@@ -59,6 +59,7 @@
     align-items: center;
     justify-content: center;
     font-size: var(--pc-medlarge);
+    flex-direction: column;
 }
 
 @media screen and (max-width: 770px) {

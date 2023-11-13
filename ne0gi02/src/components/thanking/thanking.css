@@ -9,6 +9,7 @@
 .thanking__container>h2 {
     color: var(--highlight);
     font-size: var(--pc-med);
+    /* margin-top: 40rem; */
 }
 
 

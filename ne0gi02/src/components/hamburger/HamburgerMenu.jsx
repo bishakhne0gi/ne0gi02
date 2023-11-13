@@ -36,6 +36,7 @@ const HamburgerMenu = () => {
           <Link to="connect" smooth={true} >
             Connect
           </Link>
+
         </div>
         )}
     </div>

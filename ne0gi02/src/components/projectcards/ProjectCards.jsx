@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 import { Autoplay, EffectCube, Pagination } from 'swiper/modules';
-const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, four, five, six, a1, a2, a3, github, live }) => {
+const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, four, five, six, a1, a2, a3, a4, github, live }) => {
 
 
     const navigateToGitHub = () => {
@@ -119,7 +119,7 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
 
 
                                 <div className="techStack">
-                                    <h4>
+                                    <h4 style={{ fontStyle: 'italic', marginBottom: '0.5rem' }}>
 
                                         {a1}
                                     </h4>
@@ -130,6 +130,10 @@ const ProjectCards = ({ pic1, pic2, pic3, title, description, one, two, three, f
                                     <h4>
 
                                         {a3}
+                                    </h4>
+                                    <h4>
+
+                                        {a4}
                                     </h4>
 
 

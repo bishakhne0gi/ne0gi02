@@ -16,10 +16,14 @@
 .projectCards__title {
 
     text-align: center;
-    color: aliceblue;
+    color: var(--secondary);
     font-size: var(--pc-med);
     margin-top: 2rem;
 
+}
+
+.projectCards_description {
+    color: var(--txt);
 }
 
 .inner_techstack {

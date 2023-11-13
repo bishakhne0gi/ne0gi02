@@ -72,6 +72,16 @@ const HOF = () => {
                 <div className="header hof_title">
                     Hall Of Fame
                 </div>
+                <div className="hof_desc">
+                    <h4>
+
+                        "5 bug busters & codermen"
+                    </h4>
+                    <span >
+
+                        --BugByte
+                    </span>
+                </div>
                 <div className="section__padding">
                     <div className='album_marg'>
 

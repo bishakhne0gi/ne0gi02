@@ -9,12 +9,6 @@
     align-items: center;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
-    /* backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18); */
-
-    /* Added transition for background-color */
 }
 
 .menu-icon {
@@ -64,5 +58,3 @@
 .open {
     /* background-color: #222; */
 }
-
-/* ... Your existing @media query for larger screens */

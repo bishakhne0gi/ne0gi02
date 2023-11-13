@@ -27,6 +27,10 @@ const Picture = () => {
                         </div>
                         {isVisible &&
                             <div className="show">
+                                <span style={{ color: 'var(--highlight)', marginBottom: '1rem' }}>
+
+                                    (a.k.a. ne0gi02)
+                                </span>
                                 Welcome to my portfolio
                             </div>
                         }

@@ -37,7 +37,7 @@ const MiniProj = () => {
                         <SwiperSlide>
                             <div className="slider__container">
                                 <div className="title">
-                                    EMOTION DETECTER
+                                    1. EMOTION DETECTER
                                 </div>
                                 <div className="btn_container">
 
@@ -57,7 +57,47 @@ const MiniProj = () => {
                         <SwiperSlide>
                             <div className="slider__container2">
                                 <div className="title">
-                                    URL SHORTENER
+                                    2. SPRING CRUD
+                                </div>
+                                <div className="btn_container">
+
+                                    <button className='btn github marg' onClick={() => {
+                                        window.location.href = 'https://github.com/bishakhne0gi/Spring-Crud';
+                                    }}>
+                                        Github
+                                    </button>
+                                    <button className='btn github marg' onClick={() => {
+                                        window.location.href = 'https://github.com/bishakhne0gi/Spring-Crud';
+                                    }}>
+                                        Live
+                                    </button>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className="slider__container">
+                                <div className="title">
+                                    3. FOOD-N-FUN
+                                </div>
+                                <div className="btn_container">
+
+                                    <button className='btn github marg' onClick={() => {
+                                        window.location.href = 'https://github.com/bishakhne0gi/FoodNFun-for-HackTheMountains2.0';
+                                    }}>
+                                        Github
+                                    </button>
+                                    <button className='btn github marg' onClick={() => {
+                                        window.location.href = 'https://devfolio.co/projects/food-n-fun-9225';
+                                    }}>
+                                        Live
+                                    </button>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className="slider__container2">
+                                <div className="title">
+                                    4. URL SHORTENER
                                 </div>
                                 <div className="btn_container">
 
@@ -77,7 +117,7 @@ const MiniProj = () => {
                         <SwiperSlide>
                             <div className="slider__container">
                                 <div className="title">
-                                    Dashboard UI
+                                    5. Dashboard UI
                                 </div>
                                 <div className="btn_container">
 
@@ -97,7 +137,7 @@ const MiniProj = () => {
                         <SwiperSlide>
                             <div className="slider__container2">
                                 <div className="title">
-                                    ENVELOPE
+                                    6. ENVELOPE
                                 </div>
                                 <div className="btn_container">
 

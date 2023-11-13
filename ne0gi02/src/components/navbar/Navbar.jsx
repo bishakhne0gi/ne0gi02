@@ -54,9 +54,6 @@ const Navbar = () => {
                                 <Link to="project" smooth={true} >Projects</Link>
                             </li>
                             <li>
-                                <Link to="mini" smooth={true} >Mini Projects</Link>
-                            </li>
-                            <li>
                                 <Link to="experience" smooth={true} >Experience</Link>
                             </li>
                             <li>
@@ -65,6 +62,9 @@ const Navbar = () => {
                             <li>
                                 <Link to="connect" smooth={true}>Connect</Link>
                             </li>
+                            {/* <li>
+                                <Link to="connect" smooth={true}>Connect</Link>
+                            </li> */}
                         </ul>
                         {/* <button onClick={scrollToTop}>Scroll to Top</button> */}
                     </nav>
@@ -99,6 +99,15 @@ const Navbar = () => {
                 </Element>
                 <Element name="connect" className="section">
                     <Connect />
+                </Element>
+                <Element name="thank" className="section">
+                    <Thanking />
+                </Element>
+                <Element name="salute" className="section">
+                    <Salutation />
+                </Element>
+                <Element name="footer" className="section">
+                    <Footer />
                 </Element>
             </div>
         </>

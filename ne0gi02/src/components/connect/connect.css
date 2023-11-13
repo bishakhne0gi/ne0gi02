@@ -6,6 +6,21 @@
     /* cursor: pointer; */
 }
 
+.connect__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    padding: 1rem 2rem;
+}
+
 .icons {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
@@ -15,7 +30,9 @@
 .icons:hover {
     fill: var(--highlight);
     transform: translateY(-5px);
+    color: var(--highlight);
 }
+
 
 @media screen and (max-width: 770px) {
     .icons {

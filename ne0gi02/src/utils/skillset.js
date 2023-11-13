@@ -1,4 +1,4 @@
-import { Backend, Bash, C, Cpp, Css, Empty, Figma, Frontend, Git, Html, Java, Javascript, MongoDB, Next, NodeJs, Pug, ReactNative, Reactt, Socket, Sql, Tool, Web } from "../assets";
+import { Dock, Backend, Bash, C, Cpp, Css, Empty, Figma, Frontend, Git, Html, Java, Javascript, MongoDB, Next, NodeJs, Pug, ReactNative, Reactt, Socket, SpringBoot, Sql, Tool, Web } from "../assets";
 
 const skillset = {
     skill: [
@@ -35,10 +35,10 @@ const skillset = {
             four_val: Sql,
             five: "Socket.io",
             five_val: Socket,
-            six: "",
-            six_val: Empty,
-            sev: "",
-            sev_val: Empty
+            six: "SpringBoot",
+            six_val: SpringBoot,
+            sev: "Docker",
+            sev_val: Dock
         },
         {
             id: 3,
