@@ -95,7 +95,7 @@ const projects = {
             pic2: S2,
             pic3: S3,
             title: "Solguide",
-            description: "Mobile app facilitating efficient access to tech platform links with clipboard functionality. Secure account creation via Firebase email authentication for a seamless user experience.",
+            description: "Introducing SOLGUIDE: A Realtime problem-solving web-app by ByteBug. Seamlessly built with ReactJs and Appwrite, fostering an active community where users contribute, solve, and share coding challenges instantly.",
             one: "Appwrite",
             two: "React",
             three: "React-Strap",
@@ -105,6 +105,7 @@ const projects = {
             a1: "Among top 50 projects in Apprwrite hackathon",
             a2: "",
             a3: "",
+            a4: "",
             github: "https://github.com/bishakhne0gi/Appwrite-1",
             live: "https://dev.to/arnab2001/solguid-realtime-solutions-for-your-coding-quations-22ie"
 

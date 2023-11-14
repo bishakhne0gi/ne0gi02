@@ -23,6 +23,9 @@ const App = () => {
       <Thanking />
       <Salutation />
       <Footer /> */}
+      <Thanking />
+      <Salutation />
+      <Footer />
     </>
   )
 }

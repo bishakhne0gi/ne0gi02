@@ -1,7 +1,7 @@
 .inner {
     min-height: 80vh;
     height: 80vh;
-    width: 35vw;
+    width: auto;
     background: rgba(124, 169, 130, 0.4);
 
     backdrop-filter: blur(6.5px);
@@ -123,6 +123,12 @@ h4 {
 
 
 @media screen and (max-width: 770px) {
+    .swiper {
+        width: 8rem;
+        height: 8rem;
+
+    }
+
     .inner {
         height: auto;
         width: auto;
@@ -134,7 +140,7 @@ h4 {
     }
 
     .bottom {
-        min-height: auto;
+        /* min-height: auto; */
     }
 
     .inner_techstack {
@@ -142,8 +148,8 @@ h4 {
     }
 
     .projectCards_techstackTitle {
-        padding: 1rem 1rem;
-        min-height: 0;
+        /* padding: 1rem 1rem; */
+        /* min-height: 0; */
     }
 
     .techStack {

@@ -114,17 +114,10 @@ const Navbar = () => {
                 </Element>
                 <Element name="connect" className="section">
                     <Connect />
-                </Element>
-                <Element name="thank" className="section">
-                    <Thanking />
-                </Element>
-                <Element name="salute" className="section">
-                    <Salutation />
-                </Element>
-                <Element name="footer" className="section">
-                    <Footer />
+
                 </Element>
             </div>
+
 
         </>
     )
