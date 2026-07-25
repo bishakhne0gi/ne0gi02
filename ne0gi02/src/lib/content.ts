@@ -30,6 +30,7 @@ export interface Profile {
   location: string
   origin: string
   avatar: string
+  banner: string
   signature: string
   resumeUrl: string
   email: string
@@ -55,7 +56,9 @@ export const profile: Profile = {
   company: 'CosX AI',
   location: 'Bengaluru, India',
   origin: 'Kolkata, West Bengal',
-  avatar: '/assets/bisakhpng.png',
+  avatar: '/assets/avatar.png',
+  /** The CosX desk, from the LinkedIn cover — used as the About banner. */
+  banner: '/assets/cosx-desk.jpg',
   signature: '/assets/sign.png',
   resumeUrl:
     'https://drive.google.com/file/d/1A4EeEkMIh0E2SIVDm8qxhn7rUNGuCyia/view?usp=drive_link',

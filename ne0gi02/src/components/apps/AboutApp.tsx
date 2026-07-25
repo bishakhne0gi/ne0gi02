@@ -37,25 +37,38 @@ export function AboutApp() {
   ]
 
   return (
-    <div className="@container grid min-h-full place-items-center px-7 py-9">
-      <div className="w-full max-w-[26rem] text-center">
+    <div className="@container min-h-full">
+      {/* the banner, with the portrait breaking across its lower edge */}
+      <div className="relative h-[132px] w-full overflow-hidden">
+        <Image
+          src={data.banner}
+          alt=""
+          fill
+          sizes="(max-width: 700px) 100vw, 620px"
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--window)]" />
+      </div>
+
+      <div className="mx-auto -mt-[52px] w-full max-w-[26rem] px-7 pb-9 text-center">
         <motion.div
           initial={reduced ? false : { opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto h-[104px] w-[104px] overflow-hidden rounded-full bg-sunken ring-[0.5px] ring-line-strong"
+          className="relative mx-auto h-[104px] w-[104px] overflow-hidden rounded-full bg-sunken ring-4 ring-[var(--window)]"
         >
           <Image
             src={data.avatar}
             alt={data.name}
             width={208}
             height={208}
-            className="h-full w-full object-cover object-top"
+            className="h-full w-full object-cover"
             priority
           />
         </motion.div>
 
-        <h2 className="mt-5 font-serif text-[clamp(1.7rem,5cqi,2.2rem)] leading-none tracking-[-0.025em] text-ink">
+        <h2 className="mt-4 font-serif text-[clamp(1.7rem,5cqi,2.2rem)] leading-none tracking-[-0.025em] text-ink">
           {data.name}
         </h2>
 

@@ -71,7 +71,7 @@ export const apps: Record<AppId, AppMeta> = {
     id: 'about',
     name: 'Contacts',
     title: 'About This Developer',
-    defaultSize: { w: 600, h: 620 },
+    defaultSize: { w: 620, h: 660 },
     minSize: { w: 360, h: 380 },
     inDock: true,
     onDesktop: false,
