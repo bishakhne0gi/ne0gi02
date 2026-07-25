@@ -77,6 +77,16 @@ export const apps: Record<AppId, AppMeta> = {
     onDesktop: false,
     menus: ['File'],
   },
+  writing: {
+    id: 'writing',
+    name: 'Writing',
+    title: 'Writing — from x.com/ne0gi02',
+    defaultSize: { w: 900, h: 620 },
+    minSize: { w: 380, h: 340 },
+    inDock: true,
+    onDesktop: false,
+    menus: ['File', 'Edit', 'View', 'Window'],
+  },
   contact: {
     id: 'contact',
     name: 'Mail',
@@ -96,9 +106,17 @@ export const APP_ORDER: AppId[] = [
   'timeline',
   'terminal',
   'gallery',
+  'writing',
   'about',
   'contact',
 ]
 
-export const DOCK_LEFT: AppId[] = ['letter', 'projects', 'timeline', 'terminal', 'gallery']
+export const DOCK_LEFT: AppId[] = [
+  'letter',
+  'projects',
+  'writing',
+  'timeline',
+  'terminal',
+  'gallery',
+]
 export const DOCK_RIGHT: AppId[] = ['about', 'contact']

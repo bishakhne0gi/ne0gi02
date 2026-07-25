@@ -1,6 +1,6 @@
 import { Wallpaper } from '@/components/os/Wallpaper'
 import { Shell } from '@/components/os/Shell'
-import { letter, profile, projects, timeline } from '@/lib/content'
+import { letter, profile, projects, timeline, writing } from '@/lib/content'
 
 /** Strip the letter's inline syntax down to plain prose. */
 function plain(text: string) {
@@ -70,6 +70,23 @@ export default function Home() {
                 </h3>
                 {entry.detail && <p>{entry.detail}</p>}
                 {entry.bullets?.map((b) => <p key={b}>{b}</p>)}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <h2>Writing</h2>
+          <ul>
+            {writing.map((piece) => (
+              <li key={piece.id}>
+                <h3>
+                  {piece.title} ({piece.date})
+                </h3>
+                {piece.body.map((para) => (
+                  <p key={para.slice(0, 24)}>{para}</p>
+                ))}
+                <a href={piece.href}>Read on X</a>
               </li>
             ))}
           </ul>

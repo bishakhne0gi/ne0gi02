@@ -19,6 +19,7 @@ export type AppId =
   | 'gallery'
   | 'about'
   | 'contact'
+  | 'writing'
 
 /* ───────────────────────────── profile ───────────────────────────── */
 
@@ -525,6 +526,18 @@ export const galleryCaption = {
  * the grid sizes itself from the width/height you give it.
  */
 export const gallery: Photo[] = [
+  {
+    src: '/assets/hof/desk-vectordrop.jpg',
+    caption: 'The desk — VectorDrop on the monitor',
+    width: 1600,
+    height: 1200,
+  },
+  {
+    src: '/assets/hof/desk-cosx.jpg',
+    caption: 'The desk — CosX, late',
+    width: 1600,
+    height: 1200,
+  },
   { src: '/assets/hof/1.jpg', caption: 'Hack4Bengal 2.0', width: 800, height: 600 },
   { src: '/assets/hof/2.jpg', caption: 'Diversion 2k23', width: 1600, height: 1000 },
   { src: '/assets/hof/3.jpg', caption: 'Hack The Mountains 3.0', width: 800, height: 600 },
@@ -543,4 +556,107 @@ export const highlights: { value: string; label: string; sub: string }[] = [
   { value: '10', label: 'production apps', sub: 'retail · fintech · health · mfg' },
   { value: '900', label: 'problems solved', sub: 'LeetCode Knight, top 5.42%' },
   { value: '₹4L+', label: 'monthly donations', sub: 'zero payment failures' },
+]
+
+/* ───────────────────────────── writing ─────────────────────────────
+ *
+ *  Pulled from x.com/ne0gi02. `kind` drives the tag on each card;
+ *  `href` points back at the original post.
+ */
+
+export interface Piece {
+  id: string
+  kind: 'article' | 'thread' | 'note'
+  title: string
+  date: string
+  /** The pull quote shown on the card. */
+  excerpt: string
+  /** Full body, rendered as paragraphs. */
+  body: string[]
+  tags: string[]
+  href: string
+}
+
+export const writing: Piece[] = [
+  {
+    id: 'trip-playback',
+    kind: 'article',
+    title: 'Realtime Trip Playback',
+    date: 'Feb 2026',
+    excerpt:
+      'Pick a vehicle. Pick a date. Hit play. Watch it retrace every turn it made that day.',
+    body: [
+      'Shipped a trip replay today. Pick a vehicle, pick a date, hit play, and watch it retrace every turn it made that day.',
+      'The vehicle marker moves along the actual GPS path. A trail draws behind it as it goes, so you are not reading coordinates — you are watching a journey happen at whatever speed you choose.',
+    ],
+    tags: ['GPS', 'Realtime', 'Playback'],
+    href: 'https://x.com/ne0gi02/articles',
+  },
+  {
+    id: 'system-diagrams',
+    kind: 'thread',
+    title: 'Most system diagrams are tours',
+    date: 'Jun 2026',
+    excerpt:
+      'Not what each box is. Why it exists, and what we chose not to do instead.',
+    body: [
+      'Day 2 of a build series. 28 boxes to go.',
+      'I cleared the diagram and asked one thing of every box: why are you here?',
+      'Not what each box is. Why it exists, and what we chose not to do instead. Most system diagrams are tours. This is a CDN. This is a load balancer. This is a queue. That tells you nothing about the decision.',
+    ],
+    tags: ['Architecture', 'Build in public'],
+    href: 'https://x.com/ne0gi02',
+  },
+  {
+    id: 'gltfpack',
+    kind: 'thread',
+    title: 'Rendering 0.2M meshes without melting the browser',
+    date: 'Jul 2026',
+    excerpt:
+      'Serving 200,000 models straight from Python was taking a toll on the render.',
+    body: [
+      'Day 1. I have been working with WebGL for a while, rendering meshes for a client with 200,000 models. Serving them purely from Python was taking a toll on the render.',
+      'So I used gltfpack to optimise the pipeline — it rewrites glTF to cut download size and improve load and render speed: quantised geometry, reordered vertices for cache locality, merged meshes to drop the draw count, and simplified animations.',
+    ],
+    tags: ['WebGL', 'glTF', 'Performance'],
+    href: 'https://x.com/ne0gi02',
+  },
+  {
+    id: 'claude-architect',
+    kind: 'note',
+    title: 'Reading a codebase with Claude Architect',
+    date: 'Jul 2026',
+    excerpt: 'Cutting 60% of the time I used to spend on mermaid models.',
+    body: [
+      'I have been using Claude Architect for a while to understand — and download an understanding of — the business logic in an already-written codebase.',
+      'Artifacts are the win. It is saving roughly 60% of the time I used to spend building mermaid models by hand.',
+    ],
+    tags: ['Tooling', 'AI'],
+    href: 'https://x.com/ne0gi02',
+  },
+  {
+    id: 'google-request',
+    kind: 'thread',
+    title: 'What happens when you hit google.com',
+    date: 'Jul 2026',
+    excerpt: 'A request, end to end, with nothing hand-waved.',
+    body: [
+      'A walk through the whole path of a single request — resolution, connection, negotiation, routing, render — with none of the usual hand-waving over the parts that are actually interesting.',
+    ],
+    tags: ['Networking', 'Fundamentals'],
+    href: 'https://x.com/ne0gi02',
+  },
+  {
+    id: 'naruto-vibecode',
+    kind: 'note',
+    title: 'A Naruto transition, vibecoded',
+    date: 'Feb 2026',
+    excerpt:
+      'Opus 4.6 for the build, Nano Banana for the assets, Lando Norris for the idea.',
+    body: [
+      'Built this in a day using Opus 4.6, with the assets generated by Nano Banana. Inspired by Lando Norris\u2019 site, and made into something I actually love — the transition from Tobi to Obito.',
+    ],
+    tags: ['Vibe coding', 'Motion'],
+    href: 'https://x.com/ne0gi02',
+  },
 ]

@@ -216,6 +216,30 @@ function ContactsIcon() {
   )
 }
 
+/* ── Writing — a News-style plate, the masthead over ruled columns ── */
+function WritingIcon() {
+  return (
+    <Plate id="ic-writing" from="#FFFFFF" to="#EDEDF0" flat>
+      <rect x="0" y="0" width="100" height="30" fill="#E4573E" />
+      <text
+        x="50"
+        y="22"
+        textAnchor="middle"
+        fontSize="19"
+        fontFamily="ui-serif, 'New York', Georgia, serif"
+        fill="#fff"
+      >
+        ne0
+      </text>
+      {/* two ruled columns of body copy */}
+      <g stroke="#B9B4AA" strokeWidth="2.6" strokeLinecap="round">
+        <path d="M14 44h30M14 54h30M14 64h30M14 74h20" />
+        <path d="M56 44h30M56 54h30M56 64h30M56 74h22" />
+      </g>
+    </Plate>
+  )
+}
+
 /* ── Mail ── */
 function MailIcon() {
   return (
@@ -239,6 +263,7 @@ const REGISTRY: Record<AppId, () => React.ReactElement> = {
   timeline: CalendarIcon,
   terminal: TerminalIcon,
   gallery: PhotosIcon,
+  writing: WritingIcon,
   about: ContactsIcon,
   contact: MailIcon,
 }

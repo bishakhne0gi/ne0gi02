@@ -10,7 +10,15 @@ import { useClock, useReducedMotion } from '@/hooks'
 import { profile } from '@/lib/content'
 import type { AppId } from '@/lib/content'
 
-const HOME_APPS: AppId[] = ['letter', 'projects', 'timeline', 'terminal', 'gallery', 'about']
+const HOME_APPS: AppId[] = [
+  'letter',
+  'projects',
+  'writing',
+  'timeline',
+  'terminal',
+  'gallery',
+  'about',
+]
 const DOCK_APPS: AppId[] = ['letter', 'projects', 'contact']
 
 /**

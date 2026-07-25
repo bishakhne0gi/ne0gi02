@@ -3,6 +3,7 @@ import type {
   AppId,
   LetterBlock,
   Photo,
+  Piece,
   Profile,
   Project,
   SkillGroup,
@@ -58,6 +59,12 @@ export const skillsQuery = queryOptions({
   ...forever,
 })
 
+export const writingQuery = queryOptions({
+  queryKey: ['writing'],
+  queryFn: () => get<Piece[]>('/api/writing'),
+  ...forever,
+})
+
 export const galleryQuery = queryOptions({
   queryKey: ['gallery'],
   queryFn: () =>
@@ -81,6 +88,8 @@ export function prefetchApp(client: QueryClient, id: AppId): Promise<void> {
       return client.prefetchQuery(skillsQuery)
     case 'gallery':
       return client.prefetchQuery(galleryQuery)
+    case 'writing':
+      return client.prefetchQuery(writingQuery)
     case 'about':
     case 'contact':
       return client.prefetchQuery(profileQuery)
