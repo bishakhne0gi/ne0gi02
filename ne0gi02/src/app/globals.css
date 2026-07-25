@@ -1,0 +1,310 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Semantic tokens. Everything downstream reads these, never raw hex.
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  /* wallpaper mesh stops */
+  --wall-1: #f2ede2;
+  --wall-2: #e3dccd;
+  --wall-3: #cfc7b6;
+  --wall-glow: #fff8ea;
+
+  /* surfaces */
+  --surface: rgb(252 250 246 / 0.68);
+  --surface-thin: rgb(250 248 244 / 0.62);
+  --surface-thick: rgb(250 248 244 / 0.76);
+  --surface-solid: #fffdfa;
+  --surface-raised: rgb(255 255 255 / 0.7);
+  --surface-sunken: rgb(20 22 26 / 0.035);
+  --tile: rgb(255 255 255 / 0.5);
+  /* Window content is near-opaque so long-form text stays readable over a
+     photograph; only the chrome around it is vibrant. */
+  --window: rgb(252 251 248 / 0.97);
+  --titlebar: rgb(246 244 240 / 0.82);
+  --sidebar: rgb(240 238 233 / 0.5);
+
+  /* vibrancy */
+  --glass-blur: 44px;
+  --glass-sat: 190%;
+  --glass-brightness: 1.04;
+  --glass-highlight: rgb(255 255 255 / 0.7);
+  --glass-edge: rgb(20 22 26 / 0.11);
+
+  /* text */
+  --ink: #14161a;
+  --ink-muted: #6b6f76;
+  --ink-faint: #9a9ea6;
+
+  /* lines */
+  --line: rgb(20 22 26 / 0.1);
+  --line-strong: rgb(20 22 26 / 0.16);
+
+  /* brand */
+  --accent: #26427a;
+  --accent-soft: rgb(38 66 122 / 0.1);
+  --flame: #e2603d;
+
+  /* traffic lights — canonical, identical in both themes */
+  --tl-close: #ff5f57;
+  --tl-min: #febc2e;
+  --tl-max: #28c840;
+
+  /* elevation */
+  --shadow-window: 0 0 0 0.5px rgb(20 22 26 / 0.12), 0 12px 24px -8px rgb(20 22 26 / 0.16),
+    0 48px 80px -24px rgb(20 22 26 / 0.28);
+  --shadow-window-idle: 0 0 0 0.5px rgb(20 22 26 / 0.1), 0 8px 16px -8px rgb(20 22 26 / 0.1),
+    0 24px 48px -24px rgb(20 22 26 / 0.16);
+  --shadow-dock: 0 0 0 0.5px rgb(20 22 26 / 0.08), 0 12px 32px -8px rgb(20 22 26 / 0.24);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --wall-1: #1e2029;
+  --wall-2: #121419;
+  --wall-3: #08090c;
+  --wall-glow: #383c4c;
+
+  --surface: rgb(30 31 36 / 0.68);
+  --surface-thin: rgb(24 25 30 / 0.66);
+  --surface-thick: rgb(38 39 45 / 0.72);
+  --surface-solid: #1a1b20;
+  --surface-raised: rgb(42 44 51 / 0.62);
+  --surface-sunken: rgb(255 255 255 / 0.045);
+  --tile: rgb(255 255 255 / 0.11);
+  --window: rgb(30 30 32 / 0.92);
+  --titlebar: rgb(46 46 50 / 0.6);
+  /* The sidebar is the one part of a Finder window you can see through. */
+  --sidebar: rgb(46 46 50 / 0.34);
+
+  --glass-highlight: rgb(255 255 255 / 0.11);
+  --glass-edge: rgb(255 255 255 / 0.1);
+  --glass-brightness: 1.12;
+
+  --ink: #f2f0eb;
+  --ink-muted: #a0a4ad;
+  --ink-faint: #6e727b;
+
+  --line: rgb(255 255 255 / 0.1);
+  --line-strong: rgb(255 255 255 / 0.18);
+
+  --accent: #8fabe8;
+  --accent-soft: rgb(143 171 232 / 0.14);
+  --flame: #f07b57;
+
+  --shadow-window: 0 0 0 0.5px rgb(255 255 255 / 0.1), 0 12px 24px -8px rgb(0 0 0 / 0.5),
+    0 48px 80px -24px rgb(0 0 0 / 0.7);
+  --shadow-window-idle: 0 0 0 0.5px rgb(255 255 255 / 0.07), 0 8px 16px -8px rgb(0 0 0 / 0.4),
+    0 24px 48px -24px rgb(0 0 0 / 0.5);
+  --shadow-dock: 0 0 0 0.5px rgb(255 255 255 / 0.09), 0 12px 32px -8px rgb(0 0 0 / 0.6);
+}
+
+/* ------------------------------------------------------------------
+   Tailwind theme mapping
+   ------------------------------------------------------------------ */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-faint: var(--ink-faint);
+  --color-surface: var(--surface);
+  --color-surface-solid: var(--surface-solid);
+  --color-tile: var(--tile);
+  --color-sidebar: var(--sidebar);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-flame: var(--flame);
+
+  /* Apple's own faces, taken from the OS — SF Pro, New York, SF Mono.
+     Nothing downloaded; sensible non-Apple fallbacks trail each stack. */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+    ui-sans-serif, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-serif: ui-serif, 'New York', 'Iowan Old Style', 'Apple Garamond', Georgia,
+    'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, 'Cascadia Mono',
+    'Roboto Mono', monospace;
+
+  --shadow-window: var(--shadow-window);
+  --shadow-window-idle: var(--shadow-window-idle);
+  --shadow-dock: var(--shadow-dock);
+
+  --radius-window: 11px;
+  --radius-panel: 10px;
+  /* macOS widget corner — continuous, and much rounder than a card */
+  --radius-widget: 22px;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-power4: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* NEVER scroll-behavior: smooth — Lenis owns scroll. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: #0A0B0D;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+  }
+
+  ::selection {
+    background: var(--flame);
+    color: #fff;
+  }
+
+  /* thin, mac-like scrollbars inside windows */
+  .scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  .scroll-area::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-area::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .scroll-area::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-faint);
+    background-clip: content-box;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------
+   Vibrancy — the material everything in this OS is made of.
+
+   Apple's translucency is not one blur. It is a heavy blur, a strong
+   saturation lift so colour bleeds through, a 1px inner highlight along
+   the top edge where light catches, and a hairline border. Miss any of
+   the four and it reads as "frosted div" rather than as glass.
+   ------------------------------------------------------------------ */
+@utility glass {
+  background: var(--surface);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-highlight),
+    inset 0 0 0 0.5px var(--glass-edge);
+}
+
+@utility glass-thin {
+  background: var(--surface-thin);
+  backdrop-filter: blur(24px) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(24px) saturate(var(--glass-sat));
+  box-shadow: inset 0 -0.5px 0 0 var(--glass-edge);
+}
+
+/* The menu bar carries no rule beneath it — it dissolves into the
+   wallpaper, which is the single clearest tell of a real Mac. */
+@utility menubar {
+  background: rgb(0 0 0 / 0.28);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+/* Popovers and the control centre sit on top of everything, so they get
+   the thickest material and the most pronounced highlight. */
+@utility glass-thick {
+  background: var(--surface-thick);
+  backdrop-filter: blur(64px) saturate(200%) brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(64px) saturate(200%) brightness(var(--glass-brightness));
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-highlight),
+    inset 0 0 0 0.5px var(--glass-edge),
+    var(--shadow-window);
+}
+
+/* A control-centre tile: glass on glass, so it uses tint rather than blur. */
+@utility glass-tile {
+  background: var(--tile);
+  box-shadow: inset 0 0.5px 0 0 var(--glass-highlight);
+}
+
+/* Film grain — the texture pass. Applied over the wallpaper, never over text. */
+@utility grain {
+  position: relative;
+}
+@utility grain-layer {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Hairline that survives fractional DPR */
+@utility hairline-b {
+  box-shadow: inset 0 -0.5px 0 0 var(--line);
+}
+@utility hairline-t {
+  box-shadow: inset 0 0.5px 0 0 var(--line);
+}
+
+@keyframes caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@utility caret {
+  animation: caret 1.06s steps(1) infinite;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-2%, 1.5%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@utility drift {
+  animation: drift 34s var(--ease-expo) infinite;
+}
+
+/* ------------------------------------------------------------------
+   NON-NEGOTIABLE: reduced motion path
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
