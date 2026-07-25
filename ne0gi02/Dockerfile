@@ -1,23 +1,37 @@
-# Use Node.js version 18.17.0 as the base image
-FROM node:18.17.0
+# syntax=docker/dockerfile:1
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# ── deps ─────────────────────────────────────────────────────────────────
+FROM node:22-alpine AS deps
+RUN corepack enable
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code to the working directory
+# ── build ────────────────────────────────────────────────────────────────
+FROM node:22-alpine AS builder
+RUN corepack enable
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN pnpm build
 
-# Build the Vite application
-RUN npm run build
+# ── run ──────────────────────────────────────────────────────────────────
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
-# Expose the port that the Vite application will run on
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+
+# `output: 'standalone'` emits a self-contained server plus only the
+# node_modules it actually reaches.
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+USER nextjs
 EXPOSE 3000
-
-# Command to run the application
-CMD ["npm", "run", "dev"]
+CMD ["node", "server.js"]
