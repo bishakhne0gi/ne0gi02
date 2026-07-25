@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Copy, PaperPlaneTilt } from '@phosphor-icons/react'
+import { Copy, Send } from 'lucide-react'
 import { SocialGlyph } from '@/components/ui/SocialGlyph'
 import { Loading } from '@/components/ui/Loading'
 import { profileQuery } from '@/lib/queries'
@@ -60,7 +60,7 @@ export function ContactApp() {
           href={mailto}
           className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
         >
-          <PaperPlaneTilt size={15} weight="fill" aria-hidden />
+          <Send size={15} fill="currentColor" aria-hidden />
           Send in your mail app
         </a>
 

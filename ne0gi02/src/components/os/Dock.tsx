@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   motion,
   useMotionValue,
@@ -13,6 +13,7 @@ import { AppIcon } from '@/components/os/AppIcon'
 import { DOCK_LEFT, DOCK_RIGHT, apps } from '@/lib/apps'
 import { prefetchApp } from '@/lib/queries'
 import { useWindows } from '@/lib/window-store'
+import { useSystem } from '@/lib/system-store'
 import { useReducedMotion } from '@/hooks'
 import type { AppId } from '@/lib/content'
 
@@ -97,6 +98,19 @@ function DockItem({
 
   const width = useMagnify(ref, pointerX, reduced)
   const isRunning = win.open
+
+  /* Tell the window manager where this icon lives, so minimising lands
+     on it. Re-measured on resize; the dock never moves otherwise. */
+  const setDockSlot = useSystem((s) => s.setDockSlot)
+  useEffect(() => {
+    const measure = () => {
+      const box = ref.current?.getBoundingClientRect()
+      if (box) setDockSlot(id, { x: box.left + box.width / 2, y: box.top + box.height / 2 })
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [id, setDockSlot])
 
   function activate() {
     if (!win.open) return open(id)

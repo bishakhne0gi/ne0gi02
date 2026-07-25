@@ -1,8 +1,35 @@
 /**
  * The system glyphs that live in the menu bar and control centre.
- * Drawn rather than imported so they share one optical weight and sit on
- * the same 24×24 grid as everything else in the chrome.
+ *
+ * Where Lucide carries a faithful equivalent of the macOS mark, we use it, so
+ * the chrome sits on a real, maintained icon set at one stroke weight. Four
+ * marks stay hand-drawn because Lucide can't express them:
+ *
+ *   - AppleLogo, ControlCentreGlyph — brand marks; Lucide 1.0 removed all of
+ *     these upstream and won't accept new ones.
+ *   - BatteryGlyph — needs a continuous percentage fill; Lucide only ships
+ *     discrete full/medium/low states.
+ *   - AirdropGlyph — no equivalent in the set.
+ *
+ * Lucide draws on a 24×24 grid at strokeWidth 2. We pull it to 1.8 to match
+ * the optical weight of the hand-drawn marks it sits beside.
  */
+
+import {
+  Bluetooth,
+  Moon,
+  Search,
+  Sun,
+  Volume2,
+  VolumeX,
+  Wifi,
+  WifiHigh,
+  WifiLow,
+  WifiZero,
+} from 'lucide-react'
+
+/** Menu-bar stroke weight, shared by every Lucide mark in the chrome. */
+const STROKE = 1.8
 
 export function AppleLogo({ size = 15, className }: { size?: number; className?: string }) {
   return (
@@ -33,22 +60,12 @@ export function ControlCentreGlyph({ size = 15 }: { size?: number }) {
   )
 }
 
+/** Lucide ships one mark per bar count, which maps 1:1 onto our level. */
+const WIFI_BY_LEVEL = [WifiZero, WifiLow, WifiHigh, Wifi] as const
+
 export function WifiGlyph({ size = 15, level = 3 }: { size?: number; level?: 0 | 1 | 2 | 3 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <g fill="currentColor">
-        <circle cx="12" cy="18.4" r="1.75" opacity={level >= 1 ? 1 : 0.28} />
-        <path
-          d="M12 11.6c1.9 0 3.65.72 4.96 1.9l-1.9 2.02A5.4 5.4 0 0 0 12 14.1a5.4 5.4 0 0 0-3.06 1.42l-1.9-2.02A7.35 7.35 0 0 1 12 11.6Z"
-          opacity={level >= 2 ? 1 : 0.28}
-        />
-        <path
-          d="M12 5.6c3.55 0 6.8 1.37 9.2 3.6l-1.9 2.02A11.15 11.15 0 0 0 12 8.1c-2.8 0-5.36 1.02-7.3 2.72l-1.9-2.02A13.6 13.6 0 0 1 12 5.6Z"
-          opacity={level >= 3 ? 1 : 0.28}
-        />
-      </g>
-    </svg>
-  )
+  const Mark = WIFI_BY_LEVEL[level]
+  return <Mark size={size} strokeWidth={STROKE} aria-hidden />
 }
 
 export function BatteryGlyph({
@@ -105,66 +122,21 @@ export function BatteryGlyph({
 }
 
 export function SearchGlyph({ size = 15 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <g fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
-        <circle cx="10.6" cy="10.6" r="6.4" />
-        <path d="m15.4 15.4 4.3 4.3" />
-      </g>
-    </svg>
-  )
+  return <Search size={size} strokeWidth={STROKE} aria-hidden />
 }
 
 /** Volume, used by the control centre slider cap. */
 export function VolumeGlyph({ size = 14, muted = false }: { size?: number; muted?: boolean }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M11.4 3.8 6.6 8.1H3.5a1 1 0 0 0-1 1v5.8a1 1 0 0 0 1 1h3.1l4.8 4.3a.8.8 0 0 0 1.34-.6V4.4a.8.8 0 0 0-1.34-.6Z"
-        fill="currentColor"
-      />
-      {!muted && (
-        <g fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-          <path d="M16.4 8.9a4.4 4.4 0 0 1 0 6.2" />
-          <path d="M19.2 6.1a8.3 8.3 0 0 1 0 11.8" />
-        </g>
-      )}
-      {muted && (
-        <path
-          d="m16.8 9.2 5 5.6M21.8 9.2l-5 5.6"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      )}
-    </svg>
-  )
+  const Mark = muted ? VolumeX : Volume2
+  return <Mark size={size} strokeWidth={STROKE} aria-hidden />
 }
 
 export function BrightnessGlyph({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="4.4" fill="currentColor" />
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-        <path d="M12 1.9v2.4M12 19.7v2.4M1.9 12h2.4M19.7 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" />
-      </g>
-    </svg>
-  )
+  return <Sun size={size} strokeWidth={STROKE} aria-hidden />
 }
 
 export function BluetoothGlyph({ size = 17 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M12 2.4v8.1l4.6-3.9L12 2.4Zm0 19.2v-8.1l4.6 3.9L12 21.6ZM7 8l10 8M17 8 7 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
+  return <Bluetooth size={size} strokeWidth={STROKE} aria-hidden />
 }
 
 export function AirdropGlyph({ size = 17 }: { size?: number }) {
@@ -180,12 +152,5 @@ export function AirdropGlyph({ size = 17 }: { size?: number }) {
 }
 
 export function FocusGlyph({ size = 17 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M20.4 14.6A8.8 8.8 0 0 1 9.4 3.6a8.8 8.8 0 1 0 11 11Z"
-        fill="currentColor"
-      />
-    </svg>
-  )
+  return <Moon size={size} strokeWidth={STROKE} fill="currentColor" aria-hidden />
 }

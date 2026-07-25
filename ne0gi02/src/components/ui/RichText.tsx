@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment } from 'react'
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowUpRight } from 'lucide-react'
 import { useWindows } from '@/lib/window-store'
 import type { AppId } from '@/lib/content'
 
@@ -34,7 +34,7 @@ export function RichText({ text }: { text: string }) {
               {label}
               <ArrowUpRight
                 size="0.72em"
-                weight="bold"
+                strokeWidth={2.4}
                 aria-hidden
                 className="ml-[2px] inline-block translate-y-[-0.08em] opacity-55 transition-transform duration-200 group-hover/link:translate-x-[1px] group-hover/link:translate-y-[-0.16em]"
               />

@@ -3,7 +3,10 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
-import { ArrowLeft, ArrowSquareOut, GithubLogo, Sparkle } from '@phosphor-icons/react'
+import { ArrowLeft, Sparkles, SquareArrowOutUpRight } from 'lucide-react'
+// Lucide 1.0 removed every brand mark upstream, so the GitHub logo stays on
+// Phosphor rather than being swapped for a semantically-wrong stand-in.
+import { GithubLogo } from '@phosphor-icons/react'
 import { ProjectCover } from '@/components/ui/ProjectCover'
 import { ErrorState, Loading } from '@/components/ui/Loading'
 import { projectsQuery } from '@/lib/queries'
@@ -221,7 +224,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         onClick={onBack}
         className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-line-strong px-3 py-1 text-[12.5px] text-muted transition-colors hover:bg-sunken hover:text-ink"
       >
-        <ArrowLeft size={14} weight="bold" aria-hidden /> All attachments
+        <ArrowLeft size={14} strokeWidth={2.4} aria-hidden /> All attachments
       </button>
 
       <div className="relative aspect-[21/9] overflow-hidden rounded-panel ring-[0.5px] ring-line">
@@ -269,9 +272,9 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         <ul className="mt-6 space-y-1.5 border-t border-line pt-5">
           {project.accolades.map((a) => (
             <li key={a} className="flex items-start gap-2.5 text-[13.5px] text-ink">
-              <Sparkle
+              <Sparkles
                 size={15}
-                weight="fill"
+                fill="currentColor"
                 className="mt-[3px] shrink-0 text-flame"
                 aria-hidden
               />
@@ -291,7 +294,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
               className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-surface-solid transition-opacity hover:opacity-85"
             >
               View it live
-              <ArrowSquareOut size={15} weight="bold" aria-hidden />
+              <SquareArrowOutUpRight size={15} strokeWidth={2.4} aria-hidden />
             </a>
           )}
           {project.github && (

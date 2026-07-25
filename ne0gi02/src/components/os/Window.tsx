@@ -4,6 +4,7 @@ import { useCallback, useRef } from 'react'
 import { motion } from 'motion/react'
 import { apps } from '@/lib/apps'
 import { useWindows } from '@/lib/window-store'
+import { useSystem } from '@/lib/system-store'
 import { useReducedMotion } from '@/hooks'
 import { cn } from '@/lib/cn'
 import type { AppId } from '@/lib/content'
@@ -35,8 +36,23 @@ export function Window({
   const toggleMinimize = useWindows((s) => s.toggleMinimize)
   const toggleMaximize = useWindows((s) => s.toggleMaximize)
   const reduced = useReducedMotion()
+  const dockSlot = useSystem((s) => s.dockSlots[id])
 
   const meta = apps[id]
+
+  /*
+   * Minimising, the way macOS does it: the window travels to its own dock
+   * icon and collapses into it, rather than fading on the spot. A true
+   * genie is a mesh warp we cannot do in CSS, so this scales hard, skews
+   * slightly, and lands on the icon — which reads as the same gesture.
+   */
+  const minimiseTo = (() => {
+    if (!dockSlot) return { x: 0, y: 260 }
+    return {
+      x: dockSlot.x - (win.x + win.w / 2),
+      y: dockSlot.y - (win.y + win.h / 2),
+    }
+  })()
   const drag = useRef<{ dx: number; dy: number } | null>(null)
   const grip = useRef<{ x: number; y: number; w: number; h: number } | null>(null)
 
@@ -108,14 +124,23 @@ export function Window({
       initial={reduced ? false : { opacity: 0, scale: 0.94, y: 14 }}
       animate={
         win.minimized
-          ? { opacity: 0, scale: 0.34, y: 260, pointerEvents: 'none' as const }
-          : { opacity: 1, scale: 1, y: 0, pointerEvents: 'auto' as const }
+          ? {
+              opacity: 0,
+              scale: 0.06,
+              skewX: -6,
+              x: minimiseTo.x,
+              y: minimiseTo.y,
+              pointerEvents: 'none' as const,
+            }
+          : { opacity: 1, scale: 1, skewX: 0, x: 0, y: 0, pointerEvents: 'auto' as const }
       }
       exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 8 }}
       transition={
         reduced
           ? { duration: 0.01 }
-          : { type: 'spring', stiffness: 420, damping: 34, mass: 0.7 }
+          : win.minimized
+            ? { duration: 0.42, ease: [0.4, 0, 0.6, 1] }
+            : { type: 'spring', stiffness: 420, damping: 34, mass: 0.7 }
       }
       onPointerDownCapture={() => focus(id)}
       style={{
@@ -124,7 +149,7 @@ export function Window({
         width: win.w,
         height: win.h,
         zIndex: win.z,
-        transformOrigin: 'center bottom',
+        transformOrigin: 'center center',
         boxShadow: focused ? 'var(--shadow-window)' : 'var(--shadow-window-idle)',
       }}
       className="absolute flex flex-col overflow-hidden rounded-window bg-[var(--window)] ring-[0.5px] ring-[var(--glass-edge)] backdrop-blur-2xl"

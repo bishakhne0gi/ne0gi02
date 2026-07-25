@@ -13,7 +13,14 @@ import {
 } from '@phosphor-icons/react'
 import type { SocialIcon } from '@/lib/content'
 
-/** Phosphor at one weight, so every mark carries the same optical weight. */
+/**
+ * Phosphor at one weight, so every mark carries the same optical weight.
+ *
+ * This set stays on Phosphor while the rest of the app moved to Lucide:
+ * Lucide 1.0 removed all brand marks upstream, so GitHub, LinkedIn, Instagram
+ * and X have no equivalent there. Splitting the row across two icon families
+ * would be more visible than keeping the whole row on one.
+ */
 const REGISTRY: Record<SocialIcon, Icon> = {
   github: GithubLogo,
   linkedin: LinkedinLogo,

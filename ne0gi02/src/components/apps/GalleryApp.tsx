@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
-import { CaretLeft, CaretRight, X } from '@phosphor-icons/react'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { ErrorState, Loading } from '@/components/ui/Loading'
 import { galleryQuery } from '@/lib/queries'
 
@@ -94,7 +94,7 @@ export function GalleryApp() {
                   onClick={() => setLightbox((i) => ((i ?? 0) - 1 + count) % count)}
                   className="grid h-8 w-8 place-items-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/22"
                 >
-                  <CaretLeft size={16} weight="bold" aria-hidden />
+                  <ChevronLeft size={16} strokeWidth={2.4} aria-hidden />
                 </button>
                 <button
                   type="button"
@@ -102,7 +102,7 @@ export function GalleryApp() {
                   onClick={() => setLightbox((i) => ((i ?? 0) + 1) % count)}
                   className="grid h-8 w-8 place-items-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/22"
                 >
-                  <CaretRight size={16} weight="bold" aria-hidden />
+                  <ChevronRight size={16} strokeWidth={2.4} aria-hidden />
                 </button>
                 <button
                   type="button"
@@ -110,7 +110,7 @@ export function GalleryApp() {
                   onClick={() => setLightbox(null)}
                   className="grid h-8 w-8 place-items-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/22"
                 >
-                  <X size={16} weight="bold" aria-hidden />
+                  <X size={16} strokeWidth={2.4} aria-hidden />
                 </button>
               </div>
               <Image

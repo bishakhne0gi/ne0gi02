@@ -23,15 +23,15 @@ export function Wallpaper() {
         priority
         quality={78}
         sizes="100vw"
-        className="object-contain object-center"
+        className="object-cover object-center"
       />
 
       {/* legibility scrim — heavier in dark, barely there in light */}
-      <div className="absolute inset-0 bg-black/38" />
+      <div className="absolute inset-0 bg-black/22" />
 
       {/* the warm bloom from the desk lamp, pushed further */}
       <div
-        className="drift absolute -right-[10%] top-[18%] h-[62vmax] w-[62vmax] rounded-full opacity-25 blur-[90px]"
+        className="drift absolute -right-[10%] top-[18%] h-[62vmax] w-[62vmax] rounded-full opacity-0"
         style={{
           background: 'radial-gradient(circle at 50% 50%, #FFB870 0%, transparent 62%)',
           animationDelay: '-6s',
@@ -39,7 +39,7 @@ export function Wallpaper() {
       />
       {/* the cool key from the monitor */}
       <div
-        className="drift absolute -left-[14%] top-[6%] h-[58vmax] w-[58vmax] rounded-full opacity-30 blur-[100px]"
+        className="drift absolute -left-[14%] top-[6%] h-[58vmax] w-[58vmax] rounded-full opacity-0"
         style={{
           background: 'radial-gradient(circle at 50% 50%, #7B6BFF 0%, transparent 64%)',
           animationDelay: '-19s',

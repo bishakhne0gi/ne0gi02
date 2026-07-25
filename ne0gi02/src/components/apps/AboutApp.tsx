@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
-import { ArrowSquareOut, EnvelopeSimple } from '@phosphor-icons/react'
+import { Mail, SquareArrowOutUpRight } from 'lucide-react'
 import { SocialGlyph } from '@/components/ui/SocialGlyph'
 import { Loading } from '@/components/ui/Loading'
 import { profileQuery } from '@/lib/queries'
@@ -105,7 +105,7 @@ export function AboutApp() {
             onClick={() => open('letter')}
             className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-surface-solid transition-opacity hover:opacity-85"
           >
-            <EnvelopeSimple size={15} weight="fill" aria-hidden />
+            <Mail size={15} aria-hidden />
             Read the letter
           </button>
           <a
@@ -115,7 +115,7 @@ export function AboutApp() {
             className="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-2 text-[13px] text-ink transition-colors hover:bg-sunken"
           >
             Résumé
-            <ArrowSquareOut size={14} weight="bold" aria-hidden />
+            <SquareArrowOutUpRight size={14} strokeWidth={2.4} aria-hidden />
           </a>
         </div>
 

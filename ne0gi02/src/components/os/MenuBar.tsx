@@ -54,7 +54,7 @@ export function MenuBar() {
   return (
     <div
       ref={barRef}
-      className="glass-thin fixed inset-x-0 top-0 z-[9000] flex h-[26px] items-center gap-0.5 px-2 text-[13px] text-ink select-none"
+      className="menubar fixed inset-x-0 top-0 z-[9000] flex h-[26px] items-center gap-0.5 px-2 text-[13px] text-ink select-none"
     >
       {/* ── the Apple menu ── */}
       <Menu id="apple" width={228} label={<AppleLogo size={15} />} narrow>
