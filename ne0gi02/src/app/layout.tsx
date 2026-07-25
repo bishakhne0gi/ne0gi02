@@ -33,32 +33,19 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#e3dccd' },
-    { media: '(prefers-color-scheme: dark)', color: '#121419' },
+    { color: '#0A0B0D' },
   ],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
 }
 
-/** Applied before paint so the desktop never flashes the wrong theme. */
-const themeScript = `
-(function(){
-  try {
-    var stored = localStorage.getItem('theme');
-    var dark = stored ? stored === 'dark'
-      : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (dark) document.documentElement.classList.add('dark');
-  } catch (e) {}
-})();
-`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    // This OS only has one appearance. Dark is pinned rather than toggled,
+    // because the desktop is a photograph of a dark room.
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className="antialiased">
         <Providers>{children}</Providers>
       </body>

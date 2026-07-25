@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Lenis from 'lenis'
-import { motion, useScroll, useSpring } from 'motion/react'
+import { motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
 import { RichText } from '@/components/ui/RichText'
 import { ErrorState, Loading } from '@/components/ui/Loading'
@@ -13,18 +13,24 @@ import { useReducedMotion } from '@/hooks'
 import { cn } from '@/lib/cn'
 import type { LetterBlock } from '@/lib/content'
 
+/** Notes' yellow, used only for selection and the folder marks. */
+const NOTES_YELLOW = '#E6A500'
+
 /**
- * The narrative spine. Renders as an actual letter — salutation, body,
- * sign-off, signature — revealed block by block as it is scrolled.
+ * The letter, staged inside Notes.app — folder rail, note list, and the
+ * note itself. The middle column doubles as a live table of contents:
+ * it tracks which paragraph you are reading and jumps you to any other.
  */
 export function LetterApp({ fullscreen = false }: { fullscreen?: boolean }) {
   const wrapper = useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
+  const lenisRef = useRef<Lenis | null>(null)
   const reduced = useReducedMotion()
+  const [reading, setReading] = useState(0)
 
   const { data, isPending, isError, refetch } = useQuery(letterQuery)
 
-  /* Lenis drives scroll inside this window only. One instance, one rAF. */
+  /* Lenis drives scroll inside this note only. One instance, one rAF. */
   useEffect(() => {
     if (reduced || !wrapper.current || !content.current) return
 
@@ -36,6 +42,7 @@ export function LetterApp({ fullscreen = false }: { fullscreen?: boolean }) {
       smoothWheel: true,
       touchMultiplier: 1.6,
     })
+    lenisRef.current = lenis
 
     let frame = 0
     const raf = (time: number) => {
@@ -47,62 +54,201 @@ export function LetterApp({ fullscreen = false }: { fullscreen?: boolean }) {
     return () => {
       cancelAnimationFrame(frame)
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [reduced, isPending])
 
-  // `layoutEffect: false` — the wrapper only exists after the payload lands.
-  const { scrollYProgress } = useScroll({ container: wrapper, layoutEffect: false })
-  const progress = useSpring(scrollYProgress, { stiffness: 300, damping: 40, mass: 0.4 })
+  const jumpTo = useCallback((id: string) => {
+    const target = document.getElementById(`block-${id}`)
+    const scroller = wrapper.current
+    if (!target || !scroller) return
 
-  if (isPending) return <Loading label="opening the envelope" lines={6} />
+    const top = target.offsetTop - 28
+    if (lenisRef.current) lenisRef.current.scrollTo(top, { duration: 0.9 })
+    else scroller.scrollTo({ top })
+  }, [])
+
+  if (isPending) return <Loading label="opening the note" lines={6} />
   if (isError) return <ErrorState onRetry={() => refetch()} />
 
+  const sections = data.blocks.filter((b) => b.marginNote)
+
   return (
-    <div ref={wrapper} className="scroll-area @container h-full overflow-y-auto overscroll-contain">
-      {/* reading progress */}
-      <motion.div
-        style={{ scaleX: progress, transformOrigin: 'left' }}
-        className="sticky top-0 z-10 h-[2px] w-full bg-flame/70"
-        aria-hidden="true"
-      />
+    <div className="@container flex h-full">
+      {/* ── folder rail ── */}
+      {!fullscreen && (
+        <aside className="hidden w-[156px] shrink-0 flex-col gap-0.5 border-r border-line bg-sidebar p-2.5 backdrop-blur-xl @[760px]:flex">
+          <p className="px-2 pb-1 pt-1 text-[10.5px] uppercase tracking-[0.14em] text-faint">
+            iCloud
+          </p>
+          <FolderRow label="Notes" count={1} selected />
+          <FolderRow label="Applications" count={1} />
+          <FolderRow label="Drafts" count={0} />
+          <FolderRow label="Recently Deleted" count={0} />
+        </aside>
+      )}
 
-      <div
-        ref={content}
-        className={cn(
-          'mx-auto w-full pb-24',
-          fullscreen ? 'max-w-[36rem] px-6 pt-8' : 'max-w-[46rem] px-8 pt-10 @[620px]:px-14',
-        )}
-      >
-        <Letterhead meta={data.meta} />
+      {/* ── note list, doubling as a table of contents ── */}
+      {!fullscreen && (
+        <aside className="scroll-area hidden w-[214px] shrink-0 flex-col overflow-y-auto border-r border-line bg-sidebar backdrop-blur-xl @[600px]:flex">
+          <div className="sticky top-0 z-[1] bg-[var(--titlebar)] px-3 py-2 backdrop-blur-xl">
+            <p className="text-[10.5px] uppercase tracking-[0.14em] text-faint">
+              {sections.length + 1} notes
+            </p>
+          </div>
 
-        <div className="mt-14 space-y-11">
-          {data.blocks.map((block, i) => (
-            <Block key={block.id} block={block} index={i} root={wrapper} reduced={reduced} />
+          <NoteRow
+            title="A Letter"
+            preview={data.blocks[0]?.body ?? ''}
+            meta={data.meta.date}
+            selected={reading === 0}
+            onClick={() => {
+              setReading(0)
+              jumpTo('salutation')
+            }}
+          />
+
+          {sections.map((block, i) => (
+            <NoteRow
+              key={block.id}
+              title={(block.marginNote ?? '').replace(/^\d+\s·\s/, '')}
+              preview={block.body}
+              meta={block.marginNote?.slice(0, 2)}
+              selected={reading === i + 1}
+              indent
+              onClick={() => {
+                setReading(i + 1)
+                jumpTo(block.id)
+              }}
+            />
           ))}
-        </div>
+        </aside>
+      )}
 
-        <Signature reduced={reduced} root={wrapper} />
+      {/* ── the note ── */}
+      <div className="@container/note flex min-w-0 flex-1 flex-col">
+        {!fullscreen && <NoteToolbar />}
+
+        <div
+          ref={wrapper}
+          className="scroll-area min-h-0 flex-1 overflow-y-auto overscroll-contain"
+        >
+          <div
+            ref={content}
+            className={cn(
+              'mx-auto w-full pb-24',
+              fullscreen ? 'max-w-[36rem] px-6 pt-6' : 'max-w-[44rem] px-9 pt-7 @[620px]:px-14',
+            )}
+          >
+            {/* Notes stamps every note with its date, centred and small. */}
+            <p className="pb-5 text-center text-[11.5px] text-faint">
+              {data.meta.place} · {data.meta.date}
+            </p>
+
+            <h1 className="font-serif text-[clamp(1.5rem,3.6cqi,2rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-ink">
+              {data.meta.subject}
+            </h1>
+
+            <div className="mt-9 space-y-10">
+              {data.blocks.map((block, i) => (
+                <Block key={block.id} block={block} index={i} root={wrapper} reduced={reduced} />
+              ))}
+            </div>
+
+            <Signature reduced={reduced} root={wrapper} />
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-/* ───────────────────────────── letterhead ───────────────────────────── */
+/* ───────────────────────────── chrome ───────────────────────────── */
 
-function Letterhead({ meta }: { meta: { subject: string; place: string; date: string } }) {
+function NoteToolbar() {
   return (
-    <header className="border-b border-line pb-7">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 text-[11px] uppercase tracking-[0.18em] text-faint">
-        <span>{profile.name}</span>
-        <span>
-          {meta.place} · {meta.date}
+    <div className="flex h-[34px] shrink-0 items-center gap-1 border-b border-line px-3 text-muted">
+      {['Aa', 'B', 'I', 'U'].map((t, i) => (
+        <span
+          key={t}
+          className={cn(
+            'grid h-[22px] min-w-[24px] cursor-default place-items-center rounded-[4px] text-[12.5px]',
+            i === 1 && 'font-bold',
+            i === 2 && 'italic',
+            i === 3 && 'underline',
+          )}
+        >
+          {t}
         </span>
-      </div>
+      ))}
+      <span className="mx-1 h-[15px] w-px bg-line" />
+      <span className="cursor-default text-[12.5px]">☰</span>
+      <span className="cursor-default text-[12.5px]">☑</span>
+      <div className="flex-1" />
+      <span className="text-[11.5px] text-faint">Edited just now</span>
+    </div>
+  )
+}
 
-      <p className="mt-6 font-serif text-[clamp(1.25rem,3.2cqi,1.75rem)] leading-[1.2] tracking-[-0.015em] text-ink">
-        {meta.subject}
+function FolderRow({
+  label,
+  count,
+  selected,
+}: {
+  label: string
+  count: number
+  selected?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        'flex items-center gap-2 rounded-[6px] px-2 py-[5px] text-[13px]',
+        selected ? 'bg-ink/[0.08] font-medium text-ink' : 'text-ink/80',
+      )}
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M3 7.2a2 2 0 0 1 2-2h4.3l1.9 2.1H19a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"
+          fill={NOTES_YELLOW}
+        />
+      </svg>
+      <span className="flex-1 truncate">{label}</span>
+      <span className="text-[11.5px] text-faint">{count || ''}</span>
+    </div>
+  )
+}
+
+function NoteRow({
+  title,
+  preview,
+  meta,
+  selected,
+  indent,
+  onClick,
+}: {
+  title: string
+  preview: string
+  meta?: string
+  selected?: boolean
+  indent?: boolean
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'block w-full border-b border-line/60 px-3 py-2.5 text-left transition-colors',
+        indent && 'pl-4',
+        selected ? 'bg-[#FFD60A]/22' : 'hover:bg-ink/[0.04]',
+      )}
+    >
+      <p className="truncate text-[12.5px] font-semibold capitalize text-ink">{title}</p>
+      <p className="mt-0.5 line-clamp-2 text-[11.5px] leading-snug text-muted">
+        {plain(preview)}
       </p>
-    </header>
+      {meta && <p className="mt-1 font-mono text-[10px] uppercase text-faint">{meta}</p>}
+    </button>
   )
 }
 
@@ -122,21 +268,24 @@ function Block({
   const reveal = reduced
     ? {}
     : {
-        initial: { opacity: 0, y: 18 },
+        initial: { opacity: 0, y: 16 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { root, once: true, margin: '0px 0px -12% 0px' },
         transition: {
-          duration: 0.72,
+          duration: 0.7,
           ease: [0.16, 1, 0.3, 1] as const,
           delay: Math.min(index, 3) * 0.04,
         },
       }
 
+  const anchor = `block-${block.id}`
+
   if (block.kind === 'salutation') {
     return (
       <motion.p
+        id={anchor}
         {...reveal}
-        className="font-serif text-[clamp(1.9rem,5.6cqi,2.85rem)] leading-[1.06] tracking-[-0.028em] text-ink"
+        className="font-serif text-[clamp(1.8rem,5.4cqi,2.7rem)] leading-[1.06] tracking-[-0.028em] text-ink"
       >
         {block.body}
       </motion.p>
@@ -146,8 +295,9 @@ function Block({
   if (block.kind === 'aside') {
     return (
       <motion.blockquote
+        id={anchor}
         {...reveal}
-        className="border-l-2 border-flame/50 pl-5 font-serif text-[clamp(1rem,2.5cqi,1.14rem)] italic leading-[1.6] text-muted"
+        className="rounded-[10px] bg-[#FFD60A]/12 px-5 py-4 font-serif text-[clamp(1rem,2.5cqi,1.14rem)] italic leading-[1.6] text-muted shadow-[inset_2px_0_0_0_#E6A500]"
       >
         <RichText text={block.body} />
       </motion.blockquote>
@@ -157,8 +307,9 @@ function Block({
   if (block.kind === 'signoff') {
     return (
       <motion.p
+        id={anchor}
         {...reveal}
-        className="pt-6 font-serif text-[clamp(1.3rem,3.4cqi,1.7rem)] leading-[1.3] tracking-[-0.015em] text-ink"
+        className="pt-4 font-serif text-[clamp(1.3rem,3.4cqi,1.7rem)] leading-[1.3] tracking-[-0.015em] text-ink"
       >
         {block.body}
       </motion.p>
@@ -166,11 +317,11 @@ function Block({
   }
 
   return (
-    <motion.div {...reveal} className="grid gap-2 @[620px]:grid-cols-[7.5rem_1fr] @[620px]:gap-8">
-      <p className="pt-[0.55rem] font-mono text-[10.5px] uppercase leading-relaxed tracking-[0.1em] text-faint @[620px]:text-right">
+    <motion.div id={anchor} {...reveal} className="scroll-mt-8">
+      <p className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-faint">
         {block.marginNote}
       </p>
-      <p className="font-serif text-[clamp(1.02rem,2.6cqi,1.2rem)] leading-[1.68] tracking-[-0.005em] text-ink/92">
+      <p className="font-serif text-[clamp(1.02rem,2.6cqi,1.2rem)] leading-[1.7] tracking-[-0.005em] text-ink/92">
         <RichText text={block.body} />
       </p>
     </motion.div>
@@ -192,7 +343,7 @@ function Signature({
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ root, once: true, margin: '0px 0px -10% 0px' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="mt-4 @[620px]:pl-[9.5rem]"
+      className="mt-6"
     >
       <p className="font-serif text-[clamp(1.3rem,3.4cqi,1.7rem)] leading-[1.3] tracking-[-0.015em] text-ink">
         Yours faithfully,
@@ -203,16 +354,22 @@ function Signature({
         alt={`${profile.name}, signed`}
         width={220}
         height={90}
-        priority={false}
         className="-ml-1 mt-2 h-auto w-[190px] opacity-85 mix-blend-multiply dark:opacity-90 dark:mix-blend-screen dark:invert"
       />
 
       <div className="mt-3 border-t border-line pt-3">
         <p className="text-[13.5px] font-medium text-ink">{profile.name}</p>
         <p className="text-[12.5px] text-muted">
-          {profile.role} · {profile.location}
+          {profile.role}, {profile.company} · {profile.location}
         </p>
       </div>
     </motion.div>
   )
+}
+
+function plain(text: string) {
+  return text
+    .replace(/\[\[([^\]|]+)\|[^\]]+\]\]/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
 }

@@ -127,7 +127,7 @@ export function Window({
         transformOrigin: 'center bottom',
         boxShadow: focused ? 'var(--shadow-window)' : 'var(--shadow-window-idle)',
       }}
-      className="glass absolute flex flex-col overflow-hidden rounded-window"
+      className="absolute flex flex-col overflow-hidden rounded-window bg-[var(--window)] ring-[0.5px] ring-[var(--glass-edge)] backdrop-blur-2xl"
     >
       {/* ── title bar ── */}
       <header
@@ -137,7 +137,7 @@ export function Window({
         onPointerCancel={endTitleDrag}
         onDoubleClick={() => toggleMaximize(id)}
         className={cn(
-          'group/bar relative flex h-[38px] shrink-0 items-center gap-2 px-3 select-none hairline-b',
+          'group/bar relative flex h-[38px] shrink-0 items-center gap-2 px-3 select-none hairline-b bg-[var(--titlebar)]',
           win.maximized ? 'cursor-default' : 'cursor-grab active:cursor-grabbing',
           darkChrome && 'bg-[#20222899] [--line:rgb(255_255_255/0.12)]',
         )}

@@ -24,7 +24,7 @@ export default function Home() {
       */}
       <div className="sr-only">
         <h1>
-          {profile.name} — {profile.role}
+          {profile.name} — {profile.role} at {profile.company}
         </h1>
         <p>
           {profile.handle} · {profile.location} ·{' '}
@@ -48,6 +48,7 @@ export default function Home() {
                   {project.title} ({project.year})
                 </h3>
                 <p>{project.description}</p>
+                <p>{project.metrics.map((m) => `${m.value} ${m.label}`).join(' · ')}</p>
                 <p>Built with {project.stack.join(', ')}.</p>
                 {project.accolades.map((a) => (
                   <p key={a}>{a}</p>
@@ -64,8 +65,11 @@ export default function Home() {
           <ul>
             {timeline.map((entry) => (
               <li key={entry.id}>
-                {entry.year} — {entry.title}, {entry.org}
-                {entry.detail ? ` (${entry.detail})` : ''}
+                <h3>
+                  {entry.year} — {entry.title}, {entry.org}
+                </h3>
+                {entry.detail && <p>{entry.detail}</p>}
+                {entry.bullets?.map((b) => <p key={b}>{b}</p>)}
               </li>
             ))}
           </ul>

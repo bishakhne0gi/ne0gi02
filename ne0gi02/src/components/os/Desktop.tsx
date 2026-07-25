@@ -7,6 +7,7 @@ import { MenuBar } from '@/components/os/MenuBar'
 import { Dock } from '@/components/os/Dock'
 import { Window } from '@/components/os/Window'
 import { DesktopIcons } from '@/components/os/DesktopIcons'
+import { Widgets } from '@/components/os/Widgets'
 import { BootSequence } from '@/components/os/BootSequence'
 import { AppSurface, BARE_APPS, DARK_CHROME_APPS } from '@/components/apps'
 import { useWindows } from '@/lib/window-store'
@@ -64,6 +65,7 @@ export function Desktop() {
 
       <main className="fixed inset-0 overflow-hidden">
         <MenuBar />
+        <Widgets />
         <DesktopIcons />
 
         {/* window layer */}

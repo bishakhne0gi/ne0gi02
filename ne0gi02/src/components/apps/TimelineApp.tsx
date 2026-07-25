@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
 import { ErrorState, Loading } from '@/components/ui/Loading'
@@ -14,9 +13,15 @@ type Kind = 'all' | TimelineEntry['kind']
 const TABS: { id: Kind; label: string }[] = [
   { id: 'all', label: 'Everything' },
   { id: 'work', label: 'Work' },
-  { id: 'education', label: 'Education' },
   { id: 'recognition', label: 'Recognition' },
+  { id: 'education', label: 'Education' },
 ]
+
+const DOT: Record<TimelineEntry['kind'], string> = {
+  work: 'var(--flame)',
+  recognition: '#F5A524',
+  education: 'var(--accent)',
+}
 
 /** A curriculum vitae as a single spine, newest first. */
 export function TimelineApp() {
@@ -33,8 +38,7 @@ export function TimelineApp() {
 
   return (
     <div className="@container">
-      {/* segmented control */}
-      <div className="sticky top-0 z-10 glass-thin flex gap-1 px-5 py-2.5 hairline-b">
+      <div className="sticky top-0 z-10 flex gap-1 border-b border-line bg-[var(--titlebar)] px-5 py-2.5 backdrop-blur-xl">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -57,13 +61,11 @@ export function TimelineApp() {
         ))}
       </div>
 
-      <ol className="relative px-5 py-7 @[520px]:px-9">
-        {/* the spine */}
+      <ol className="relative px-5 py-7 @[520px]:px-8">
         <span
           aria-hidden="true"
-          className="absolute bottom-10 left-[2.55rem] top-10 w-px bg-line @[520px]:left-[3.55rem]"
+          className="absolute bottom-10 left-[1.44rem] top-10 w-px bg-line @[520px]:left-[2.19rem]"
         />
-
         {entries.map((entry, i) => (
           <Entry key={entry.id} entry={entry} index={i} />
         ))}
@@ -78,25 +80,19 @@ function Entry({ entry, index }: { entry: TimelineEntry; index: number }) {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="relative grid grid-cols-[2.6rem_1fr] gap-4 pb-7 last:pb-0 @[520px]:grid-cols-[3.6rem_1fr] @[520px]:gap-6"
+      className="relative grid grid-cols-[1.4rem_1fr] gap-4 pb-8 last:pb-0 @[520px]:gap-6"
     >
-      {/* node */}
-      <div className="relative z-[1] mt-0.5 grid h-[2.6rem] w-[2.6rem] place-items-center overflow-hidden rounded-full bg-surface-solid ring-[0.5px] ring-line-strong @[520px]:h-[3.6rem] @[520px]:w-[3.6rem]">
-        {entry.logo ? (
-          <Image
-            src={entry.logo}
-            alt=""
-            width={72}
-            height={72}
-            className="h-full w-full object-contain p-1.5"
-          />
-        ) : (
-          <span className="h-2 w-2 rounded-full bg-flame" />
-        )}
-      </div>
+      <span className="relative z-[1] mt-[7px] grid h-[1.4rem] w-[1.4rem] place-items-center">
+        <span
+          className="h-[11px] w-[11px] rounded-full ring-4 ring-[var(--surface-solid)]"
+          style={{ background: DOT[entry.kind] }}
+        />
+      </span>
 
-      <div className="min-w-0 pt-1">
-        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-flame">{entry.year}</p>
+      <div className="min-w-0">
+        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-flame">
+          {entry.year}
+        </p>
 
         <h3 className="mt-1 font-serif text-[clamp(1.1rem,3cqi,1.35rem)] leading-tight tracking-[-0.015em] text-ink">
           {entry.href ? (
@@ -114,7 +110,24 @@ function Entry({ entry, index }: { entry: TimelineEntry; index: number }) {
         </h3>
 
         <p className="mt-0.5 text-[13.5px] text-muted">{entry.org}</p>
-        {entry.detail && <p className="mt-1 text-[13px] text-faint">{entry.detail}</p>}
+        {entry.detail && (
+          <p className="mt-1.5 max-w-[62ch] text-[13px] leading-relaxed text-faint">
+            {entry.detail}
+          </p>
+        )}
+
+        {entry.bullets && (
+          <ul className="mt-3 space-y-1.5">
+            {entry.bullets.map((b) => (
+              <li
+                key={b}
+                className="relative max-w-[64ch] pl-4 text-[13px] leading-relaxed text-muted before:absolute before:left-0 before:top-[0.62em] before:h-[3px] before:w-[3px] before:rounded-full before:bg-flame"
+              >
+                {b}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </motion.li>
   )

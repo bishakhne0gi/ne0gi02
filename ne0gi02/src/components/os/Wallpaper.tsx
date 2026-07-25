@@ -1,60 +1,66 @@
+'use client'
+
+import Image from 'next/image'
+import { useSystem } from '@/lib/system-store'
+
 /**
- * The desk surface. Four drifting radial fields over a base wash, plus a
- * grain pass and a vignette — composited in CSS so it costs no JS and
- * survives `prefers-reduced-motion` by simply standing still.
+ * The desk — literally. The wallpaper is a photograph of the desk this was
+ * written at, with VectorDrop open on the monitor, which is as close as a
+ * portfolio gets to showing its own working.
+ *
+ * Over it sit a scrim (so chrome stays legible against a busy photograph),
+ * a grain pass, a vignette, and the brightness dim driven by Control Centre.
  */
 export function Wallpaper() {
+  const brightness = useSystem((s) => s.brightness)
+
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      {/* base wash */}
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black" aria-hidden="true">
+      <Image
+        src="/assets/wallpaper/desk.jpg"
+        alt=""
+        fill
+        priority
+        quality={78}
+        sizes="100vw"
+        className="object-contain object-center"
+      />
+
+      {/* legibility scrim — heavier in dark, barely there in light */}
+      <div className="absolute inset-0 bg-black/38" />
+
+      {/* the warm bloom from the desk lamp, pushed further */}
+      <div
+        className="drift absolute -right-[10%] top-[18%] h-[62vmax] w-[62vmax] rounded-full opacity-25 blur-[90px]"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, #FFB870 0%, transparent 62%)',
+          animationDelay: '-6s',
+        }}
+      />
+      {/* the cool key from the monitor */}
+      <div
+        className="drift absolute -left-[14%] top-[6%] h-[58vmax] w-[58vmax] rounded-full opacity-30 blur-[100px]"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, #7B6BFF 0%, transparent 64%)',
+          animationDelay: '-19s',
+        }}
+      />
+
+      <div className="grain-layer absolute inset-0 opacity-[0.14]" />
+
+      {/* vignette */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(168deg, var(--wall-1) 0%, var(--wall-2) 52%, var(--wall-3) 100%)',
+            'radial-gradient(128% 96% at 50% 44%, transparent 38%, rgb(0 0 0 / 0.5) 100%)',
         }}
       />
 
-      {/* warm key light, upper left */}
+      {/* Control Centre brightness — a real dim, not a decoration. */}
       <div
-        className="drift absolute -left-[18%] -top-[26%] h-[78vmax] w-[78vmax] rounded-full opacity-70 blur-[64px]"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 50%, var(--wall-glow) 0%, transparent 62%)',
-          animationDelay: '-4s',
-        }}
-      />
-
-      {/* cool fill, lower right */}
-      <div
-        className="drift absolute -bottom-[30%] -right-[16%] h-[70vmax] w-[70vmax] rounded-full opacity-45 blur-[72px]"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--accent) 34%, transparent) 0%, transparent 64%)',
-          animationDelay: '-17s',
-        }}
-      />
-
-      {/* the one warm accent bloom */}
-      <div
-        className="drift absolute right-[22%] top-[6%] h-[38vmax] w-[38vmax] rounded-full opacity-[0.18] blur-[80px]"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 50%, var(--flame) 0%, transparent 66%)',
-          animationDelay: '-9s',
-        }}
-      />
-
-      {/* grain */}
-      <div className="grain-layer absolute inset-0 opacity-[0.16] dark:opacity-[0.22]" />
-
-      {/* vignette — pulls focus to the centre of the desk */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(120% 90% at 50% 42%, transparent 40%, rgb(0 0 0 / 0.16) 100%)',
-        }}
+        className="absolute inset-0 bg-black transition-opacity duration-300"
+        style={{ opacity: (100 - brightness) / 145 }}
       />
     </div>
   )

@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
 import { AnimatePresence, motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, ArrowSquareOut, GithubLogo, Sparkle } from '@phosphor-icons/react'
@@ -15,8 +14,8 @@ type Filter = 'all' | ProjectCategory
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'All Attachments' },
-  { id: 'hackathon', label: 'Hackathons' },
-  { id: 'product', label: 'Products' },
+  { id: 'product', label: 'My Products' },
+  { id: 'client', label: 'Client Work' },
 ]
 
 /** A Finder for the work: sidebar, grid of items, and a detail view. */
@@ -28,7 +27,11 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
 
   const visible = useMemo(
     () =>
-      !data ? [] : filter === 'all' ? data.projects : data.projects.filter((p) => p.category === filter),
+      !data
+        ? []
+        : filter === 'all'
+          ? data.projects
+          : data.projects.filter((p) => p.category === filter),
     [data, filter],
   )
 
@@ -39,7 +42,7 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
     <div className="@container flex h-full">
       {/* ── sidebar ── */}
       {!fullscreen && (
-        <aside className="hidden w-[186px] shrink-0 flex-col gap-0.5 border-r border-line bg-sunken/60 p-2.5 @[680px]:flex">
+        <aside className="scroll-area hidden w-[196px] shrink-0 flex-col gap-0.5 overflow-y-auto border-r border-line bg-sidebar p-2.5 backdrop-blur-xl @[700px]:flex">
           <p className="px-2.5 pb-1.5 pt-1 text-[10.5px] uppercase tracking-[0.16em] text-faint">
             Enclosed
           </p>
@@ -53,9 +56,7 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
               }}
               className={cn(
                 'rounded-md px-2.5 py-[6px] text-left text-[13px] transition-colors',
-                filter === f.id
-                  ? 'bg-accent text-white'
-                  : 'text-ink hover:bg-black/[0.05] dark:hover:bg-white/[0.06]',
+                filter === f.id ? 'bg-accent text-white' : 'text-ink hover:bg-ink/[0.07]',
               )}
             >
               {f.label}
@@ -65,18 +66,19 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
           <div className="my-3 h-px bg-line" />
 
           <p className="px-2.5 pb-1.5 text-[10.5px] uppercase tracking-[0.16em] text-faint">
-            Smaller builds
+            Earlier — hackathons
           </p>
           <ul className="space-y-px">
             {data.experiments.map((e) => (
               <li key={e.title}>
                 <a
-                  href={e.live ?? e.github}
+                  href={e.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block truncate rounded-md px-2.5 py-[5px] text-[12.5px] text-muted transition-colors hover:bg-black/[0.05] hover:text-ink dark:hover:bg-white/[0.06]"
+                  className="block rounded-md px-2.5 py-1.5 transition-colors hover:bg-ink/[0.07]"
                 >
-                  {e.title}
+                  <span className="block truncate text-[12.5px] text-ink">{e.title}</span>
+                  <span className="block truncate text-[11px] text-faint">{e.note}</span>
                 </a>
               </li>
             ))}
@@ -104,29 +106,30 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="p-5 @[560px]:p-7"
+              className="p-5 @[560px]:p-6"
             >
-              <div className="grid grid-cols-1 gap-4 @[560px]:grid-cols-2 @[900px]:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 @[540px]:grid-cols-2 @[880px]:grid-cols-3">
                 {visible.map((project, i) => (
-                  <Card key={project.id} project={project} index={i} onOpen={() => setOpen(project)} />
+                  <Card
+                    key={project.id}
+                    project={project}
+                    index={i}
+                    onOpen={() => setOpen(project)}
+                  />
                 ))}
               </div>
 
               {fullscreen && (
                 <div className="mt-8 border-t border-line pt-5">
                   <p className="pb-2 text-[10.5px] uppercase tracking-[0.16em] text-faint">
-                    Smaller builds
+                    Earlier — hackathons
                   </p>
-                  <ul className="grid grid-cols-2 gap-x-4 gap-y-1">
+                  <ul className="space-y-2">
                     {data.experiments.map((e) => (
                       <li key={e.title}>
-                        <a
-                          href={e.live ?? e.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block truncate py-1 text-[13px] text-muted underline decoration-line-strong underline-offset-2"
-                        >
-                          {e.title}
+                        <a href={e.href} target="_blank" rel="noopener noreferrer" className="block">
+                          <span className="block text-[13.5px] text-ink">{e.title}</span>
+                          <span className="block text-[11.5px] text-faint">{e.note}</span>
                         </a>
                       </li>
                     ))}
@@ -162,47 +165,46 @@ function Card({
       whileHover={{ y: -3 }}
       className={cn(
         'group overflow-hidden rounded-panel bg-raised text-left ring-[0.5px] ring-line transition-shadow duration-300 hover:shadow-window-idle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent',
-        project.featured && '@[560px]:col-span-2',
+        project.featured && '@[540px]:col-span-2',
       )}
     >
       <div
         className={cn(
-          'relative overflow-hidden bg-sunken',
-          // A card spanning two columns needs a wider crop, or it dominates.
-          project.featured ? 'aspect-[16/10] @[560px]:aspect-[24/9]' : 'aspect-[16/10]',
+          'relative overflow-hidden',
+          project.featured ? 'aspect-[16/10] @[540px]:aspect-[24/9]' : 'aspect-[16/10]',
         )}
       >
-        {project.images[0] ? (
-          <Image
-            src={project.images[0]}
-            alt=""
-            fill
-            sizes="(max-width: 900px) 50vw, 300px"
-            className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045]"
+        <div className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.04]">
+          <ProjectCover
+            title={project.title}
+            id={project.id}
+            tone={project.tone}
+            compact={!project.featured}
           />
-        ) : (
-          <div className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045]">
-            <ProjectCover title={project.title} id={project.id} />
-          </div>
-        )}
-        <span className="absolute left-2.5 top-2.5 rounded-full bg-black/55 px-2 py-[3px] text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-sm">
+        </div>
+        <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2 py-[3px] text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-sm">
           {project.category}
         </span>
       </div>
 
       <div className="space-y-1.5 p-3.5">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-serif text-[19px] leading-none tracking-[-0.015em] text-ink">
+          <h3 className="truncate font-serif text-[18px] leading-none tracking-[-0.015em] text-ink">
             {project.title}
           </h3>
-          <span className="font-mono text-[11px] text-faint">{project.year}</span>
+          <span className="shrink-0 font-mono text-[11px] text-faint">{project.year}</span>
         </div>
         <p className="text-[13px] leading-snug text-muted">{project.blurb}</p>
-        {project.accolades[0] && (
-          <p className="flex items-start gap-1.5 pt-1 text-[11.5px] leading-snug text-flame">
-            <Sparkle size={13} weight="fill" className="mt-px shrink-0" aria-hidden />
-            <span className="line-clamp-1">{project.accolades[0]}</span>
-          </p>
+
+        {project.metrics.length > 0 && (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 pt-1.5">
+            {project.metrics.slice(0, 3).map((m) => (
+              <span key={m.label} className="text-[11.5px] leading-tight">
+                <span className="font-semibold text-ink">{m.value}</span>{' '}
+                <span className="text-faint">{m.label}</span>
+              </span>
+            ))}
+          </div>
         )}
       </div>
     </motion.button>
@@ -212,8 +214,6 @@ function Card({
 /* ───────────────────────────── detail ───────────────────────────── */
 
 function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
-  const [active, setActive] = useState(0)
-
   return (
     <article className="p-5 @[560px]:p-7">
       <button
@@ -221,52 +221,12 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         onClick={onBack}
         className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-line-strong px-3 py-1 text-[12.5px] text-muted transition-colors hover:bg-sunken hover:text-ink"
       >
-<ArrowLeft size={14} weight="bold" aria-hidden /> All attachments
+        <ArrowLeft size={14} weight="bold" aria-hidden /> All attachments
       </button>
 
-      <div className="relative aspect-[16/9] overflow-hidden rounded-panel bg-sunken ring-[0.5px] ring-line">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0"
-          >
-            {project.images[active] ? (
-              <Image
-                src={project.images[active]}
-                alt={`${project.title}, view ${active + 1}`}
-                fill
-                sizes="(max-width: 900px) 100vw, 760px"
-                className="object-cover"
-              />
-            ) : (
-              <ProjectCover title={project.title} id={project.id} />
-            )}
-          </motion.div>
-        </AnimatePresence>
+      <div className="relative aspect-[21/9] overflow-hidden rounded-panel ring-[0.5px] ring-line">
+        <ProjectCover title={project.title} id={project.id} tone={project.tone} />
       </div>
-
-      {project.images.length > 1 && (
-        <div className="mt-2.5 flex gap-2">
-          {project.images.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`View ${i + 1}`}
-              className={cn(
-                'relative h-12 w-[72px] overflow-hidden rounded-md ring-[0.5px] transition-all',
-                i === active ? 'ring-2 ring-accent' : 'opacity-60 ring-line hover:opacity-100',
-              )}
-            >
-              <Image src={src} alt="" fill sizes="72px" className="object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
 
       <header className="mt-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="font-serif text-[clamp(1.6rem,4cqi,2.1rem)] leading-none tracking-[-0.025em] text-ink">
@@ -277,7 +237,20 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         </span>
       </header>
 
-      <p className="mt-3.5 max-w-[62ch] text-[14.5px] leading-[1.65] text-muted">
+      {project.metrics.length > 0 && (
+        <div className="mt-5 grid grid-cols-3 gap-3 border-y border-line py-4">
+          {project.metrics.map((m) => (
+            <div key={m.label}>
+              <p className="font-serif text-[clamp(1.2rem,3cqi,1.6rem)] leading-none tracking-[-0.02em] text-ink">
+                {m.value}
+              </p>
+              <p className="mt-1 text-[11.5px] leading-tight text-muted">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <p className="mt-5 max-w-[64ch] text-[14.5px] leading-[1.65] text-muted">
         {project.description}
       </p>
 
@@ -296,37 +269,44 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         <ul className="mt-6 space-y-1.5 border-t border-line pt-5">
           {project.accolades.map((a) => (
             <li key={a} className="flex items-start gap-2.5 text-[13.5px] text-ink">
-              <Sparkle size={15} weight="fill" className="mt-[3px] shrink-0 text-flame" aria-hidden />
+              <Sparkle
+                size={15}
+                weight="fill"
+                className="mt-[3px] shrink-0 text-flame"
+                aria-hidden
+              />
               {a}
             </li>
           ))}
         </ul>
       )}
 
-      <div className="mt-7 flex flex-wrap gap-2.5">
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-surface-solid transition-opacity hover:opacity-85"
-          >
-            View it live
-            <ArrowSquareOut size={15} weight="bold" aria-hidden />
-          </a>
-        )}
-        {project.github && (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-2 text-[13px] text-ink transition-colors hover:bg-sunken"
-          >
-            <GithubLogo size={15} weight="fill" aria-hidden />
-            Source
-          </a>
-        )}
-      </div>
+      {(project.live || project.github) && (
+        <div className="mt-7 flex flex-wrap gap-2.5">
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-surface-solid transition-opacity hover:opacity-85"
+            >
+              View it live
+              <ArrowSquareOut size={15} weight="bold" aria-hidden />
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-2 text-[13px] text-ink transition-colors hover:bg-sunken"
+            >
+              <GithubLogo size={15} weight="fill" aria-hidden />
+              Source
+            </a>
+          )}
+        </div>
+      )}
     </article>
   )
 }

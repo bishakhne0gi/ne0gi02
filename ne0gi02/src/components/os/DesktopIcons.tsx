@@ -20,7 +20,7 @@ export function DesktopIcons() {
 
   return (
     <div
-      className="absolute right-5 top-[42px] z-[1] flex flex-col gap-1"
+      className="absolute left-5 top-[38px] z-[1] flex flex-col gap-1"
       onPointerDown={(e) => e.target === e.currentTarget && setSelected(null)}
     >
       {shortcuts.map((id, i) => (
@@ -35,7 +35,7 @@ export function DesktopIcons() {
           onDoubleClick={() => open(id)}
           onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && open(id)}
           className={cn(
-            'group flex w-[92px] flex-col items-center gap-1 rounded-lg px-1.5 py-2 text-center outline-none transition-colors',
+            'group flex w-[92px] flex-col items-center gap-1.5 rounded-lg px-1.5 pb-1.5 pt-2 text-center outline-none transition-colors',
             selected === id ? 'bg-accent/22' : 'hover:bg-black/[0.04] dark:hover:bg-white/[0.05]',
           )}
         >
@@ -45,7 +45,7 @@ export function DesktopIcons() {
               'rounded px-1 text-[11.5px] leading-tight tracking-[-0.005em]',
               selected === id
                 ? 'bg-accent text-white'
-                : 'text-ink [text-shadow:0_1px_2px_rgb(255_255_255/.55)] dark:[text-shadow:0_1px_3px_rgb(0_0_0/.7)]',
+                : 'text-white [text-shadow:0_1px_4px_rgb(0_0_0/.85)]',
             )}
           >
             {apps[id].name}

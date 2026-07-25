@@ -15,10 +15,25 @@
   --wall-glow: #fff8ea;
 
   /* surfaces */
-  --surface: rgb(255 253 250 / 0.72);
+  --surface: rgb(252 250 246 / 0.68);
+  --surface-thin: rgb(250 248 244 / 0.62);
+  --surface-thick: rgb(250 248 244 / 0.76);
   --surface-solid: #fffdfa;
-  --surface-raised: rgb(255 255 255 / 0.86);
+  --surface-raised: rgb(255 255 255 / 0.7);
   --surface-sunken: rgb(20 22 26 / 0.035);
+  --tile: rgb(255 255 255 / 0.5);
+  /* Window content is near-opaque so long-form text stays readable over a
+     photograph; only the chrome around it is vibrant. */
+  --window: rgb(252 251 248 / 0.97);
+  --titlebar: rgb(246 244 240 / 0.82);
+  --sidebar: rgb(240 238 233 / 0.5);
+
+  /* vibrancy */
+  --glass-blur: 44px;
+  --glass-sat: 190%;
+  --glass-brightness: 1.04;
+  --glass-highlight: rgb(255 255 255 / 0.7);
+  --glass-edge: rgb(20 22 26 / 0.11);
 
   /* text */
   --ink: #14161a;
@@ -55,10 +70,21 @@
   --wall-3: #08090c;
   --wall-glow: #383c4c;
 
-  --surface: rgb(30 31 36 / 0.72);
+  --surface: rgb(30 31 36 / 0.68);
+  --surface-thin: rgb(24 25 30 / 0.66);
+  --surface-thick: rgb(38 39 45 / 0.72);
   --surface-solid: #1a1b20;
-  --surface-raised: rgb(38 40 46 / 0.86);
-  --surface-sunken: rgb(255 255 255 / 0.04);
+  --surface-raised: rgb(42 44 51 / 0.62);
+  --surface-sunken: rgb(255 255 255 / 0.045);
+  --tile: rgb(255 255 255 / 0.11);
+  --window: rgb(30 30 32 / 0.92);
+  --titlebar: rgb(46 46 50 / 0.6);
+  /* The sidebar is the one part of a Finder window you can see through. */
+  --sidebar: rgb(46 46 50 / 0.34);
+
+  --glass-highlight: rgb(255 255 255 / 0.11);
+  --glass-edge: rgb(255 255 255 / 0.1);
+  --glass-brightness: 1.12;
 
   --ink: #f2f0eb;
   --ink-muted: #a0a4ad;
@@ -87,6 +113,8 @@
   --color-faint: var(--ink-faint);
   --color-surface: var(--surface);
   --color-surface-solid: var(--surface-solid);
+  --color-tile: var(--tile);
+  --color-sidebar: var(--sidebar);
   --color-raised: var(--surface-raised);
   --color-sunken: var(--surface-sunken);
   --color-line: var(--line);
@@ -108,8 +136,10 @@
   --shadow-window-idle: var(--shadow-window-idle);
   --shadow-dock: var(--shadow-dock);
 
-  --radius-window: 12px;
+  --radius-window: 11px;
   --radius-panel: 10px;
+  /* macOS widget corner — continuous, and much rounder than a card */
+  --radius-widget: 22px;
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-power4: cubic-bezier(0.77, 0, 0.175, 1);
@@ -131,7 +161,7 @@
   }
 
   body {
-    background: var(--wall-2);
+    background: #0A0B0D;
     color: var(--ink);
     font-family: var(--font-sans);
     overscroll-behavior: none;
@@ -169,16 +199,46 @@
 /* ------------------------------------------------------------------
    Utilities
    ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------
+   Vibrancy — the material everything in this OS is made of.
+
+   Apple's translucency is not one blur. It is a heavy blur, a strong
+   saturation lift so colour bleeds through, a 1px inner highlight along
+   the top edge where light catches, and a hairline border. Miss any of
+   the four and it reads as "frosted div" rather than as glass.
+   ------------------------------------------------------------------ */
 @utility glass {
   background: var(--surface);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-highlight),
+    inset 0 0 0 0.5px var(--glass-edge);
 }
 
 @utility glass-thin {
-  background: var(--surface);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: var(--surface-thin);
+  backdrop-filter: blur(24px) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(24px) saturate(var(--glass-sat));
+  box-shadow: inset 0 -0.5px 0 0 var(--glass-edge);
+}
+
+/* Popovers and the control centre sit on top of everything, so they get
+   the thickest material and the most pronounced highlight. */
+@utility glass-thick {
+  background: var(--surface-thick);
+  backdrop-filter: blur(64px) saturate(200%) brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(64px) saturate(200%) brightness(var(--glass-brightness));
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-highlight),
+    inset 0 0 0 0.5px var(--glass-edge),
+    var(--shadow-window);
+}
+
+/* A control-centre tile: glass on glass, so it uses tint rather than blur. */
+@utility glass-tile {
+  background: var(--tile);
+  box-shadow: inset 0 0.5px 0 0 var(--glass-highlight);
 }
 
 /* Film grain — the texture pass. Applied over the wallpaper, never over text. */

@@ -1,27 +1,28 @@
 import type { AppId } from '@/lib/content'
 
 /**
- * Hand-drawn app icons. No icon library — these are the identity of the OS,
- * so they are authored, not imported.
- *
- * Every icon is a 100×100 superellipse ("squircle") with a vertical gradient,
- * a 1px inner top highlight and a hairline edge, matching how macOS icons
- * catch light.
+ * App icons drawn in Apple's icon language rather than imported: a
+ * superellipse plate, a vertical gradient, a specular highlight across the
+ * top third, and a hairline edge. Each one quotes the macOS app it stands
+ * in for — Notes, Finder, Calendar, Terminal, Photos, Contacts, Mail.
  */
 
 const SQUIRCLE =
   'M50 0C88 0 100 12 100 50C100 88 88 100 50 100C12 100 0 88 0 50C0 12 12 0 50 0Z'
 
-function Shell({
+function Plate({
   id,
   from,
   to,
   children,
+  flat,
 }: {
   id: string
   from: string
   to: string
   children: React.ReactNode
+  /** Skip the gloss — for icons that are mostly white paper. */
+  flat?: boolean
 }) {
   return (
     <>
@@ -34,167 +35,212 @@ function Shell({
           <path d={SQUIRCLE} />
         </clipPath>
       </defs>
+
       <path d={SQUIRCLE} fill={`url(#${id}-bg)`} />
+
       <g clipPath={`url(#${id}-clip)`}>
         {children}
-        {/* light catch along the top edge */}
-        <path d="M0 0h100v34C74 20 26 20 0 34Z" fill="#fff" opacity="0.12" />
+        {!flat && <path d="M0 0h100v30C72 46 28 46 0 30Z" fill="#fff" opacity="0.16" />}
       </g>
-      <path d={SQUIRCLE} fill="none" stroke="rgba(0,0,0,.18)" strokeWidth="1" />
+
+      {/* hairline edge + inner top highlight, the way macOS icons catch light */}
+      <path d={SQUIRCLE} fill="none" stroke="rgba(0,0,0,.16)" strokeWidth="0.9" />
+      <path
+        d="M50 1.2C86.5 1.2 98.8 13 98.8 50"
+        fill="none"
+        stroke="rgba(255,255,255,.45)"
+        strokeWidth="1.1"
+      />
     </>
   )
 }
 
-/* ── Letter.app — cream paper, folded, with a vermillion wax seal ── */
-function LetterIcon() {
+/* ── Notes — the letter lives here ── */
+function NotesIcon() {
   return (
-    <Shell id="ic-letter" from="#FFFDF7" to="#E8DFC9">
-      <rect x="18" y="14" width="64" height="76" rx="4" fill="#FFFEFA" />
-      <rect x="18" y="14" width="64" height="76" rx="4" fill="none" stroke="rgba(0,0,0,.1)" />
-      <g stroke="#B9AE95" strokeWidth="2.6" strokeLinecap="round">
-        <path d="M29 32h30" />
-        <path d="M29 43h42" />
-        <path d="M29 52h42" />
-        <path d="M29 61h34" />
+    <Plate id="ic-notes" from="#FFE082" to="#FCC419" flat>
+      {/* the paper */}
+      <rect x="0" y="22" width="100" height="78" fill="#FFFDF4" />
+      {/* header band */}
+      <rect x="0" y="0" width="100" height="22" fill="#FFF3C4" />
+      <rect x="0" y="21" width="100" height="1.4" fill="rgba(0,0,0,.07)" />
+      {/* ruled lines */}
+      <g stroke="#E7DCC0" strokeWidth="2" strokeLinecap="round">
+        <path d="M14 36h72" />
+        <path d="M14 50h72" />
+        <path d="M14 64h72" />
+        <path d="M14 78h48" />
       </g>
-      {/* wax seal — the one wildcard accent */}
-      <circle cx="63" cy="74" r="12" fill="#E2603D" />
-      <circle cx="63" cy="74" r="12" fill="none" stroke="rgba(0,0,0,.16)" />
+      {/* the one ink mark — a signature flick */}
       <path
-        d="M58 74h10M63 69v10"
-        stroke="rgba(255,255,255,.72)"
+        d="M58 82c6-4 11-2 14 1"
+        fill="none"
+        stroke="#E2603D"
         strokeWidth="2.4"
         strokeLinecap="round"
       />
-    </Shell>
+    </Plate>
   )
 }
 
-/* ── Attachments.app — a folder holding a paperclip ── */
-function ProjectsIcon() {
+/* ── Finder — the attachments ── */
+function FinderIcon() {
   return (
-    <Shell id="ic-proj" from="#8FC3F2" to="#3D7FD4">
+    <Plate id="ic-finder" from="#37B4F6" to="#0E7FD4">
+      {/* the split face: lighter left half */}
+      <path d="M0 0h50v100H0Z" fill="#DCEEFB" opacity="0.95" />
+      {/* eyes */}
+      <g fill="#1F2933">
+        <rect x="27" y="30" width="6.5" height="17" rx="3.25" />
+        <rect x="66" y="30" width="6.5" height="17" rx="3.25" />
+      </g>
+      {/* the smile, crossing the seam */}
       <path
-        d="M12 32a6 6 0 0 1 6-6h20l7 8h37a6 6 0 0 1 6 6v6H12Z"
-        fill="#fff"
-        opacity="0.34"
-      />
-      <path d="M12 40h76v34a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6Z" fill="#fff" opacity="0.9" />
-      <path
-        d="M58 50v18a9 9 0 0 1-18 0V48a5.5 5.5 0 0 1 11 0v18a2.5 2.5 0 0 1-5 0V52"
+        d="M26 62c8 9 40 9 48 0"
         fill="none"
-        stroke="#2F62A8"
+        stroke="#1F2933"
         strokeWidth="4"
         strokeLinecap="round"
       />
-    </Shell>
+      <path d="M50 62v9" stroke="#1F2933" strokeWidth="4" strokeLinecap="round" />
+    </Plate>
   )
 }
 
-/* ── Curriculum.app — a spine of milestones ── */
-function TimelineIcon() {
+/* ── Calendar — the curriculum ── */
+function CalendarIcon() {
   return (
-    <Shell id="ic-time" from="#F6C97A" to="#D98A2B">
-      <path d="M30 20v60" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity="0.85" />
-      <g fill="#fff">
-        <circle cx="30" cy="28" r="7" />
-        <circle cx="30" cy="50" r="7" />
-        <circle cx="30" cy="72" r="7" />
-      </g>
-      <g stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity="0.9">
-        <path d="M46 28h28" />
-        <path d="M46 50h22" />
-        <path d="M46 72h30" />
-      </g>
-    </Shell>
+    <Plate id="ic-cal" from="#FFFFFF" to="#EDEDF0" flat>
+      <rect x="0" y="0" width="100" height="26" fill="#F4463C" />
+      <text
+        x="50"
+        y="19"
+        textAnchor="middle"
+        fontSize="15"
+        fontWeight="600"
+        letterSpacing="1"
+        fontFamily="-apple-system, system-ui, sans-serif"
+        fill="#fff"
+      >
+        CV
+      </text>
+      <text
+        x="50"
+        y="80"
+        textAnchor="middle"
+        fontSize="52"
+        fontWeight="300"
+        fontFamily="-apple-system, system-ui, sans-serif"
+        fill="#1F2933"
+      >
+        9
+      </text>
+    </Plate>
   )
 }
 
-/* ── Terminal.app — near-black with a prompt ── */
+/* ── Terminal ── */
 function TerminalIcon() {
   return (
-    <Shell id="ic-term" from="#3A3D45" to="#101215">
-      <rect x="10" y="10" width="80" height="80" rx="14" fill="#0B0C0E" />
-      <rect x="10" y="10" width="80" height="17" rx="8" fill="#2A2D34" />
+    <Plate id="ic-term" from="#4A4E57" to="#16181C" flat>
+      <rect x="7" y="7" width="86" height="86" rx="13" fill="#0A0B0D" />
+      <rect x="7" y="7" width="86" height="18" rx="9" fill="#33373F" />
+      <rect x="7" y="16" width="86" height="9" fill="#33373F" />
       <g>
-        <circle cx="22" cy="18.5" r="3" fill="#FF5F57" />
-        <circle cx="33" cy="18.5" r="3" fill="#FEBC2E" />
-        <circle cx="44" cy="18.5" r="3" fill="#28C840" />
+        <circle cx="19" cy="16" r="3.2" fill="#FF5F57" />
+        <circle cx="30" cy="16" r="3.2" fill="#FEBC2E" />
+        <circle cx="41" cy="16" r="3.2" fill="#28C840" />
       </g>
       <path
-        d="M24 44l12 10-12 10"
+        d="M22 42l13 11-13 11"
         fill="none"
-        stroke="#7BE08A"
+        stroke="#F2F4F7"
+        strokeWidth="5.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M43 66h24" stroke="#F2F4F7" strokeWidth="5.5" strokeLinecap="round" />
+    </Plate>
+  )
+}
+
+/* ── Photos — the pinwheel ── */
+function PhotosIcon() {
+  const petals = [
+    { r: -90, c: '#F6C445' },
+    { r: -45, c: '#F2913D' },
+    { r: 0, c: '#E4573E' },
+    { r: 45, c: '#C64FA0' },
+    { r: 90, c: '#6C5CE0' },
+    { r: 135, c: '#3E8FE0' },
+    { r: 180, c: '#3FB7A6' },
+    { r: 225, c: '#6BBF48' },
+  ]
+  return (
+    <Plate id="ic-photos" from="#FFFFFF" to="#F0F0F2" flat>
+      <g style={{ mixBlendMode: 'multiply' }}>
+        {petals.map((p) => (
+          <ellipse
+            key={p.r}
+            cx="50"
+            cy="34"
+            rx="12"
+            ry="20"
+            fill={p.c}
+            opacity="0.82"
+            transform={`rotate(${p.r} 50 50)`}
+          />
+        ))}
+      </g>
+    </Plate>
+  )
+}
+
+/* ── Contacts — the about plate ── */
+function ContactsIcon() {
+  return (
+    <Plate id="ic-contacts" from="#FDFBF6" to="#E6E1D6" flat>
+      {/* book spine */}
+      <rect x="0" y="0" width="17" height="100" fill="#C8471F" />
+      <rect x="14" y="0" width="4" height="100" fill="rgba(0,0,0,.14)" />
+      {/* rings */}
+      <g fill="#F3EFE6">
+        <rect x="4" y="20" width="9" height="5" rx="2.5" />
+        <rect x="4" y="47" width="9" height="5" rx="2.5" />
+        <rect x="4" y="74" width="9" height="5" rx="2.5" />
+      </g>
+      {/* silhouette */}
+      <circle cx="58" cy="40" r="14" fill="#A9A296" />
+      <path d="M34 82c0-13 11-21 24-21s24 8 24 21Z" fill="#A9A296" />
+    </Plate>
+  )
+}
+
+/* ── Mail ── */
+function MailIcon() {
+  return (
+    <Plate id="ic-mail" from="#3FA9FF" to="#0A6BE0">
+      <rect x="13" y="27" width="74" height="46" rx="8" fill="#FCFDFF" />
+      <path
+        d="M15.5 32.5 45.6 55a7 7 0 0 0 8.8 0l30.1-22.5"
+        fill="none"
+        stroke="#0A6BE0"
         strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M44 66h22" stroke="#7BE08A" strokeWidth="5" strokeLinecap="round" />
-    </Shell>
-  )
-}
-
-/* ── Gallery.app — overlapping prints ── */
-function GalleryIcon() {
-  return (
-    <Shell id="ic-gal" from="#F3F1EC" to="#CFC8BA">
-      <g stroke="rgba(0,0,0,.12)">
-        <rect x="20" y="24" width="52" height="44" rx="4" fill="#fff" transform="rotate(-8 46 46)" />
-        <rect x="28" y="30" width="52" height="44" rx="4" fill="#fff" transform="rotate(6 54 52)" />
-      </g>
-      <g transform="rotate(6 54 52)">
-        <rect x="28" y="30" width="52" height="44" rx="4" fill="#EAF1F6" />
-        <path d="M28 62l14-14 11 11 9-8 18 17v2a4 4 0 0 1-4 4H32a4 4 0 0 1-4-4Z" fill="#5E9C6F" />
-        <circle cx="44" cy="42" r="5.5" fill="#F2C14E" />
-      </g>
-    </Shell>
-  )
-}
-
-/* ── About.app — an engraved monogram chip ── */
-function AboutIcon() {
-  return (
-    <Shell id="ic-about" from="#C9CDD6" to="#7C8391">
-      <circle cx="50" cy="50" r="30" fill="none" stroke="#fff" strokeWidth="3" opacity="0.85" />
-      <text
-        x="50"
-        y="62"
-        textAnchor="middle"
-        fontSize="34"
-        fontFamily="Georgia, serif"
-        fill="#fff"
-        opacity="0.95"
-      >
-        B
-      </text>
-    </Shell>
-  )
-}
-
-/* ── Reply.app — envelope, mid-open ── */
-function ContactIcon() {
-  return (
-    <Shell id="ic-mail" from="#7FB6F5" to="#2C63C8">
-      <rect x="16" y="28" width="68" height="46" rx="7" fill="#fff" />
-      <path
-        d="M18 34l30 22a4 4 0 0 0 4 0l30-22"
-        fill="none"
-        stroke="#2C63C8"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-      />
-    </Shell>
+    </Plate>
   )
 }
 
 const REGISTRY: Record<AppId, () => React.ReactElement> = {
-  letter: LetterIcon,
-  projects: ProjectsIcon,
-  timeline: TimelineIcon,
+  letter: NotesIcon,
+  projects: FinderIcon,
+  timeline: CalendarIcon,
   terminal: TerminalIcon,
-  gallery: GalleryIcon,
-  about: AboutIcon,
-  contact: ContactIcon,
+  gallery: PhotosIcon,
+  about: ContactsIcon,
+  contact: MailIcon,
 }
 
 export function AppIcon({

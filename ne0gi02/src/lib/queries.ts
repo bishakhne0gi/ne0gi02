@@ -40,7 +40,7 @@ export const letterQuery = queryOptions({
 export const projectsQuery = queryOptions({
   queryKey: ['projects'],
   queryFn: () =>
-    get<{ projects: Project[]; experiments: { title: string; github: string; live?: string }[] }>(
+    get<{ projects: Project[]; experiments: { title: string; note: string; href: string }[] }>(
       '/api/projects',
     ),
   ...forever,

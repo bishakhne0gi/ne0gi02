@@ -29,10 +29,11 @@ export function AboutApp() {
   if (isPending || !data) return <Loading label="reading the plate" lines={4} />
 
   const specs: [string, string][] = [
-    ['Role', data.role],
+    ['Role', `${data.role}, ${data.company}`],
     ['Based in', data.location],
+    ['From', data.origin],
     ['Known as', data.handle],
-    ['Writes', 'TypeScript, mostly'],
+    ['Writes', 'TypeScript, Rust, Python'],
   ]
 
   return (
