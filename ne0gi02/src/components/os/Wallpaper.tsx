@@ -22,7 +22,9 @@ export function Wallpaper() {
         fill
         priority
         quality={78}
-        sizes="100vw"
+        // A phone never needs the 4K variant of a photograph it shows behind
+        // frosted glass, and asking for one costs seconds on a slow link.
+        sizes="(max-width: 819px) 1080px, 100vw"
         className="object-cover object-center"
       />
 

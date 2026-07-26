@@ -270,6 +270,16 @@
   mix-blend-mode: overlay;
 }
 
+/* A phone shows no scrollbar until you touch it, and never a rail. */
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+@utility hide-scrollbar-inner {
+  display: none;
+}
+
 /* Hairline that survives fractional DPR */
 @utility hairline-b {
   box-shadow: inset 0 -0.5px 0 0 var(--line);

@@ -59,8 +59,7 @@ src/
 
 - **Type is Apple's own**, taken from the OS rather than downloaded: SF Pro,
   New York, SF Mono. No font request, no FOUT, no CDN.
-- **Two scenes, not one.** Phones get a fullscreen app with a tab bar
-  (`Handheld.tsx`), not a shrunken desktop.
+- **Two scenes, not one.** Phones get iOS, not a shrunken desktop. See below.
 - **The boot screen is always black**, regardless of theme, because a machine
   powering on has no appearance preference yet.
 - **Everything is mirrored as plain semantic HTML** in `page.tsx` for crawlers,
@@ -68,6 +67,31 @@ src/
   manager.
 - **`prefers-reduced-motion` is honoured everywhere**: boot is skipped,
   Lenis is not started, reveals resolve instantly.
+
+## The phone
+
+Under 820px the site is not a responsive desktop, it is iOS
+(`components/os/Handheld.tsx` plus `components/ios/*`, state in
+`lib/ios-store.ts`).
+
+- **Home screen**: paged 4×6 icon grid with a fixed dock, page dots, and a
+  Search pill. Long press the wallpaper or an icon for jiggle mode; drag an
+  icon to reorder it, hold it against the right edge to turn the page, and
+  keep holding past the last page to make a new one. Layouts persist to
+  `localStorage` and are repacked on every change, so a page that overflows
+  pushes its last tiles onto the next one rather than scrolling.
+- **Widgets**: small (2×2), medium (4×2) and large (4×4). In jiggle mode each
+  widget grows a corner handle that snaps between the three as you drag it,
+  and tapping the handle cycles them.
+- **Gestures**: apps zoom out of the icon that launched them; swipe up from
+  the bottom bar or in from the left edge to leave, both tracking the finger.
+  Pull down from the left of the notch for Notification Centre, from the
+  right for Control Centre, and from the wallpaper for Spotlight.
+- **App Library** sits one page past the last home page: category folders,
+  and a search field that filters every app. Spotlight searches further, into
+  projects, writing and the curriculum.
+- **Control Centre toggles are real state**, and brightness genuinely dims
+  the wallpaper through the same store the desktop uses.
 
 ## Search and share
 

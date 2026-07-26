@@ -1,162 +1,227 @@
 'use client'
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
-import { AppIcon } from '@/components/os/AppIcon'
-import { BatteryGlyph, WifiGlyph } from '@/components/os/SystemGlyphs'
-import { AppSurface } from '@/components/apps'
-import { APP_ORDER, apps } from '@/lib/apps'
-import { useClock, useReducedMotion } from '@/hooks'
-import { profile } from '@/lib/content'
-import type { AppId } from '@/lib/content'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, animate, motion, useMotionValue, useTransform } from 'motion/react'
+import { StatusBar } from '@/components/ios/StatusBar'
+import { HomeScreen } from '@/components/ios/HomeScreen'
+import { AppFrame } from '@/components/ios/AppFrame'
+import { NotificationCentre } from '@/components/ios/NotificationCentre'
+import { ControlCentreIos } from '@/components/ios/ControlCentreIos'
+import { Spotlight } from '@/components/ios/Spotlight'
+import { apps, APP_ORDER } from '@/lib/apps'
+import { hydrateIosLayout, useIos } from '@/lib/ios-store'
+import { haptic } from '@/lib/haptics'
+import { useReducedMotion } from '@/hooks'
+import type { Layer } from '@/lib/ios-store'
 
-const HOME_APPS: AppId[] = [
-  'letter',
-  'projects',
-  'writing',
-  'timeline',
-  'terminal',
-  'gallery',
-  'about',
-]
-const DOCK_APPS: AppId[] = ['letter', 'projects', 'contact']
+/** How far the finger has to come down from the notch to commit to a panel. */
+const PULL_DISTANCE = 190
 
 /**
- * A different scene, not a shrunk desktop: an iOS home screen. Apps launch
- * from the grid with the icon-expand transition, and the home indicator
- * takes you back, the interaction model a phone already has.
+ * The phone. Not a narrow desktop: a home screen with pages and widgets, an
+ * App Library, Spotlight, a Notification Centre under the left of the notch
+ * and Control Centre under the right, and apps that zoom out of their icons
+ * and are dismissed by gesture.
  */
 export function Handheld() {
-  const [open, setOpen] = useState<AppId | null>(null)
+  const openApp = useIos((s) => s.openApp)
+  const launchRect = useIos((s) => s.launchRect)
+  const closeApp = useIos((s) => s.closeApp)
+  const layer = useIos((s) => s.layer)
+  const setLayer = useIos((s) => s.setLayer)
+  const launch = useIos((s) => s.launch)
+  const editing = useIos((s) => s.editing)
+  const setEditing = useIos((s) => s.setEditing)
   const reduced = useReducedMotion()
 
+  useEffect(hydrateIosLayout, [])
+
+  /* ── the two pull-down panels ── */
+  const pull = useMotionValue(0)
+  const [pulling, setPulling] = useState<Exclude<Layer, 'none' | 'spotlight'> | null>(null)
+  const gesture = useRef<{
+    kind: 'notifications' | 'control'
+    y: number
+    /** Where the panel was when the finger landed. */
+    from: number
+  } | null>(null)
+  const panel = pulling ?? (layer === 'notifications' || layer === 'control' ? layer : null)
+
+  useEffect(() => {
+    if (layer === 'notifications' || layer === 'control') {
+      if (reduced) pull.set(1)
+      else animate(pull, 1, { type: 'spring', stiffness: 380, damping: 40 })
+    } else if (!pulling) {
+      if (reduced) pull.set(0)
+      else animate(pull, 0, { type: 'spring', stiffness: 420, damping: 44 })
+    }
+  }, [layer, pulling, pull, reduced])
+
+  /**
+   * One gesture, both directions: pulling down from the notch opens a panel,
+   * pushing up from its handle puts it away, and either can be abandoned
+   * halfway, because the finger is what decides.
+   */
+  function startPull(kind: 'notifications' | 'control', event: React.PointerEvent) {
+    if (openApp) return
+    gesture.current = { kind, y: event.clientY, from: pull.get() }
+    setPulling(kind)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const onNotificationsDown = (event: React.PointerEvent) => startPull('notifications', event)
+  const onControlDown = (event: React.PointerEvent) => startPull('control', event)
+  const onPanelHandleDown = (event: React.PointerEvent) => {
+    if (!panel) return
+    startPull(panel, event)
+  }
+
+  const movePull = (event: React.PointerEvent) => {
+    const start = gesture.current
+    if (!start) return
+    const travelled = (event.clientY - start.y) / PULL_DISTANCE
+    pull.set(Math.max(0, Math.min(1, start.from + travelled)))
+  }
+
+  const endPull = () => {
+    const start = gesture.current
+    gesture.current = null
+    if (!start) return
+
+    /* Committing takes a third of the way down from closed, but only a third
+       of the way up from open, so neither direction feels sticky. */
+    const open = start.from > 0.5 ? pull.get() > 0.66 : pull.get() > 0.34
+
+    if (open) {
+      setLayer(start.kind)
+      setPulling(null)
+      if (start.from <= 0.5) haptic(10)
+    } else {
+      setLayer('none')
+      animate(pull, 0, {
+        type: 'spring',
+        stiffness: 460,
+        damping: 44,
+        onComplete: () => setPulling(null),
+      })
+      /* Belt and braces: if that animation is ever interrupted the panel
+         must still stop covering the screen. */
+      setTimeout(() => setPulling(null), 600)
+    }
+  }
+
+  /** Dragging the open panel back up. */
+  const dismissPanel = () => {
+    setLayer('none')
+    setPulling(null)
+    haptic(6)
+  }
+
+  const panelY = useTransform(pull, [0, 1], ['-100%', '0%'])
+  const panelFade = useTransform(pull, [0, 0.25, 1], [0, 0.6, 1])
+
+  /* ── the home indicator, which is also the only visible control ── */
+  const goHome = () => {
+    if (layer !== 'none') return dismissPanel()
+    if (openApp) return closeApp()
+    if (editing) return setEditing(false)
+  }
+
   return (
-    <main className="fixed inset-0 flex flex-col overflow-hidden">
-      <StatusBar appName={open ? apps[open].name : null} />
+    <main className="fixed inset-0 flex touch-none flex-col overflow-hidden select-none">
+      <StatusBar activity={openApp ? apps[openApp].name : null} />
 
       <div className="relative min-h-0 flex-1">
-        <AnimatePresence initial={false}>
-          {open ? (
-            <motion.section
-              key={open}
-              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.86, y: 26 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 18 }}
-              transition={{ type: 'spring', stiffness: 380, damping: 34, mass: 0.7 }}
-              className="glass absolute inset-0 overflow-hidden rounded-t-[18px]"
-            >
-              <AppSurface id={open} fullscreen />
-            </motion.section>
-          ) : (
-            <motion.div
-              key="home"
-              initial={reduced ? false : { opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 flex flex-col px-6 pt-6"
-            >
-              {/* the name plate, where iOS puts its widget */}
-              <div className="glass mb-7 rounded-widget p-4">
-                <p className="text-[10.5px] uppercase tracking-[0.16em] text-faint">Currently</p>
-                <p className="mt-1.5 text-[21px] font-semibold leading-tight tracking-[-0.025em] text-ink">
-                  {profile.role} at {profile.company}
-                </p>
-                <p className="mt-1 text-[12px] text-muted">
-                  {profile.location} · tap Notes to read the letter
-                </p>
-              </div>
-
-              <div className="grid grid-cols-4 gap-x-4 gap-y-6">
-                {HOME_APPS.map((id, i) => (
-                  <HomeIcon key={id} id={id} index={i} onOpen={() => setOpen(id)} reduced={reduced} />
-                ))}
-              </div>
-
-              <div className="flex-1" />
-
-              {/* the iOS dock */}
-              <div className="glass mb-3 flex justify-around rounded-[26px] px-3 py-3">
-                {DOCK_APPS.map((id) => (
-                  <button
-                    key={id}
-                    type="button"
-                    aria-label={apps[id].name}
-                    onClick={() => setOpen(id)}
-                    className="w-[58px]"
-                  >
-                    <AppIcon
-                      id={id}
-                      className="h-[54px] w-[54px] drop-shadow-[0_3px_6px_rgba(0,0,0,.3)]"
-                    />
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <HomeScreen />
       </div>
 
-      {/* home indicator: swipe target and back button in one */}
-      <div className="flex shrink-0 justify-center pb-[max(0.55rem,env(safe-area-inset-bottom))] pt-2">
+      <AnimatePresence>
+        {openApp && <AppFrame key={openApp} id={openApp} from={launchRect} onClose={closeApp} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {layer === 'spotlight' && (
+          <Spotlight onClose={() => setLayer('none')} onOpen={(id) => launch(id, null)} />
+        )}
+      </AnimatePresence>
+
+      {/* ── notification centre and control centre ── */}
+      {panel && (
+        <>
+          <motion.div
+            style={{ opacity: panelFade }}
+            className="pointer-events-none fixed inset-0 z-40 bg-black/45 backdrop-blur-2xl"
+          />
+          <motion.div
+            style={{ y: panelY }}
+            className="fixed inset-0 z-40 flex flex-col"
+            onPointerUp={endPull}
+            onPointerMove={movePull}
+          >
+            <div className="min-h-0 flex-1">
+              {panel === 'notifications' ? (
+                <NotificationCentre onOpen={(id) => launch(id, null)} />
+              ) : (
+                <ControlCentreIos />
+              )}
+            </div>
+            <div
+              onPointerDown={onPanelHandleDown}
+              onPointerMove={movePull}
+              onPointerUp={endPull}
+              onPointerCancel={endPull}
+              className="grid shrink-0 touch-none place-items-center pb-2 pt-3"
+            >
+              <button
+                type="button"
+                onClick={dismissPanel}
+                aria-label="Close panel"
+                className="h-[5px] w-[136px] rounded-full bg-white/60"
+              />
+            </div>
+          </motion.div>
+        </>
+      )}
+
+      {/* ── the two pull zones under the notch ── */}
+      {!openApp && layer === 'none' && (
+        <>
+          <div
+            onPointerDown={onNotificationsDown}
+            onPointerMove={movePull}
+            onPointerUp={endPull}
+            onPointerCancel={endPull}
+            className="absolute left-0 top-0 z-50 h-[46px] w-1/2 touch-none"
+            aria-label="Open Notification Centre"
+            role="button"
+          />
+          <div
+            onPointerDown={onControlDown}
+            onPointerMove={movePull}
+            onPointerUp={endPull}
+            onPointerCancel={endPull}
+            className="absolute right-0 top-0 z-50 h-[46px] w-1/2 touch-none"
+            aria-label="Open Control Centre"
+            role="button"
+          />
+        </>
+      )}
+
+      {/* ── home indicator ── */}
+      <div
+        className="relative z-40 flex shrink-0 justify-center pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1.5"
+        /* While an app is open the bottom belongs to its swipe-home gesture,
+           so the indicator is drawn but not touchable. */
+        style={{ pointerEvents: panel || openApp ? 'none' : undefined }}
+      >
         <button
           type="button"
-          onClick={() => setOpen(null)}
-          aria-label={open ? 'Close app' : 'Home'}
-          className="h-[5px] w-[136px] rounded-full bg-ink/45 transition-colors active:bg-ink/70"
+          onClick={goHome}
+          aria-label={openApp ? `Close ${apps[openApp].name}` : 'Home'}
+          className="h-[5px] w-[136px] rounded-full bg-white/70 transition-colors active:bg-white"
         />
       </div>
     </main>
-  )
-}
-
-function HomeIcon({
-  id,
-  index,
-  onOpen,
-  reduced,
-}: {
-  id: AppId
-  index: number
-  onOpen: () => void
-  reduced: boolean
-}) {
-  return (
-    <motion.button
-      type="button"
-      onClick={onOpen}
-      initial={reduced ? false : { opacity: 0, y: 14, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 0.05 + index * 0.04, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      whileTap={{ scale: 0.9 }}
-      className="flex flex-col items-center gap-1.5"
-    >
-      <AppIcon id={id} className="h-[58px] w-[58px] drop-shadow-[0_3px_7px_rgba(0,0,0,.34)]" />
-      <span className="truncate text-[11px] leading-none text-ink [text-shadow:0_1px_3px_rgb(0_0_0/.5)]">
-        {apps[id].name}
-      </span>
-    </motion.button>
-  )
-}
-
-function StatusBar({ appName }: { appName: string | null }) {
-  const now = useClock()
-
-  return (
-    <header className="flex h-11 shrink-0 items-center justify-between px-6 pt-1 text-[13px] font-semibold text-ink">
-      <time suppressHydrationWarning className="tabular-nums">
-        {now ? now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ' '}
-      </time>
-
-      {appName && (
-        <span className="text-[12px] font-medium text-muted">{appName}</span>
-      )}
-
-      <span className="flex items-center gap-1.5">
-        <WifiGlyph size={15} />
-        <BatteryGlyph percent={82} width={24} />
-      </span>
-    </header>
   )
 }
 
