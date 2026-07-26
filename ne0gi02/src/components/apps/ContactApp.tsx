@@ -8,7 +8,7 @@ import { Loading } from '@/components/ui/Loading'
 import { profileQuery } from '@/lib/queries'
 
 /**
- * A compose window. It never posts anywhere — "Send" hands the drafted
+ * A compose window. It never posts anywhere; "Send" hands the drafted
  * message to the visitor's own mail client, which is the honest thing to do
  * with a portfolio and avoids asking anyone to trust a form.
  */
@@ -16,7 +16,7 @@ export function ContactApp() {
   const { data, isPending } = useQuery(profileQuery)
   const [subject, setSubject] = useState('An opportunity worth reading about')
   const [body, setBody] = useState(
-    'Hi Bishakh,\n\nI read your letter. Here is what we are building —\n\n',
+    'Hi Bishakh,\n\nI read your letter. Here is what we are building:\n\n',
   )
 
   if (isPending || !data) return <Loading label="opening a draft" lines={4} />
@@ -51,7 +51,7 @@ export function ContactApp() {
         onChange={(e) => setBody(e.target.value)}
         aria-label="Message"
         spellCheck
-        className="scroll-area min-h-0 flex-1 resize-none bg-transparent px-5 py-4 font-serif text-[15.5px] leading-[1.65] text-ink outline-none placeholder:text-faint"
+        className="scroll-area min-h-0 flex-1 resize-none bg-transparent px-5 py-4 text-[15px] leading-[1.6] text-ink outline-none placeholder:text-faint"
       />
 
       {/* footer */}

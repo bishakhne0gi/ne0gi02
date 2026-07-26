@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import Lenis from 'lenis'
 import { motion } from 'motion/react'
 import { useQuery } from '@tanstack/react-query'
@@ -17,7 +16,7 @@ import type { LetterBlock } from '@/lib/content'
 const NOTES_YELLOW = '#E6A500'
 
 /**
- * The letter, staged inside Notes.app — folder rail, note list, and the
+ * The letter, staged inside Notes.app: folder rail, note list, and the
  * note itself. The middle column doubles as a live table of contents:
  * it tracks which paragraph you are reading and jumps you to any other.
  */
@@ -145,7 +144,7 @@ export function LetterApp({ fullscreen = false }: { fullscreen?: boolean }) {
               {data.meta.place} · {data.meta.date}
             </p>
 
-            <h1 className="font-serif text-[clamp(1.5rem,3.6cqi,2rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-ink">
+            <h1 className="text-[clamp(1.5rem,3.6cqi,2rem)] font-bold leading-[1.13] tracking-[-0.032em] text-ink">
               {data.meta.subject}
             </h1>
 
@@ -155,7 +154,7 @@ export function LetterApp({ fullscreen = false }: { fullscreen?: boolean }) {
               ))}
             </div>
 
-            <Signature reduced={reduced} root={wrapper} />
+            <SignOff reduced={reduced} root={wrapper} />
           </div>
         </div>
       </div>
@@ -285,7 +284,7 @@ function Block({
       <motion.p
         id={anchor}
         {...reveal}
-        className="font-serif text-[clamp(1.8rem,5.4cqi,2.7rem)] leading-[1.06] tracking-[-0.028em] text-ink"
+        className="text-[clamp(1.75rem,5.2cqi,2.6rem)] font-bold leading-[1.05] tracking-[-0.04em] text-ink"
       >
         {block.body}
       </motion.p>
@@ -297,7 +296,7 @@ function Block({
       <motion.blockquote
         id={anchor}
         {...reveal}
-        className="rounded-[10px] bg-[#FFD60A]/12 px-5 py-4 font-serif text-[clamp(1rem,2.5cqi,1.14rem)] italic leading-[1.6] text-muted shadow-[inset_2px_0_0_0_#E6A500]"
+        className="rounded-[10px] bg-[#FFD60A]/12 px-5 py-4 text-[clamp(0.96rem,2.4cqi,1.08rem)] font-medium leading-[1.6] tracking-[-0.008em] text-muted shadow-[inset_2px_0_0_0_#E6A500]"
       >
         <RichText text={block.body} />
       </motion.blockquote>
@@ -309,7 +308,7 @@ function Block({
       <motion.p
         id={anchor}
         {...reveal}
-        className="pt-4 font-serif text-[clamp(1.3rem,3.4cqi,1.7rem)] leading-[1.3] tracking-[-0.015em] text-ink"
+        className="pt-4 text-[clamp(1.3rem,3.4cqi,1.7rem)] font-semibold leading-[1.28] tracking-[-0.028em] text-ink"
       >
         {block.body}
       </motion.p>
@@ -321,22 +320,32 @@ function Block({
       <p className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-faint">
         {block.marginNote}
       </p>
-      <p className="font-serif text-[clamp(1.02rem,2.6cqi,1.2rem)] leading-[1.7] tracking-[-0.005em] text-ink/92">
+      <p className="text-[clamp(0.97rem,2.45cqi,1.11rem)] leading-[1.72] tracking-[-0.009em] text-ink/92">
         <RichText text={block.body} />
       </p>
     </motion.div>
   )
 }
 
-/* ───────────────────────────── signature ───────────────────────────── */
+/* ───────────────────────────── sign-off ───────────────────────────── */
 
-function Signature({
+/**
+ * The close of the letter. In place of a scanned signature it renders the
+ * card Notes would attach: a monogram tile, the sender, and the two lines
+ * anyone would actually use to reply.
+ */
+function SignOff({
   reduced,
   root,
 }: {
   reduced: boolean
   root: React.RefObject<HTMLDivElement | null>
 }) {
+  const initials = profile.name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+
   return (
     <motion.div
       initial={reduced ? undefined : { opacity: 0, y: 16 }}
@@ -345,23 +354,44 @@ function Signature({
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="mt-6"
     >
-      <p className="font-serif text-[clamp(1.3rem,3.4cqi,1.7rem)] leading-[1.3] tracking-[-0.015em] text-ink">
+      <p className="text-[clamp(1.3rem,3.4cqi,1.7rem)] font-semibold leading-[1.28] tracking-[-0.028em] text-ink">
         Yours faithfully,
       </p>
 
-      <Image
-        src={profile.signature}
-        alt={`${profile.name}, signed`}
-        width={220}
-        height={90}
-        className="-ml-1 mt-2 h-auto w-[190px] opacity-85 mix-blend-multiply dark:opacity-90 dark:mix-blend-screen dark:invert"
-      />
+      <div className="mt-4 flex items-center gap-3.5 rounded-[12px] border border-line bg-ink/[0.035] p-3.5">
+        <span
+          aria-hidden="true"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-[14px] font-semibold tracking-[0.02em] text-ink"
+          style={{ background: `${NOTES_YELLOW}1F` }}
+        >
+          {initials}
+        </span>
 
-      <div className="mt-3 border-t border-line pt-3">
-        <p className="text-[13.5px] font-medium text-ink">{profile.name}</p>
-        <p className="text-[12.5px] text-muted">
-          {profile.role}, {profile.company} · {profile.location}
-        </p>
+        <div className="min-w-0">
+          <p className="truncate text-[13.5px] font-medium text-ink">
+            {profile.name} <span className="text-faint">({profile.handle})</span>
+          </p>
+          <p className="text-[12.5px] leading-snug text-muted">
+            {profile.role}, {profile.company} · {profile.location}
+          </p>
+        </div>
+
+        <div className="ml-auto hidden shrink-0 flex-col items-end gap-0.5 @[520px]/note:flex">
+          <a
+            href={`mailto:${profile.email}`}
+            className="font-mono text-[11px] text-muted underline-offset-2 hover:text-ink hover:underline"
+          >
+            {profile.email}
+          </a>
+          <a
+            href={`https://x.com/${profile.handle}`}
+            target="_blank"
+            rel="me noreferrer"
+            className="font-mono text-[11px] text-faint underline-offset-2 hover:text-ink hover:underline"
+          >
+            x.com/{profile.handle}
+          </a>
+        </div>
       </div>
     </motion.div>
   )

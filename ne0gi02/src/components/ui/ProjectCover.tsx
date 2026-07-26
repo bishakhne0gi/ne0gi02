@@ -1,7 +1,7 @@
 import type { Project } from '@/lib/content'
 
 /**
- * Cover art. Every project uses one — no screenshots — so the grid reads as
+ * Cover art. Every project uses one (no screenshots) so the grid reads as
  * a single designed set rather than a wall of mismatched captures.
  *
  * Each cover is a two-stop mesh in its project's tone, overlaid with a
@@ -27,7 +27,7 @@ export function ProjectCover({
   title: string
   id: string
   tone: Project['tone']
-  /** Card size — drops the line field and shrinks the type. */
+  /** Card size: drops the line field and shrinks the type. */
   compact?: boolean
 }) {
   const [from, to, light] = TONES[tone]
@@ -77,7 +77,7 @@ export function ProjectCover({
       <span
         aria-hidden="true"
         className={cnJoin(
-          'pointer-events-none absolute font-serif leading-none text-white/16',
+          'pointer-events-none absolute font-bold leading-none tracking-[-0.04em] text-white/16',
           compact ? '-right-2 -top-7 text-[6.5rem]' : '-right-4 -top-12 text-[11rem]',
         )}
       >
@@ -86,7 +86,7 @@ export function ProjectCover({
 
       <span
         className={cnJoin(
-          'relative font-serif tracking-[-0.02em] text-white drop-shadow-[0_1px_8px_rgba(0,0,0,.25)]',
+          'relative font-semibold tracking-[-0.03em] text-white drop-shadow-[0_1px_8px_rgba(0,0,0,.25)]',
           compact ? 'p-3.5 text-[1.35rem] leading-[1.1]' : 'p-5 text-[2rem] leading-[1.05]',
         )}
       >

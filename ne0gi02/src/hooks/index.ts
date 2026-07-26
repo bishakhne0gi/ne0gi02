@@ -49,7 +49,7 @@ export function useMediaQuery(query: string) {
   )
 }
 
-/** Phones and small tablets — they get a different scene, not a smaller one. */
+/** Phones and small tablets get a different scene, not a smaller one. */
 export function useIsHandheld() {
   return useMediaQuery('(max-width: 819px)')
 }
@@ -63,7 +63,7 @@ export function useReducedMotion() {
 export type Theme = 'light' | 'dark'
 
 /**
- * The `dark` class on <html> is the single source of truth — it is set by the
+ * The `dark` class on <html> is the single source of truth. It is set by the
  * inline script in the document head before first paint, so React only ever
  * reads and toggles it.
  */
@@ -89,7 +89,7 @@ export function useTheme() {
     try {
       localStorage.setItem('theme', next)
     } catch {
-      /* private mode — the choice just won't persist */
+      /* private mode, so the choice just won't persist */
     }
     themeListeners.forEach((listener) => listener())
   }, [])

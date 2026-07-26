@@ -33,11 +33,11 @@ export function GalleryApp() {
     <div className="@container relative h-full overflow-hidden">
       <div className="scroll-area h-full overflow-y-auto p-5 @[560px]:p-7">
         <header className="mb-6 border-b border-line pb-5">
-          <p className="font-serif text-[clamp(1.4rem,4cqi,1.9rem)] leading-tight tracking-[-0.02em] text-ink">
+          <p className="text-[clamp(1.35rem,3.8cqi,1.8rem)] font-semibold leading-tight tracking-[-0.03em] text-ink">
             “{data.caption.quote}”
           </p>
           <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-flame">
-            — {data.caption.attribution}
+            · {data.caption.attribution}
           </p>
         </header>
 

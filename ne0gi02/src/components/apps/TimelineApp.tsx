@@ -94,7 +94,7 @@ function Entry({ entry, index }: { entry: TimelineEntry; index: number }) {
           {entry.year}
         </p>
 
-        <h3 className="mt-1 font-serif text-[clamp(1.1rem,3cqi,1.35rem)] leading-tight tracking-[-0.015em] text-ink">
+        <h3 className="mt-1 text-[clamp(1.05rem,2.9cqi,1.3rem)] font-semibold leading-tight tracking-[-0.022em] text-ink">
           {entry.href ? (
             <a
               href={entry.href}

@@ -33,7 +33,7 @@ const LEVEL_MARK: Record<string, string> = {
 
 /**
  * Skills, presented as what they are: output. The shell is real enough to
- * reward poking at — `help` lists everything it understands.
+ * reward poking at. `help` lists everything it understands.
  */
 export function TerminalApp() {
   const { data, isPending } = useQuery(skillsQuery)
@@ -64,7 +64,7 @@ export function TerminalApp() {
       [`Last login: today on ttys001`, 'dim'],
       ['', 'out'],
       [`$ whoami`, 'cmd'],
-      [`${profile.handle} — ${profile.role}, ${profile.location}`, 'out'],
+      [`${profile.handle} · ${profile.role}, ${profile.location}`, 'out'],
       ['', 'out'],
       [`$ skills --all`, 'cmd'],
       ...data.flatMap(groupToLines),
@@ -130,7 +130,7 @@ export function TerminalApp() {
           break
 
         case 'whoami':
-          push([[`${profile.handle} — ${profile.role}, ${profile.location}`, 'out']])
+          push([[`${profile.handle} · ${profile.role}, ${profile.location}`, 'out']])
           break
 
         case 'contact':

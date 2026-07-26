@@ -50,7 +50,7 @@ export const apps: Record<AppId, AppMeta> = {
   terminal: {
     id: 'terminal',
     name: 'Terminal',
-    title: 'ne0gi02 — zsh — 92×30',
+    title: 'ne0gi02 · zsh · 92×30',
     defaultSize: { w: 700, h: 480 },
     minSize: { w: 360, h: 260 },
     inDock: true,
@@ -60,7 +60,7 @@ export const apps: Record<AppId, AppMeta> = {
   gallery: {
     id: 'gallery',
     name: 'Photos',
-    title: 'Photos — Hall of Fame',
+    title: 'Photos · Hall of Fame',
     defaultSize: { w: 880, h: 600 },
     minSize: { w: 380, h: 320 },
     inDock: true,
@@ -80,7 +80,7 @@ export const apps: Record<AppId, AppMeta> = {
   writing: {
     id: 'writing',
     name: 'Writing',
-    title: 'Writing — from x.com/ne0gi02',
+    title: 'Writing · from x.com/ne0gi02',
     defaultSize: { w: 900, h: 620 },
     minSize: { w: 380, h: 340 },
     inDock: true,

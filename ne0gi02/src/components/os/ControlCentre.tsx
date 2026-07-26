@@ -14,7 +14,7 @@ import { cn } from '@/lib/cn'
 
 /**
  * Control Centre. The toggles are real state, and brightness genuinely
- * dims the desktop — a control that does nothing is worse than no control.
+ * dims the desktop, because a control that does nothing is worse than no control.
  */
 export function ControlCentre({
   brightness,

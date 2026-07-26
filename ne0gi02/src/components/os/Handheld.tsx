@@ -24,7 +24,7 @@ const DOCK_APPS: AppId[] = ['letter', 'projects', 'contact']
 /**
  * A different scene, not a shrunk desktop: an iOS home screen. Apps launch
  * from the grid with the icon-expand transition, and the home indicator
- * takes you back — the interaction model a phone already has.
+ * takes you back, the interaction model a phone already has.
  */
 export function Handheld() {
   const [open, setOpen] = useState<AppId | null>(null)
@@ -59,7 +59,7 @@ export function Handheld() {
               {/* the name plate, where iOS puts its widget */}
               <div className="glass mb-7 rounded-widget p-4">
                 <p className="text-[10.5px] uppercase tracking-[0.16em] text-faint">Currently</p>
-                <p className="mt-1.5 font-serif text-[21px] leading-tight tracking-[-0.02em] text-ink">
+                <p className="mt-1.5 text-[21px] font-semibold leading-tight tracking-[-0.025em] text-ink">
                   {profile.role} at {profile.company}
                 </p>
                 <p className="mt-1 text-[12px] text-muted">
@@ -97,7 +97,7 @@ export function Handheld() {
         </AnimatePresence>
       </div>
 
-      {/* home indicator — swipe target and back button in one */}
+      {/* home indicator: swipe target and back button in one */}
       <div className="flex shrink-0 justify-center pb-[max(0.55rem,env(safe-area-inset-bottom))] pt-2">
         <button
           type="button"

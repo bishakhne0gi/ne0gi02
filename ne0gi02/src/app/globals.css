@@ -49,7 +49,7 @@
   --accent-soft: rgb(38 66 122 / 0.1);
   --flame: #e2603d;
 
-  /* traffic lights — canonical, identical in both themes */
+  /* traffic lights: canonical, identical in both themes */
   --tl-close: #ff5f57;
   --tl-min: #febc2e;
   --tl-max: #28c840;
@@ -123,12 +123,24 @@
   --color-accent-soft: var(--accent-soft);
   --color-flame: var(--flame);
 
-  /* Apple's own faces, taken from the OS — SF Pro, New York, SF Mono.
-     Nothing downloaded; sensible non-Apple fallbacks trail each stack. */
+  /* San Francisco everywhere. No serif face exists in this system any more:
+     chrome and editorial alike are SF Pro, with SF Mono kept only for what
+     needs a fixed advance.
+
+     `-apple-system` leads both stacks so Apple platforms serve the genuine
+     SF from the OS, including its automatic Text→Display optical-size
+     switch above ~20pt, which is why there is no separate display token.
+     The named 'SF Pro …' entries catch Apple browsers that ignore the
+     keyword. Inter then covers everyone else; it is the SF-alike we are
+     actually licensed to serve (see layout.tsx), and it is only ever
+     downloaded on platforms that got past the SF entries. */
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
-    ui-sans-serif, 'Segoe UI', Roboto, system-ui, sans-serif;
-  --font-serif: ui-serif, 'New York', 'Iowan Old Style', 'Apple Garamond', Georgia,
-    'Times New Roman', serif;
+    var(--font-inter), ui-sans-serif, 'Segoe UI', Roboto, system-ui, sans-serif;
+
+  /* Deliberately unset: `font-serif` must not silently resolve to Tailwind's
+     default Georgia stack now that the New York face is gone. */
+  --font-serif: initial;
+
   --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, 'Cascadia Mono',
     'Roboto Mono', monospace;
 
@@ -138,7 +150,7 @@
 
   --radius-window: 11px;
   --radius-panel: 10px;
-  /* macOS widget corner — continuous, and much rounder than a card */
+  /* macOS widget corner: continuous, and much rounder than a card */
   --radius-widget: 22px;
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -154,7 +166,7 @@
   }
 
   html {
-    /* NEVER scroll-behavior: smooth — Lenis owns scroll. */
+    /* NEVER scroll-behavior: smooth. Lenis owns scroll. */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -200,7 +212,7 @@
    Utilities
    ------------------------------------------------------------------ */
 /* ------------------------------------------------------------------
-   Vibrancy — the material everything in this OS is made of.
+   Vibrancy: the material everything in this OS is made of.
 
    Apple's translucency is not one blur. It is a heavy blur, a strong
    saturation lift so colour bleeds through, a 1px inner highlight along
@@ -223,7 +235,7 @@
   box-shadow: inset 0 -0.5px 0 0 var(--glass-edge);
 }
 
-/* The menu bar carries no rule beneath it — it dissolves into the
+/* The menu bar carries no rule beneath it; it dissolves into the
    wallpaper, which is the single clearest tell of a real Mac. */
 @utility menubar {
   background: rgb(0 0 0 / 0.28);
@@ -249,7 +261,7 @@
   box-shadow: inset 0 0.5px 0 0 var(--glass-highlight);
 }
 
-/* Film grain — the texture pass. Applied over the wallpaper, never over text. */
+/* Film grain: the texture pass. Applied over the wallpaper, never over text. */
 @utility grain {
   position: relative;
 }

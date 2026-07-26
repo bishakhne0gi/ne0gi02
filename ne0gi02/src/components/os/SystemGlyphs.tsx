@@ -5,11 +5,11 @@
  * the chrome sits on a real, maintained icon set at one stroke weight. Four
  * marks stay hand-drawn because Lucide can't express them:
  *
- *   - AppleLogo, ControlCentreGlyph — brand marks; Lucide 1.0 removed all of
+ *   - AppleLogo, ControlCentreGlyph: brand marks; Lucide 1.0 removed all of
  *     these upstream and won't accept new ones.
- *   - BatteryGlyph — needs a continuous percentage fill; Lucide only ships
+ *   - BatteryGlyph: needs a continuous percentage fill; Lucide only ships
  *     discrete full/medium/low states.
- *   - AirdropGlyph — no equivalent in the set.
+ *   - AirdropGlyph: no equivalent in the set.
  *
  * Lucide draws on a 24×24 grid at strokeWidth 2. We pull it to 1.8 to match
  * the optical weight of the hand-drawn marks it sits beside.

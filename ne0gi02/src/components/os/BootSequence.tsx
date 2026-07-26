@@ -13,7 +13,7 @@ function shouldBoot() {
     if (sessionStorage.getItem('booted') === '1') return false
     sessionStorage.setItem('booted', '1')
   } catch {
-    /* private mode — boot every time, which is harmless */
+    /* private mode, so it boots every time, which is harmless */
   }
   return true
 }
@@ -21,7 +21,7 @@ function shouldBoot() {
 /**
  * The cold boot, staged exactly like a Mac starting up: pure black, the
  * mark centred and slightly above middle, the thin determinate bar beneath.
- * Always black regardless of theme — a machine powering on has no
+ * Always black regardless of theme, because a machine powering on has no
  * appearance preference yet.
  *
  * The mark arrives via a mask wipe rather than a fade, so it reads as

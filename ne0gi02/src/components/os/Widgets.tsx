@@ -9,7 +9,7 @@ import { prefetchApp } from '@/lib/queries'
 import { useClock, useReducedMotion } from '@/hooks'
 
 /**
- * The widget column, in macOS's Notification Centre position — right edge,
+ * The widget column, in macOS's Notification Centre position: right edge,
  * under the menu bar. Widgets are 22px-cornered glass plates on a single
  * column grid, and the ones that show live state actually track it.
  */
@@ -153,7 +153,7 @@ function StatsWidget() {
       <p className="text-[10.5px] uppercase tracking-[0.16em] text-faint">The record</p>
 
       <motion.div key={stat.value} initial={reduced ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
-        <p className="font-serif text-[34px] leading-none tracking-[-0.03em] text-ink">
+        <p className="text-[34px] font-semibold leading-none tracking-[-0.04em] text-ink">
           {stat.value}
         </p>
         <p className="mt-1 text-[12.5px] leading-tight text-ink">{stat.label}</p>
@@ -195,7 +195,7 @@ function NowWidget() {
         <p className="text-[10.5px] uppercase tracking-[0.16em] text-faint">Currently</p>
       </div>
 
-      <p className="mt-2.5 font-serif text-[19px] leading-[1.15] tracking-[-0.02em] text-ink">
+      <p className="mt-2.5 text-[19px] font-semibold leading-[1.15] tracking-[-0.025em] text-ink">
         {profile.role} at {profile.company}
       </p>
       <p className="mt-1.5 text-[11.5px] leading-snug text-muted">

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useSystem } from '@/lib/system-store'
 
 /**
- * The desk — literally. The wallpaper is a photograph of the desk this was
+ * The desk, literally. The wallpaper is a photograph of the desk this was
  * written at, with VectorDrop open on the monitor, which is as close as a
  * portfolio gets to showing its own working.
  *
@@ -26,7 +26,7 @@ export function Wallpaper() {
         className="object-cover object-center"
       />
 
-      {/* legibility scrim — heavier in dark, barely there in light */}
+      {/* legibility scrim, heavier in dark, barely there in light */}
       <div className="absolute inset-0 bg-black/22" />
 
       {/* the warm bloom from the desk lamp, pushed further */}
@@ -57,7 +57,7 @@ export function Wallpaper() {
         }}
       />
 
-      {/* Control Centre brightness — a real dim, not a decoration. */}
+      {/* Control Centre brightness: a real dim, not a decoration. */}
       <div
         className="absolute inset-0 bg-black transition-opacity duration-300"
         style={{ opacity: (100 - brightness) / 145 }}

@@ -33,7 +33,7 @@ export function Desktop() {
     if (viewport) layout(viewport)
   }, [viewport, layout])
 
-  /* The letter is the front door — open it as the boot completes. */
+  /* The letter is the front door, so open it as the boot completes. */
   const onBooted = useCallback(() => setBooted(true), [])
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function Desktop() {
     openApp('letter')
   }, [booted, laidOut, openApp, queryClient])
 
-  /* ⌘W closes, ⌘M minimises — the two shortcuts people actually try. */
+  /* ⌘W closes, ⌘M minimises: the two shortcuts people actually try. */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (!(e.metaKey || e.ctrlKey) || !focused) return

@@ -1,6 +1,7 @@
 import { Wallpaper } from '@/components/os/Wallpaper'
 import { Shell } from '@/components/os/Shell'
 import { letter, profile, projects, timeline, writing } from '@/lib/content'
+import { jsonLd } from '@/lib/seo'
 
 /** Strip the letter's inline syntax down to plain prose. */
 function plain(text: string) {
@@ -13,6 +14,16 @@ function plain(text: string) {
 export default function Home() {
   return (
     <>
+      {/* Person, WebSite and the work itself, so a rich result quotes facts. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          // Static content from src/lib/content.ts; `<` is still escaped so a
+          // stray tag in the copy can never close this script early.
+          __html: JSON.stringify(jsonLd()).replace(/</g, '\\u003c'),
+        }}
+      />
+
       <Wallpaper />
       <Shell />
 
@@ -24,7 +35,7 @@ export default function Home() {
       */}
       <div className="sr-only">
         <h1>
-          {profile.name} — {profile.role} at {profile.company}
+          {profile.name}, {profile.role} at {profile.company}
         </h1>
         <p>
           {profile.handle} · {profile.location} ·{' '}
@@ -66,7 +77,7 @@ export default function Home() {
             {timeline.map((entry) => (
               <li key={entry.id}>
                 <h3>
-                  {entry.year} — {entry.title}, {entry.org}
+                  {entry.year}: {entry.title}, {entry.org}
                 </h3>
                 {entry.detail && <p>{entry.detail}</p>}
                 {entry.bullets?.map((b) => <p key={b}>{b}</p>)}

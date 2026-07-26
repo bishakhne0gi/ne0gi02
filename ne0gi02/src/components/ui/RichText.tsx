@@ -6,7 +6,7 @@ import { useWindows } from '@/lib/window-store'
 import type { AppId } from '@/lib/content'
 
 /**
- * The letter's inline syntax. Deliberately tiny — three rules, no dependency:
+ * The letter's inline syntax. Deliberately tiny: three rules, no dependency:
  *
  *   **bold**            → semibold
  *   *italic*            → italic

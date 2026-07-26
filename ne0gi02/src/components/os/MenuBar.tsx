@@ -182,7 +182,7 @@ function Menu({
         aria-haspopup="menu"
         aria-expanded={isOpen}
         onClick={() => setPopover(isOpen ? null : id)}
-        // Once one menu is open, sliding across the bar opens the next —
+        // Once one menu is open, sliding across the bar opens the next,
         // exactly how the real menu bar behaves.
         onPointerEnter={() => popover && popover !== 'cc' && setPopover(id)}
         className={cn(

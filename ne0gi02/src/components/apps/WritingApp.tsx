@@ -21,7 +21,7 @@ const KIND_TONE: Record<Piece['kind'], string> = {
 }
 
 /**
- * Writing — the build-in-public posts and articles from x.com/ne0gi02,
+ * Writing: the build-in-public posts and articles from x.com/ne0gi02,
  * staged as a reader: a list of pieces on the left, the piece on the right.
  */
 export function WritingApp({ fullscreen = false }: { fullscreen?: boolean }) {
@@ -94,7 +94,7 @@ export function WritingApp({ fullscreen = false }: { fullscreen?: boolean }) {
                   {KIND_LABEL[selected.kind]} · {selected.date}
                 </p>
 
-                <h2 className="mt-3 font-serif text-[clamp(1.6rem,4.4cqi,2.3rem)] leading-[1.1] tracking-[-0.025em] text-ink">
+                <h2 className="mt-3 text-[clamp(1.6rem,4.4cqi,2.3rem)] font-bold leading-[1.08] tracking-[-0.035em] text-ink">
                   {selected.title}
                 </h2>
 
@@ -102,7 +102,7 @@ export function WritingApp({ fullscreen = false }: { fullscreen?: boolean }) {
                   {selected.body.map((para) => (
                     <p
                       key={para.slice(0, 24)}
-                      className="font-serif text-[clamp(1rem,2.5cqi,1.16rem)] leading-[1.7] text-ink/92"
+                      className="text-[clamp(0.96rem,2.4cqi,1.09rem)] leading-[1.72] tracking-[-0.008em] text-ink/92"
                     >
                       {para}
                     </p>

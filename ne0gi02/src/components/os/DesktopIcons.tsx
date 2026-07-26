@@ -10,7 +10,7 @@ import { useWindows } from '@/lib/window-store'
 import { cn } from '@/lib/cn'
 import type { AppId } from '@/lib/content'
 
-/** The desktop's invisible grid — icons snap to it, as they do in Finder. */
+/** The desktop's invisible grid: icons snap to it, as they do in Finder. */
 const GRID_X = 96
 const GRID_Y = 92
 const ORIGIN = { x: 20, y: 38 }
@@ -37,7 +37,7 @@ export function DesktopIcons() {
   const shortcuts = APP_ORDER.filter((id) => apps[id].onDesktop)
 
   const [selected, setSelected] = useState<AppId | null>(null)
-  // Read during the first render — this only ever runs on the client, since
+  // Read during the first render. This only ever runs on the client, since
   // the whole desktop is mounted after hydration.
   const [positions, setPositions] = useState<Positions>(readPositions)
   const [dragging, setDragging] = useState<AppId | null>(null)
@@ -51,7 +51,7 @@ export function DesktopIcons() {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify(next))
     } catch {
-      /* private mode — the arrangement just won't survive a reload */
+      /* private mode, so the arrangement just won't survive a reload */
     }
   }, [])
 

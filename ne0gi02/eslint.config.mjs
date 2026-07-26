@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint'
 /**
  * Flat config using the Next and react-hooks plugins directly.
  * `eslint-config-next`'s legacy entrypoint pulls in @rushstack/eslint-patch,
- * which does not work under ESLint 9's flat resolution — so it is bypassed.
+ * which does not work under ESLint 9's flat resolution, so it is bypassed.
  */
 export default [
   { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts'] },

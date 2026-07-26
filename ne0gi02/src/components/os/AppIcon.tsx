@@ -4,7 +4,7 @@ import type { AppId } from '@/lib/content'
  * App icons drawn in Apple's icon language rather than imported: a
  * superellipse plate, a vertical gradient, a specular highlight across the
  * top third, and a hairline edge. Each one quotes the macOS app it stands
- * in for — Notes, Finder, Calendar, Terminal, Photos, Contacts, Mail.
+ * in for: Notes, Finder, Calendar, Terminal, Photos, Contacts, Mail.
  */
 
 const SQUIRCLE =
@@ -21,7 +21,7 @@ function Plate({
   from: string
   to: string
   children: React.ReactNode
-  /** Skip the gloss — for icons that are mostly white paper. */
+  /** Skip the gloss, for icons that are mostly white paper. */
   flat?: boolean
 }) {
   return (
@@ -55,7 +55,7 @@ function Plate({
   )
 }
 
-/* ── Notes — the letter lives here ── */
+/* ── Notes: the letter lives here ── */
 function NotesIcon() {
   return (
     <Plate id="ic-notes" from="#FFE082" to="#FCC419" flat>
@@ -71,7 +71,7 @@ function NotesIcon() {
         <path d="M14 64h72" />
         <path d="M14 78h48" />
       </g>
-      {/* the one ink mark — a signature flick */}
+      {/* the one ink mark, a single flick */}
       <path
         d="M58 82c6-4 11-2 14 1"
         fill="none"
@@ -83,7 +83,7 @@ function NotesIcon() {
   )
 }
 
-/* ── Finder — the attachments ── */
+/* ── Finder: the attachments ── */
 function FinderIcon() {
   return (
     <Plate id="ic-finder" from="#37B4F6" to="#0E7FD4">
@@ -107,7 +107,7 @@ function FinderIcon() {
   )
 }
 
-/* ── Calendar — the curriculum ── */
+/* ── Calendar: the curriculum ── */
 function CalendarIcon() {
   return (
     <Plate id="ic-cal" from="#FFFFFF" to="#EDEDF0" flat>
@@ -119,7 +119,7 @@ function CalendarIcon() {
         fontSize="15"
         fontWeight="600"
         letterSpacing="1"
-        fontFamily="-apple-system, system-ui, sans-serif"
+        fontFamily="var(--font-sans)"
         fill="#fff"
       >
         CV
@@ -130,7 +130,7 @@ function CalendarIcon() {
         textAnchor="middle"
         fontSize="52"
         fontWeight="300"
-        fontFamily="-apple-system, system-ui, sans-serif"
+        fontFamily="var(--font-sans)"
         fill="#1F2933"
       >
         9
@@ -164,7 +164,7 @@ function TerminalIcon() {
   )
 }
 
-/* ── Photos — the pinwheel ── */
+/* ── Photos: the pinwheel ── */
 function PhotosIcon() {
   const petals = [
     { r: -90, c: '#F6C445' },
@@ -196,7 +196,7 @@ function PhotosIcon() {
   )
 }
 
-/* ── Contacts — the about plate ── */
+/* ── Contacts: the about plate ── */
 function ContactsIcon() {
   return (
     <Plate id="ic-contacts" from="#FDFBF6" to="#E6E1D6" flat>
@@ -216,7 +216,7 @@ function ContactsIcon() {
   )
 }
 
-/* ── Writing — a News-style plate, the masthead over ruled columns ── */
+/* ── Writing: a News-style plate, the masthead over ruled columns ── */
 function WritingIcon() {
   return (
     <Plate id="ic-writing" from="#FFFFFF" to="#EDEDF0" flat>
@@ -226,7 +226,9 @@ function WritingIcon() {
         y="22"
         textAnchor="middle"
         fontSize="19"
-        fontFamily="ui-serif, 'New York', Georgia, serif"
+        fontWeight="600"
+        letterSpacing="-0.4"
+        fontFamily="var(--font-sans)"
         fill="#fff"
       >
         ne0

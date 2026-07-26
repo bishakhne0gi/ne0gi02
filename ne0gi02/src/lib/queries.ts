@@ -21,7 +21,7 @@ async function get<T>(path: string): Promise<T> {
 /**
  * Content is immutable per deploy, so nothing ever goes stale at runtime.
  * Queries exist to keep each window's payload lazy and independently
- * suspendable — open Terminal.app and only the skills payload is fetched.
+ * suspendable: open Terminal.app and only the skills payload is fetched.
  */
 const forever = { staleTime: Infinity, gcTime: Infinity } as const
 
@@ -73,7 +73,7 @@ export const galleryQuery = queryOptions({
 })
 
 /**
- * Dock/desktop hover prefetch — a window's payload is warm before it opens.
+ * Dock/desktop hover prefetch: a window's payload is warm before it opens.
  * A switch rather than a lookup table so each branch keeps its own generics.
  */
 export function prefetchApp(client: QueryClient, id: AppId): Promise<void> {

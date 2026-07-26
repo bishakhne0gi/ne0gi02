@@ -69,7 +69,7 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
           <div className="my-3 h-px bg-line" />
 
           <p className="px-2.5 pb-1.5 text-[10.5px] uppercase tracking-[0.16em] text-faint">
-            Earlier — hackathons
+            Earlier: hackathons
           </p>
           <ul className="space-y-px">
             {data.experiments.map((e) => (
@@ -125,7 +125,7 @@ export function ProjectsApp({ fullscreen = false }: { fullscreen?: boolean }) {
               {fullscreen && (
                 <div className="mt-8 border-t border-line pt-5">
                   <p className="pb-2 text-[10.5px] uppercase tracking-[0.16em] text-faint">
-                    Earlier — hackathons
+                    Earlier: hackathons
                   </p>
                   <ul className="space-y-2">
                     {data.experiments.map((e) => (
@@ -192,7 +192,7 @@ function Card({
 
       <div className="space-y-1.5 p-3.5">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="truncate font-serif text-[18px] leading-none tracking-[-0.015em] text-ink">
+          <h3 className="truncate text-[17px] font-semibold leading-none tracking-[-0.022em] text-ink">
             {project.title}
           </h3>
           <span className="shrink-0 font-mono text-[11px] text-faint">{project.year}</span>
@@ -232,7 +232,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
       </div>
 
       <header className="mt-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="font-serif text-[clamp(1.6rem,4cqi,2.1rem)] leading-none tracking-[-0.025em] text-ink">
+        <h2 className="text-[clamp(1.6rem,4cqi,2.1rem)] font-bold leading-none tracking-[-0.035em] text-ink">
           {project.title}
         </h2>
         <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-faint">
@@ -244,7 +244,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         <div className="mt-5 grid grid-cols-3 gap-3 border-y border-line py-4">
           {project.metrics.map((m) => (
             <div key={m.label}>
-              <p className="font-serif text-[clamp(1.2rem,3cqi,1.6rem)] leading-none tracking-[-0.02em] text-ink">
+              <p className="text-[clamp(1.2rem,3cqi,1.6rem)] font-semibold leading-none tracking-[-0.03em] text-ink">
                 {m.value}
               </p>
               <p className="mt-1 text-[11.5px] leading-tight text-muted">{m.label}</p>

@@ -68,7 +68,7 @@ export function AboutApp() {
           />
         </motion.div>
 
-        <h2 className="mt-4 font-serif text-[clamp(1.7rem,5cqi,2.2rem)] leading-none tracking-[-0.025em] text-ink">
+        <h2 className="mt-4 text-[clamp(1.7rem,5cqi,2.2rem)] font-bold leading-none tracking-[-0.035em] text-ink">
           {data.name}
         </h2>
 

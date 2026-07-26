@@ -1,8 +1,8 @@
-# ne0gi02 — a portfolio, written as a letter
+# ne0gi02 · a portfolio, written as a letter
 
 A personal site staged as a macOS desktop. The centrepiece is **Letter.app**: the
-portfolio written as an actual letter — *Dear Sir/Ma'am* → *Thanking you* →
-*Yours faithfully* — with inline "attachments" that open the other windows.
+portfolio written as an actual letter: *Dear Sir/Ma'am* → *Thanking you* →
+*Yours faithfully*, with inline "attachments" that open the other windows.
 
 ```
 pnpm install
@@ -31,7 +31,7 @@ Valid link targets are the `AppId` values: `letter`, `projects`, `timeline`,
 
 ### Projects
 
-Leave `images: []` and a typographic cover is generated from the project's id —
+Leave `images: []` and a typographic cover is generated from the project's id.
 no placeholder screenshots needed. Set `featured: true` to pin a project first
 and give it a double-width card.
 
@@ -41,18 +41,18 @@ and give it a double-width card.
 src/
   app/          route handlers (/api/*), layout, page, design tokens
   components/
-    os/         the desktop itself — menu bar, dock, window manager, boot
+    os/         the desktop itself: menu bar, dock, window manager, boot
     apps/       one component per window
     ui/         shared pieces (rich text, covers, icons, states)
   lib/          content, app registry, window store, query definitions
   hooks/        media queries, theme, clock, viewport
 ```
 
-- **Window manager** — Zustand (`src/lib/window-store.ts`). Windows drag,
+- **Window manager**: Zustand (`src/lib/window-store.ts`). Windows drag,
   resize, stack, minimise, maximise, and answer to ⌘W / ⌘M.
-- **Data** — every window fetches only its own payload, prefetched on dock
+- **Data**: every window fetches only its own payload, prefetched on dock
   hover so content is warm before the window opens.
-- **Scroll** — Lenis, scoped to the letter's own container. Never
+- **Scroll**: Lenis, scoped to the letter's own container. Never
   `scroll-behavior: smooth`.
 
 ## Design decisions worth keeping
@@ -61,13 +61,26 @@ src/
   New York, SF Mono. No font request, no FOUT, no CDN.
 - **Two scenes, not one.** Phones get a fullscreen app with a tab bar
   (`Handheld.tsx`), not a shrunken desktop.
-- **The boot screen is always black**, regardless of theme — a machine
+- **The boot screen is always black**, regardless of theme, because a machine
   powering on has no appearance preference yet.
 - **Everything is mirrored as plain semantic HTML** in `page.tsx` for crawlers,
   no-JS visitors, and screen readers that would rather not drive a window
   manager.
-- **`prefers-reduced-motion` is honoured everywhere** — boot is skipped,
+- **`prefers-reduced-motion` is honoured everywhere**: boot is skipped,
   Lenis is not started, reveals resolve instantly.
+
+## Search and share
+
+- **`src/lib/seo.ts`** holds the origin, the copy every crawler reads, and the
+  JSON-LD graph (Person, WebSite, ProfilePage, one CreativeWork per project and
+  one BlogPosting per piece of writing). Set `NEXT_PUBLIC_SITE_URL` to point a
+  deployment at its own origin; production defaults to `https://ne0gi02.dev`.
+- **`src/lib/og.tsx`** draws the share card: the same window the site opens
+  with, rendered by `next/og`. `/api/og?title=…&subtitle=…&eyebrow=…` renders it
+  per request, so any project or window can carry its own preview;
+  `app/opengraph-image.tsx` and `app/twitter-image.tsx` serve the default.
+- **`robots.ts`, `sitemap.ts` and `manifest.ts`** are generated from the same
+  constants, so there is one place to change the domain.
 
 ## Commands
 

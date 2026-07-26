@@ -52,7 +52,7 @@ export function Dock() {
           <DockItem key={id} id={id} pointerX={pointerX} reduced={reduced} />
         ))}
 
-        {/* the bin — closes every open window, which is the only honest
+        {/* the bin, which closes every open window, which is the only honest
             thing a bin can do in a portfolio */}
         <span className="mx-0.5 h-[42px] w-px self-end bg-white/16" />
         <BinItem pointerX={pointerX} reduced={reduced} full={order.length > 0} onClick={closeAll} />
@@ -61,7 +61,7 @@ export function Dock() {
   )
 }
 
-/** Shared magnification maths — distance from the cursor drives the size. */
+/** Shared magnification maths: distance from the cursor drives the size. */
 function useMagnify(
   ref: React.RefObject<HTMLElement | null>,
   pointerX: MotionValue<number>,
@@ -122,7 +122,7 @@ function DockItem({
   return (
     <motion.div
       // The wrapper owns the width so neighbours slide apart, but its height
-      // is fixed — the icon grows upward, out of the dock.
+      // is fixed, so the icon grows upward, out of the dock.
       style={{ width }}
       className="group/dock relative flex h-[52px] shrink-0 justify-center"
     >

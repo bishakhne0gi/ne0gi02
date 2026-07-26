@@ -32,7 +32,6 @@ export interface Profile {
   origin: string
   avatar: string
   banner: string
-  signature: string
   resumeUrl: string
   email: string
   /** Rotating subtitles under the name in About. */
@@ -58,9 +57,8 @@ export const profile: Profile = {
   location: 'Bengaluru, India',
   origin: 'Kolkata, West Bengal',
   avatar: '/assets/avatar.png',
-  /** The CosX desk, from the LinkedIn cover — used as the About banner. */
+  /** The CosX desk, from the LinkedIn cover, used as the About banner. */
   banner: '/assets/cosx-desk.jpg',
-  signature: '/assets/sign.png',
   resumeUrl:
     'https://drive.google.com/file/d/1A4EeEkMIh0E2SIVDm8qxhn7rUNGuCyia/view?usp=drive_link',
   email: 'neogibishakh@gmail.com',
@@ -68,7 +66,7 @@ export const profile: Profile = {
     'Founding Engineer at CosX AI',
     'Forward Deployed Engineer',
     'Building VectorDrop',
-    'LeetCode Knight — top 5.42%',
+    'LeetCode Knight, top 5.42%',
     '3× MLH Hackathon Winner',
   ],
   socials: [
@@ -122,31 +120,31 @@ export const letter: LetterBlock[] = [
     id: 'intro',
     kind: 'paragraph',
     marginNote: '01 · the opening',
-    body: `I am writing to introduce myself. My name is **Bishakh Neogi** — most of the internet knows me as *ne0gi02* — and I am the founding engineer at **CosX AI**. This letter is my portfolio. I could have given you a grid of cards and a scroll bar, but a letter felt more honest: it has a beginning, it asks for your attention, and it ends with a signature.`,
+    body: `I am writing to introduce myself. My name is **Bishakh Neogi**, though most of the internet knows me as *ne0gi02*, and I am the founding engineer at **CosX AI**. This letter is my portfolio. I could have given you a grid of cards and a scroll bar, but a letter felt more honest: it has a beginning, it asks for your attention, and it ends with a proper sign-off.`,
   },
   {
     id: 'origin',
     kind: 'paragraph',
     marginNote: '02 · where it began',
-    body: `I started the way most of us do — a text editor, a browser, and far too many tabs. Somewhere between the first div that refused to centre and the first server that actually responded, it stopped being homework and started being the thing I did on weekends. Four years later that habit had turned into a **Knight badge on LeetCode** — top 5.42% of 545,539, nine hundred problems deep — and three MLH hackathon wins. The full ledger is in [[the timeline|timeline]].`,
+    body: `I started the way most of us do, with a text editor, a browser, and far too many tabs. Somewhere between the first div that refused to centre and the first server that actually responded, it stopped being homework and started being the thing I did on weekends. Four years later that habit had turned into a **Knight badge on LeetCode**, top 5.42% of 545,539, nine hundred problems deep, and three MLH hackathon wins. The full ledger is in [[the timeline|timeline]].`,
   },
   {
     id: 'now',
     kind: 'paragraph',
     marginNote: '03 · what I actually do',
-    body: `At CosX I am a founding and forward-deployed engineer, which in practice means I am handed a client, a deadline, and a problem nobody has scoped yet. **Ten production applications** so far, across retail, fintech, healthcare and manufacturing. I took Signzy's platform from a Lighthouse score of **72 to 95** for a four-million-user base. I built an on-chain staking and vesting app on Aptos that sat at **#1 on Petra Wallet two months running** at 100K MAU. And I own a national NGO donation platform that now moves **₹4,00,000+ a month in recurring donations with zero payment failures** — which is the number I am proudest of, because nobody notices it working.`,
+    body: `At CosX I am a founding and forward-deployed engineer, which in practice means I am handed a client, a deadline, and a problem nobody has scoped yet. **Ten production applications** so far, across retail, fintech, healthcare and manufacturing. I took Signzy's platform from a Lighthouse score of **72 to 95** for a four-million-user base. I built an on-chain staking and vesting app on Aptos that sat at **#1 on Petra Wallet two months running** at 100K MAU. And I own a national NGO donation platform that now moves **₹4,00,000+ a month in recurring donations with zero payment failures**, which is the number I am proudest of, because nobody notices it working.`,
   },
   {
     id: 'range',
     kind: 'paragraph',
     marginNote: '04 · the range',
-    body: `The work does not sit in one language. There is **Rust** for a DeFi client's portfolio and wallet-aggregation services; **Python and FastAPI** automating GST e-invoicing for Thomas Scott, parsing purchase orders into NIC IRP v1.1-compliant JSON and saving them **₹2,00,000 a month** of manual work; and a multi-tenant retail analytics product in React with virtualised infinite-scroll grids, RBAC, and AI SKU tooling for Thomas Scott and Manyavar. The complete inventory is in [[the terminal|terminal]] — a list of skills should look like what it is: output.`,
+    body: `The work does not sit in one language. There is **Rust** for a DeFi client's portfolio and wallet-aggregation services; **Python and FastAPI** automating GST e-invoicing for Thomas Scott, parsing purchase orders into NIC IRP v1.1-compliant JSON and saving them **₹2,00,000 a month** of manual work; and a multi-tenant retail analytics product in React with virtualised infinite-scroll grids, RBAC, and AI SKU tooling for Thomas Scott and Manyavar. The complete inventory is in [[the terminal|terminal]], because a list of skills should look like what it is: output.`,
   },
   {
     id: 'mine',
     kind: 'paragraph',
     marginNote: '05 · the one that is mine',
-    body: `On my own time I built and shipped **VectorDrop**, now serving 500+ users. It turns any image into an editable vector in seconds — colour quantisation, mask tracing and path assembly, with content-hash caching so a repeat upload costs nothing. It has an in-browser path editor, a programmatic SEO layer, Claude-backed icon generation, SVG sanitisation against XSS, and a test suite. Solo, end to end. [[Open the attachments|projects]] and judge it yourself.`,
+    body: `On my own time I built and shipped **VectorDrop**, now serving 500+ users. It turns any image into an editable vector in seconds: colour quantisation, mask tracing and path assembly, with content-hash caching so a repeat upload costs nothing. It has an in-browser path editor, a programmatic SEO layer, Claude-backed icon generation, SVG sanitisation against XSS, and a test suite. Solo, end to end. [[Open the attachments|projects]] and judge it yourself.`,
   },
   {
     id: 'aside',
@@ -157,13 +155,13 @@ export const letter: LetterBlock[] = [
     id: 'people',
     kind: 'paragraph',
     marginNote: '06 · the people',
-    body: `None of it happened alone. Hackathons are won by teams that can argue at 3 a.m. and still ship by nine, and I have since been on the other side of the table — the youngest mentor and judge at IISER Kolkata, judging 400+ teams. There are photographs, badly lit and entirely sincere, in [[the gallery|gallery]].`,
+    body: `None of it happened alone. Hackathons are won by teams that can argue at 3 a.m. and still ship by nine, and I have since been on the other side of the table, as the youngest mentor and judge at IISER Kolkata, judging 400+ teams. There are photographs, badly lit and entirely sincere, in [[the gallery|gallery]].`,
   },
   {
     id: 'ask',
     kind: 'paragraph',
     marginNote: '07 · the ask',
-    body: `So: I am looking for work where the craft matters, on a team that reviews each other honestly, and where somebody cares whether the donation actually went through. If that describes where you are, I would very much like to talk. The fastest route is [[a reply|contact]] — the compose window is already open.`,
+    body: `So: I am looking for work where the craft matters, on a team that reviews each other honestly, and where somebody cares whether the donation actually went through. If that describes where you are, I would very much like to talk. The fastest route is [[a reply|contact]], and the compose window is already open.`,
   },
   {
     id: 'thanks',
@@ -174,7 +172,7 @@ export const letter: LetterBlock[] = [
 
 /* ───────────────────────────── projects ─────────────────────────────
  *
- *  `images` is intentionally empty across the board — each project gets a
+ *  `images` is intentionally empty across the board, because each project gets a
  *  generated cover keyed to its `tone`, which reads as one designed set
  *  rather than a wall of mismatched screenshots.
  */
@@ -210,7 +208,7 @@ export const projects: Project[] = [
     featured: true,
     blurb: 'Any image into an editable vector, in seconds.',
     description:
-      'Built and shipped solo. A colour-quantisation, mask-tracing and path-assembly pipeline (sharp, potrace, SVGO) that returns editable, low-anchor-count vectors in seconds, with content-hash caching so a repeat upload costs nothing. Ships an in-browser path and layer editor and a programmatic SEO layer across four templated route families. The backend is built around Clerk auth with a webhook-driven dev-to-prod user remap, Postgres, Redis rate limiting, and Claude-backed image analysis and icon generation — hardened with SVG sanitisation against XSS and a strict CSP, covered by Vitest unit and Playwright end-to-end tests.',
+      'Built and shipped solo. A colour-quantisation, mask-tracing and path-assembly pipeline (sharp, potrace, SVGO) that returns editable, low-anchor-count vectors in seconds, with content-hash caching so a repeat upload costs nothing. Ships an in-browser path and layer editor and a programmatic SEO layer across four templated route families. The backend is built around Clerk auth with a webhook-driven dev-to-prod user remap, Postgres, Redis rate limiting, and Claude-backed image analysis and icon generation, hardened with SVG sanitisation against XSS and a strict CSP, covered by Vitest unit and Playwright end-to-end tests.',
     metrics: [
       { value: '500+', label: 'users' },
       { value: 'seconds', label: 'per conversion' },
@@ -291,7 +289,7 @@ export const projects: Project[] = [
     tone: 'amber',
     blurb: '₹2,00,000 a month of manual work, removed.',
     description:
-      'Automated dispatch and GST e-invoicing for Thomas Scott in Python and FastAPI over Postgres — parsing purchase orders and packing lists into a four-sheet workbook and NIC IRP v1.1-compliant e-invoice JSON. It replaced roughly ₹200,000 per month of manual operations.',
+      'Automated dispatch and GST e-invoicing for Thomas Scott in Python and FastAPI over Postgres, parsing purchase orders and packing lists into a four-sheet workbook and NIC IRP v1.1-compliant e-invoice JSON. It replaced roughly ₹200,000 per month of manual operations.',
     metrics: [
       { value: '₹2L', label: 'saved monthly' },
       { value: 'v1.1', label: 'NIC IRP compliant' },
@@ -308,7 +306,7 @@ export const projects: Project[] = [
     tone: 'lime',
     blurb: 'Virtualised grids and AI SKU tooling at catalogue scale.',
     description:
-      'A multi-tenant retail analytics product in React and TanStack Query, with virtualised infinite-scroll grids over very large catalogues, RBAC, and CSV/XLSX export — plus AI SKU and trend-heatmap tooling that drove inventory decisions from product performance and material-cost constraints. Delivered for Thomas Scott and Manyavar.',
+      'A multi-tenant retail analytics product in React and TanStack Query, with virtualised infinite-scroll grids over very large catalogues, RBAC, and CSV/XLSX export, plus AI SKU and trend-heatmap tooling that drove inventory decisions from product performance and material-cost constraints. Delivered for Thomas Scott and Manyavar.',
     metrics: [
       { value: 'multi-tenant', label: 'architecture' },
       { value: 'virtualised', label: 'at catalogue scale' },
@@ -323,22 +321,22 @@ export const projects: Project[] = [
 export const experiments: { title: string; note: string; href: string }[] = [
   {
     title: 'Tenderflow',
-    note: 'Winner — Postman · Hack4Bengal 2.0',
+    note: 'Winner, Postman track · Hack4Bengal 2.0',
     href: 'https://github.com/bishakhne0gi/TenderFloww',
   },
   {
     title: 'Ledged',
-    note: 'Winner — 5ire · Diversion 2k23',
+    note: 'Winner, 5ire track · Diversion 2k23',
     href: 'https://github.com/bishakhne0gi/Ledged',
   },
   {
     title: 'HypeTheHike',
-    note: 'Winner — Arcana · Hack The Mountains 3.0',
+    note: 'Winner, Arcana track · Hack The Mountains 3.0',
     href: 'https://github.com/bishakhne0gi/Hype-The-Hike',
   },
   {
     title: 'Solguide',
-    note: 'Top 50 — Appwrite Hackathon',
+    note: 'Top 50, Appwrite Hackathon',
     href: 'https://github.com/bishakhne0gi/Appwrite-1',
   },
   {
@@ -369,17 +367,17 @@ export interface TimelineEntry {
 export const timeline: TimelineEntry[] = [
   {
     id: 'cosx',
-    year: 'Apr 2024 — Present',
+    year: 'Apr 2024 – Present',
     kind: 'work',
     title: 'Founding Engineer · Forward Deployed Engineer',
-    org: 'CosX AI — Bengaluru',
+    org: 'CosX AI, Bengaluru',
     bullets: [
       'Shipped 10 production applications across retail, fintech, healthcare and manufacturing.',
       'Raised Signzy’s Lighthouse performance from 72 to 95 for a 4M MAU user base.',
-      '#1 application on Petra Wallet for 2 consecutive months — on-chain staking, voting and vesting on Aptos, 100K MAU.',
+      '#1 application on Petra Wallet for 2 consecutive months, on-chain staking, voting and vesting on Aptos, 100K MAU.',
       'Owned a national NGO donation platform processing ₹400,000+ per month with zero payment failures.',
       'Automated GST e-invoicing in Python/FastAPI, saving ₹200,000 per month of manual operations.',
-      'Wrote Rust services for a DeFi trading client — portfolio aggregation, IAM lifecycle, webhook observability.',
+      'Wrote Rust services for a DeFi trading client: portfolio aggregation, IAM lifecycle, webhook observability.',
     ],
     href: 'https://cosx.ai',
   },
@@ -396,17 +394,17 @@ export const timeline: TimelineEntry[] = [
     id: 'leetcode',
     year: '2025',
     kind: 'recognition',
-    title: 'Knight Badge — top 5.42%',
+    title: 'Knight Badge, top 5.42%',
     org: 'LeetCode',
     detail: 'Among 545,539 participants. 900 problems solved.',
     href: 'https://leetcode.com/ne0gi02/',
   },
   {
     id: 'cardiocare',
-    year: 'Jan 2023 — Dec 2023',
+    year: 'Jan 2023 – Dec 2023',
     kind: 'work',
     title: 'Frontend Developer',
-    org: 'Cardiocare & VNG — Remote',
+    org: 'Cardiocare & VNG, Remote',
     detail:
       'Led frontend development of 3 web apps in Next.js and Firebase, driving a 25% increase in user engagement and 15% revenue growth.',
   },
@@ -417,7 +415,7 @@ export const timeline: TimelineEntry[] = [
     title: '3× MLH Hackathon Winner',
     org: 'Hack4Bengal 2.0 · Diversion 2k23 · Hack The Mountains 3.0',
     detail:
-      'Winner of the Postman, Google Cloud and Flow Blockchain tracks at Hack4Bengal 2.0 — the largest East India hackathon — among 300+ teams.',
+      'Winner of the Postman, Google Cloud and Flow Blockchain tracks at Hack4Bengal 2.0, the largest East India hackathon, among 300+ teams.',
   },
   {
     id: 'iiser',
@@ -432,15 +430,15 @@ export const timeline: TimelineEntry[] = [
     year: '2022',
     kind: 'recognition',
     title: 'Top 74 at HackWithInfy ’22',
-    org: 'Infosys — among 20,000 participants',
-    detail: 'Selected as Campus Ambassador, May 2022 — May 2023.',
+    org: 'Infosys, among 20,000 participants',
+    detail: 'Selected as Campus Ambassador from May 2022 to May 2023.',
   },
   {
     id: 'aot',
-    year: 'Jul 2020 — Jul 2024',
+    year: 'Jul 2020 – Jul 2024',
     kind: 'education',
     title: 'B.Tech, Computer Science and Technology',
-    org: 'Academy of Technology — West Bengal',
+    org: 'Academy of Technology, West Bengal',
     detail: 'CGPA 9.33',
   },
 ]
@@ -522,19 +520,19 @@ export const galleryCaption = {
 }
 
 /**
- * Drop newer photographs into /public/assets/hof and list them here —
+ * Drop newer photographs into /public/assets/hof and list them here.
  * the grid sizes itself from the width/height you give it.
  */
 export const gallery: Photo[] = [
   {
     src: '/assets/hof/desk-vectordrop.jpg',
-    caption: 'The desk — VectorDrop on the monitor',
+    caption: 'The desk, VectorDrop on the monitor',
     width: 1600,
     height: 1200,
   },
   {
     src: '/assets/hof/desk-cosx.jpg',
-    caption: 'The desk — CosX, late',
+    caption: 'The desk at CosX, late',
     width: 1600,
     height: 1200,
   },
@@ -587,7 +585,7 @@ export const writing: Piece[] = [
       'Pick a vehicle. Pick a date. Hit play. Watch it retrace every turn it made that day.',
     body: [
       'Shipped a trip replay today. Pick a vehicle, pick a date, hit play, and watch it retrace every turn it made that day.',
-      'The vehicle marker moves along the actual GPS path. A trail draws behind it as it goes, so you are not reading coordinates — you are watching a journey happen at whatever speed you choose.',
+      'The vehicle marker moves along the actual GPS path. A trail draws behind it as it goes, so you are not reading coordinates; you are watching a journey happen at whatever speed you choose.',
     ],
     tags: ['GPS', 'Realtime', 'Playback'],
     href: 'https://x.com/ne0gi02/articles',
@@ -616,7 +614,7 @@ export const writing: Piece[] = [
       'Serving 200,000 models straight from Python was taking a toll on the render.',
     body: [
       'Day 1. I have been working with WebGL for a while, rendering meshes for a client with 200,000 models. Serving them purely from Python was taking a toll on the render.',
-      'So I used gltfpack to optimise the pipeline — it rewrites glTF to cut download size and improve load and render speed: quantised geometry, reordered vertices for cache locality, merged meshes to drop the draw count, and simplified animations.',
+      'So I used gltfpack to optimise the pipeline. It rewrites glTF to cut download size and improve load and render speed: quantised geometry, reordered vertices for cache locality, merged meshes to drop the draw count, and simplified animations.',
     ],
     tags: ['WebGL', 'glTF', 'Performance'],
     href: 'https://x.com/ne0gi02',
@@ -628,7 +626,7 @@ export const writing: Piece[] = [
     date: 'Jul 2026',
     excerpt: 'Cutting 60% of the time I used to spend on mermaid models.',
     body: [
-      'I have been using Claude Architect for a while to understand — and download an understanding of — the business logic in an already-written codebase.',
+      'I have been using Claude Architect for a while to understand, and download an understanding of, the business logic in an already-written codebase.',
       'Artifacts are the win. It is saving roughly 60% of the time I used to spend building mermaid models by hand.',
     ],
     tags: ['Tooling', 'AI'],
@@ -641,7 +639,7 @@ export const writing: Piece[] = [
     date: 'Jul 2026',
     excerpt: 'A request, end to end, with nothing hand-waved.',
     body: [
-      'A walk through the whole path of a single request — resolution, connection, negotiation, routing, render — with none of the usual hand-waving over the parts that are actually interesting.',
+      'A walk through the whole path of a single request (resolution, connection, negotiation, routing, render) with none of the usual hand-waving over the parts that are actually interesting.',
     ],
     tags: ['Networking', 'Fundamentals'],
     href: 'https://x.com/ne0gi02',
@@ -654,7 +652,7 @@ export const writing: Piece[] = [
     excerpt:
       'Opus 4.6 for the build, Nano Banana for the assets, Lando Norris for the idea.',
     body: [
-      'Built this in a day using Opus 4.6, with the assets generated by Nano Banana. Inspired by Lando Norris\u2019 site, and made into something I actually love — the transition from Tobi to Obito.',
+      'Built this in a day using Opus 4.6, with the assets generated by Nano Banana. Inspired by Lando Norris\u2019 site, and made into something I actually love: the transition from Tobi to Obito.',
     ],
     tags: ['Vibe coding', 'Motion'],
     href: 'https://x.com/ne0gi02',

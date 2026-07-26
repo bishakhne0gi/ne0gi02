@@ -16,7 +16,7 @@ export function Window({
   children,
   /** Optional right-aligned content in the title bar (segmented controls etc). */
   toolbar,
-  /** Suppress the default padded scroll container — app draws its own chrome. */
+  /** Suppress the default padded scroll container; the app draws its own chrome. */
   bare,
   /** Force a dark title bar, the way Terminal carries its profile up top. */
   darkChrome,
@@ -44,7 +44,7 @@ export function Window({
    * Minimising, the way macOS does it: the window travels to its own dock
    * icon and collapses into it, rather than fading on the spot. A true
    * genie is a mesh warp we cannot do in CSS, so this scales hard, skews
-   * slightly, and lands on the icon — which reads as the same gesture.
+   * slightly, and lands on the icon, which reads as the same gesture.
    */
   const minimiseTo = (() => {
     if (!dockSlot) return { x: 0, y: 260 }
